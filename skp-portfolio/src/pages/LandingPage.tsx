@@ -1,10 +1,10 @@
-import na
+import CardNav from "@/components/Navbar/CardNav";
 import Hero from "../sections/Hero/Hero";
 
 export default function LandingPage() {
   return (
     <>
-      <Navbar />
+      <CardNav />
       <Hero />
 
       <section id="about" style={{ padding: "96px 20px" }}>
