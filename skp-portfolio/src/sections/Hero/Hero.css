@@ -1,0 +1,182 @@
+/* src/sections/Hero/Hero.css */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  padding: 96px 20px;
+  overflow: hidden;
+  background: #0b0c0f;
+}
+
+/* subtle depth */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1000px 650px at 18% 38%, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0) 60%),
+    radial-gradient(900px 650px at 84% 55%, rgba(120, 140, 255, 0.05), rgba(0, 0, 0, 0) 62%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* this is the real layout container */
+.heroInner {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr; /* left content + reserved right space */
+  align-items: center;
+  gap: 32px;
+}
+
+/* Left column */
+.heroLeft {
+  max-width: 680px;
+  display: grid;
+  gap: 14px;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.6rem, 1.7rem + 2.8vw, 4.1rem);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.heroSubtitle {
+  margin: 0;
+  max-width: 56ch;
+  font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.25rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Buttons */
+.heroActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.btn {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.9);
+
+  padding: 11px 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 650;
+  letter-spacing: 0.01em;
+
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+  will-change: transform;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn:active {
+  transform: translateY(0px);
+}
+
+.btnPrimary {
+  background: rgba(255, 255, 255, 0.92);
+  color: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.btnPrimary:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btnGhost {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Pills */
+.heroMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.pill {
+  font-size: 0.86rem;
+  padding: 7px 10px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.76);
+}
+
+/* Right column is intentionally empty (we reserve space to balance layout) */
+.heroRight {
+  min-height: 340px;
+}
+
+/* Ambient monogram: anchored to right side, behind everything */
+.heroBgMonogram {
+  position: absolute;
+  right: -140px;
+  top: 56%;
+  transform: translateY(-50%);
+  z-index: 1; /* behind content (z=2) but above base bg (z=0) */
+  pointer-events: none;
+  user-select: none;
+}
+
+.heroBgMonogram img {
+  width: min(740px, 78vw);
+  height: auto;
+  opacity: 0.12;          /* stronger but still background */
+  filter: blur(0.25px);
+  transform: rotate(-2deg);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero {
+    padding: 84px 18px;
+  }
+
+  .heroInner {
+    grid-template-columns: 1fr; /* stack */
+    gap: 22px;
+  }
+
+  .heroRight {
+    display: none; /* no need to reserve space on mobile */
+  }
+
+  .heroBgMonogram {
+    right: -240px;
+    top: 62%;
+  }
+
+  .heroBgMonogram img {
+    width: min(820px, 130vw);
+    opacity: 0.09;
+  }
+}
