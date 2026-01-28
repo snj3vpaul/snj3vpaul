@@ -1,0 +1,11 @@
+.landing {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* everything in here sits above the background */
+.landingContent {
+  position: relative;
+  z-index: 1;
+}

@@ -7,7 +7,8 @@
   align-items: center;
   padding: 96px 20px;
   overflow: hidden;
-  background: #0b0c0f;
+  background: transparent;
+  z-index: 1;
 }
 
 /* subtle depth */
@@ -134,6 +135,11 @@
 /* Right column is intentionally empty (we reserve space to balance layout) */
 .heroRight {
   min-height: 340px;
+}
+
+.landingPage {
+  position: relative;
+  z-index: 1;
 }
 
 /* Ambient monogram: anchored to right side, behind everything */

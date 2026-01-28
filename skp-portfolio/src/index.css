@@ -17,6 +17,12 @@ body {
   height: 100%;
 }
 
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background: #0b0c0f;
