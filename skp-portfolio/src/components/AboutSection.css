@@ -1,15 +1,36 @@
+
+/* src/sections/About/AboutSection.css */
+
 /* ============================
-   About Section
+   About Section — Clean + Interactive
    ============================ */
 
 #about {
   position: relative;
   padding: clamp(72px, 8vw, 120px) 20px;
+  scroll-margin-top: 96px;
 }
 
-/* Optional anchor offset for sticky nav */
-#about {
-  scroll-margin-top: 96px;
+.about {
+  position: relative;
+}
+
+.aboutCard {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ambient glow inside the card */
+.aboutGlow {
+  position: absolute;
+  inset: -220px;
+  background:
+    radial-gradient(520px 360px at 18% 18%, rgba(0, 255, 255, 0.12), transparent 60%),
+    radial-gradient(520px 360px at 82% 28%, rgba(120, 140, 255, 0.10), transparent 62%),
+    radial-gradient(640px 420px at 50% 78%, rgba(255, 255, 255, 0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  filter: saturate(110%);
 }
 
 /* ============================
@@ -17,11 +38,8 @@
    ============================ */
 
 .card {
-  background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.06),
-      rgba(255, 255, 255, 0.02)
-    ),
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
     rgba(10, 12, 18, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
@@ -30,6 +48,8 @@
   box-shadow:
     0 20px 60px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 1;
 }
 
 .cardPad {
@@ -37,83 +57,547 @@
 }
 
 /* ============================
-   Typography
+   Typography helpers
    ============================ */
-
-#about h2 {
-  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-#about h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
 
 .sectionSub {
   color: rgba(230, 235, 255, 0.75);
   font-size: 0.95rem;
 }
 
+.aboutHeader {
+  position: relative;
+  z-index: 1;
+  max-width: 920px;
+}
+
+.aboutKicker {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.aboutTitle {
+  margin: 0;
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  line-height: 1.15;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.aboutIntro {
+  margin: 10px 0 0 0;
+  max-width: 76ch;
+}
+
+.aboutMeta {
+  opacity: 0.9;
+}
+
 /* ============================
-   Pills / chips
+   Impact strip
    ============================ */
 
-#about span {
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
+.aboutImpact {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 16px;
 }
 
-#about span:hover {
+.aboutImpactItem {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 12px 14px;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.aboutImpactItem:hover {
   transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 255, 255, 0.18);
 }
 
-/* Skill chips */
-#about .card span {
+.aboutImpactTop {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.aboutImpactBottom {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+/* ============================
+   Main grid: Accordion + Skills Playground
+   ============================ */
+
+.aboutMainGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+@media (max-width: 980px) {
+  .aboutMainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================
+   Accordion
+   ============================ */
+
+.aboutAccordion {
+  display: grid;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.aboutAccItem {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.aboutAccItem:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.aboutAccItem.isOpen {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 255, 255, 0.16);
+}
+
+.aboutAccButton {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 14px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.aboutAccButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.14);
+  border-radius: 14px;
+}
+
+.aboutAccKicker {
+  grid-column: 1 / 2;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.aboutAccTitle {
+  grid-column: 1 / 2;
+  margin-top: 2px;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.aboutAccIcon {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  align-self: center;
+  justify-self: end;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 18px;
+  opacity: 0.92;
+  transition: transform 220ms ease, opacity 220ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.aboutAccItem:hover .aboutAccIcon {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.aboutAccIcon.rot {
+  transform: rotate(45deg);
+}
+
+.aboutAccPanel {
+  overflow: hidden;
+}
+
+.aboutAccInner {
+  padding: 0 14px 14px 14px;
+}
+
+/* ============================
+   Pills (inside accordion copy)
+   ============================ */
+
+.aboutPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.aboutPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 12px;
+  opacity: 0.95;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.aboutPill:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 255, 255, 0.14);
+}
+
+/* ============================
+   Skills Playground
+   ============================ */
+
+.aboutSkillsPlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.aboutSkillsPlay::before {
+  content: "";
+  position: absolute;
+  inset: -140px;
+  background:
+    radial-gradient(520px 360px at 70% 18%, rgba(0, 255, 255, 0.10), transparent 60%),
+    radial-gradient(520px 360px at 22% 72%, rgba(120, 140, 255, 0.10), transparent 60%);
+  pointer-events: none;
+  opacity: 0.95;
+  z-index: 0;
+}
+
+.aboutSkillsTop,
+.aboutSkillsControls,
+.aboutChipsFun,
+.aboutPinned,
+.aboutSkillsNote {
+  position: relative;
+  z-index: 1;
+}
+
+.aboutSkillsTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.aboutSkillsKicker {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.aboutSkillsTitle {
+  margin: 6px 0 0 0;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.aboutSkillsHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  opacity: 0.82;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 10px;
+  border-radius: 999px;
   white-space: nowrap;
 }
 
-/* ============================
-   Highlight card emphasis
-   ============================ */
-
-#about .card h3 {
-  margin-top: 2px;
+.aboutHintDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(0, 255, 255, 0.55);
+  box-shadow: 0 0 18px rgba(0, 255, 255, 0.45);
 }
 
-/* ============================
-   Layout helpers
-   ============================ */
+/* Controls */
+.aboutSkillsControls {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
 
-#about header {
-  max-width: 920px;
+.aboutSearchWrap {
+  position: relative;
+}
+
+.aboutSearch {
+  width: 100%;
+  border-radius: 14px;
+  padding: 12px 40px 12px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  outline: none;
+}
+
+.aboutSearch::placeholder {
+  color: rgba(230, 235, 255, 0.55);
+}
+
+.aboutSearch:focus {
+  border-color: rgba(0, 255, 255, 0.35);
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.12);
+}
+
+.aboutClear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.aboutClear:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.aboutVibes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.aboutVibe {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.92;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.aboutVibe:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.aboutVibe.isActive {
+  border-color: rgba(0, 255, 255, 0.25);
+  background: rgba(0, 255, 255, 0.06);
+}
+
+/* Chips — (fixes your run-together issue) */
+.aboutChipsFun {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 14px 0;
+}
+
+.aboutChipBtn {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  border-radius: 999px;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+  white-space: nowrap;
+}
+
+.aboutChipBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.aboutChipBtn.isPinned {
+  border-color: rgba(0, 255, 255, 0.22);
+  background: rgba(0, 255, 255, 0.07);
+  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.08);
+}
+
+.aboutChipLabel {
+  font-size: 13px;
+}
+
+.aboutChipTag {
+  font-size: 11px;
+  opacity: 0.85;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Pinned area */
+.aboutPinned {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.aboutPinnedHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.aboutPinnedTitle {
+  margin: 0;
+  font-size: 14px;
+}
+
+.aboutPinnedSub {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.aboutPinnedEmpty {
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.aboutPinnedGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.aboutPinnedCard {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 12px 12px;
+  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.aboutPinnedCard:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.aboutPinnedCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.aboutPinnedName {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.aboutPinnedX {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.aboutPinnedX:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.aboutPinnedWhy {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.85;
+  line-height: 1.35;
 }
 
 /* ============================
    Responsive
    ============================ */
 
-@media (max-width: 880px) {
-  #about {
-    padding: 64px 16px;
+@media (max-width: 720px) {
+  .aboutImpact {
+    grid-template-columns: 1fr;
   }
 
-  #about h2 {
-    font-size: 2rem;
+  .aboutAccTitle {
+    font-size: 15px;
+  }
+
+  #about {
+    padding: 64px 16px;
   }
 }
 
 @media (max-width: 520px) {
-  #about h2 {
+  .aboutTitle {
     font-size: 1.8rem;
   }
 
   .sectionSub {
     font-size: 0.9rem;
+  }
+
+  .aboutSkillsHint {
+    display: none;
   }
 }
 
@@ -122,7 +606,15 @@
    ============================ */
 
 @media (prefers-reduced-motion: reduce) {
-  #about span {
-    transition: none;
+  .aboutImpactItem,
+  .aboutAccItem,
+  .aboutAccIcon,
+  .aboutPill,
+  .aboutVibe,
+  .aboutChipBtn,
+  .aboutPinnedCard,
+  .aboutPinnedX {
+    transition: none !important;
   }
 }
+

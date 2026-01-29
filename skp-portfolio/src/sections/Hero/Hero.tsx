@@ -1,5 +1,7 @@
+// src/sections/Hero/Hero.tsx
 import { motion } from "framer-motion";
 import monogramUrl from "../../assets/Monogram.svg";
+import { container, item, fade } from "../../animations/motionPresets";
 import "./Hero.css";
 
 export default function Hero() {
@@ -11,37 +13,22 @@ export default function Hero() {
 
   return (
     <section id="home" className="hero">
-      {/* Centered content */}
+      {/* Content (Motion owns) */}
       <motion.div
         className="heroContent"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        variants={container}
+        initial="hidden"
+        animate="visible"
       >
-        <motion.h1
-          className="heroTitle"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
-        >
+        <motion.h1 className="heroTitle" variants={item}>
           Sanjeev K Paul
         </motion.h1>
 
-        <motion.p
-          className="heroSubtitle"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.12 }}
-        >
+        <motion.p className="heroSubtitle" variants={item}>
           Athlete Turned CyberSecurity Professional
         </motion.p>
 
-        <motion.div
-          className="heroActions"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
-        >
+        <motion.div className="heroActions" variants={item}>
           <button className="btn btnPrimary" onClick={scrollToNext} type="button">
             Know more
           </button>
@@ -51,22 +38,16 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        <motion.div
-          className="heroMeta"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.28 }}
-        >
-          
-        </motion.div>
+        {/* keep meta for later; fade only */}
+        <motion.div className="heroMeta" variants={fade} />
       </motion.div>
 
-      {/* Subtle background monogram (optional accent) */}
+      {/* Background monogram (Motion owns, GSAP does NOT touch) */}
       <motion.div
         className="heroBgMonogram"
-        initial={{ opacity: 0, scale: 0.96 }}
+        initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 0.15, scale: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 1.1, ease: "easeOut" }}
         aria-hidden="true"
       >
         <img src={monogramUrl} alt="" />

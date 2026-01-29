@@ -1,4 +1,7 @@
+// src/components/BeyondWork.tsx
+import { motion } from "framer-motion";
 import { FaHandsHelping, FaFutbol, FaMountain } from "react-icons/fa";
+import { container, item, fadeUp } from "../animations/motionPresets";
 import "./BeyondWork.css";
 
 type Pillar = {
@@ -39,17 +42,36 @@ export default function BeyondWork() {
   return (
     <section id="beyond-work" className="beyondWork">
       <div className="beyondWorkInner">
-        <header className="beyondWorkHeader">
+        <motion.header
+          className="beyondWorkHeader"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <h2>Beyond Work</h2>
           <p>
             What keeps me grounded, competitive, and constantly growing —
             outside of my day job.
           </p>
-        </header>
+        </motion.header>
 
-        <div className="pillarGrid">
+        <motion.div
+          className="pillarGrid"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+        >
           {pillars.map((pillar) => (
-            <div key={pillar.title} className="pillarCard">
+            <motion.div
+              key={pillar.title}
+              className="pillarCard"
+              variants={item}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.18 }}
+            >
               <div className="pillarIcon">{pillar.icon}</div>
               <h3>{pillar.title}</h3>
               <ul>
@@ -57,9 +79,9 @@ export default function BeyondWork() {
                   <li key={i}>{point}</li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
