@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { GoArrowUpRight } from "react-icons/go";
 import "./CardNav.css";
+import logoUrl from "../../assets/Monogram.svg";
 
 type CardNavLink = {
   label: string;
@@ -40,13 +41,13 @@ export interface CardNavProps {
  */
 const DEFAULT_ITEMS: CardNavItem[] = [
   {
-    label: "Explore",
+    label: "Overview",
     bgColor: "#111111",
     textColor: "#ffffff",
     links: [
-      { label: "Home", href: "#home", ariaLabel: "Go to Home section" },
-      { label: "About", href: "#about", ariaLabel: "Go to About section" },
-      { label: "Projects", href: "#projects", ariaLabel: "Go to Projects section" }
+      { label: "About", href: "#home", ariaLabel: "Go to Home section" },
+      { label: "Projects", href: "#projects", ariaLabel: "Go to Projects section" },
+      { label: "Beyond Work", href: "#beyond-work", ariaLabel: "Go to Beyond Work section" }
     ]
   },
   {
@@ -55,7 +56,9 @@ const DEFAULT_ITEMS: CardNavItem[] = [
     textColor: "#111111",
     links: [
       { label: "Contact", href: "#contact", ariaLabel: "Go to Contact section" },
-      { label: "LinkedIn", href: "https://www.linkedin.com", ariaLabel: "Open LinkedIn" }
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/sanjeev-kumar-paul/", ariaLabel: "Open LinkedIn" },
+      { label: "GitHub", href: "https://github.com/snj3vpaul/", ariaLabel: "Open GitHub" },
+      
     ]
   },
   {
@@ -63,25 +66,17 @@ const DEFAULT_ITEMS: CardNavItem[] = [
     bgColor: "#0b1b3a",
     textColor: "#ffffff",
     links: [
-      { label: "GitHub", href: "https://github.com", ariaLabel: "Open GitHub" },
-      { label: "Resume", href: "/resume.pdf", ariaLabel: "Open resume PDF" }
+            { label: "Cricket", href: "https://cricheroes.com/player-profile/21592804/sanjeev-k-paul/matches", ariaLabel: "Cricket" },
+            { label: "The Paul Show", href: "http://cjlo.com/shows/the-paul-show", ariaLabel: "CJLO Show" },
+            { label: "Blogs", href: "https://medium.com/@sanjeevkumarpaul25", ariaLabel: "Open Medium" }
     ]
   }
 ];
 
-// Minimal inline SVG fallback so we never break if logo is omitted
-const DEFAULT_LOGO_DATA_URI =
-  "data:image/svg+xml;utf8," +
-  encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" width="160" height="44" viewBox="0 0 160 44">
-  <rect width="160" height="44" rx="10" fill="#111"/>
-  <text x="80" y="28" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
-        font-size="16" font-weight="700" fill="#fff">SKP</text>
-</svg>
-`);
+
 
 const CardNav: React.FC<CardNavProps> = ({
-  logo = DEFAULT_LOGO_DATA_URI,
+  logo = logoUrl,
   logoAlt = "Logo",
   items = DEFAULT_ITEMS,
   className = "",
@@ -90,7 +85,7 @@ const CardNav: React.FC<CardNavProps> = ({
   menuColor,
   buttonBgColor,
   buttonTextColor,
-  ctaText = "Get Started",
+  ctaText = "Let's Talk",
   onCtaClick
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);

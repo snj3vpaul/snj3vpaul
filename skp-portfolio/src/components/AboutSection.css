@@ -1,0 +1,128 @@
+/* ============================
+   About Section
+   ============================ */
+
+#about {
+  position: relative;
+  padding: clamp(72px, 8vw, 120px) 20px;
+}
+
+/* Optional anchor offset for sticky nav */
+#about {
+  scroll-margin-top: 96px;
+}
+
+/* ============================
+   Card system
+   ============================ */
+
+.card {
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(10, 12, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.cardPad {
+  padding: clamp(20px, 3vw, 28px);
+}
+
+/* ============================
+   Typography
+   ============================ */
+
+#about h2 {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+#about h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.sectionSub {
+  color: rgba(230, 235, 255, 0.75);
+  font-size: 0.95rem;
+}
+
+/* ============================
+   Pills / chips
+   ============================ */
+
+#about span {
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+#about span:hover {
+  transform: translateY(-1px);
+}
+
+/* Skill chips */
+#about .card span {
+  white-space: nowrap;
+}
+
+/* ============================
+   Highlight card emphasis
+   ============================ */
+
+#about .card h3 {
+  margin-top: 2px;
+}
+
+/* ============================
+   Layout helpers
+   ============================ */
+
+#about header {
+  max-width: 920px;
+}
+
+/* ============================
+   Responsive
+   ============================ */
+
+@media (max-width: 880px) {
+  #about {
+    padding: 64px 16px;
+  }
+
+  #about h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 520px) {
+  #about h2 {
+    font-size: 1.8rem;
+  }
+
+  .sectionSub {
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================
+   Reduced motion support
+   ============================ */
+
+@media (prefers-reduced-motion: reduce) {
+  #about span {
+    transition: none;
+  }
+}

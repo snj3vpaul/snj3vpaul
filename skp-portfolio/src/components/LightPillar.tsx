@@ -33,8 +33,8 @@ const isWebGLAvailable = () => {
 const clampDpr = (dpr: number) => Math.max(1, Math.min(dpr, 2));
 
 const LightPillar: React.FC<LightPillarProps> = ({
-  topColor = "#5227FF",
-  bottomColor = "#FF9FFC",
+  topColor = "#0000A0",
+  bottomColor = "#0080C0",
   intensity = 1.0,
   rotationSpeed = 0.3,
   interactive = false,

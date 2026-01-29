@@ -3,12 +3,14 @@
 .hero {
   position: relative;
   min-height: 100vh;
-  display: grid;
+  display: flex;
   align-items: center;
+  justify-content: center;
   padding: 96px 20px;
   overflow: hidden;
   background: transparent;
   z-index: 1;
+  text-align: center;
 }
 
 /* subtle depth */
@@ -23,24 +25,33 @@
   pointer-events: none;
 }
 
-/* this is the real layout container */
-.heroInner {
-  width: min(1120px, 100%);
+/* centered content container */
+.heroContent {
+  width: min(980px, 100%);
   margin: 0 auto;
   position: relative;
   z-index: 2;
 
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr; /* left content + reserved right space */
-  align-items: center;
-  gap: 32px;
+  gap: 16px;
+  justify-items: center;
 }
 
-/* Left column */
-.heroLeft {
-  max-width: 680px;
-  display: grid;
-  gap: 14px;
+/* optional: subtle readable "halo" behind text (keeps pillar bright but text readable) */
+.heroContent::before {
+  content: "";
+  position: absolute;
+  inset: -24px -18px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(10, 10, 20, 0.52) 0%,
+    rgba(10, 10, 20, 0.28) 42%,
+    rgba(10, 10, 20, 0) 72%
+  );
+  filter: blur(1px);
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 28px;
 }
 
 .heroTitle {
@@ -54,7 +65,7 @@
 
 .heroSubtitle {
   margin: 0;
-  max-width: 56ch;
+  max-width: 62ch;
   font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.25rem);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.72);
@@ -65,7 +76,8 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 10px;
+  justify-content: center;
+  margin-top: 12px;
 }
 
 .btn {
@@ -119,6 +131,7 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
   margin-top: 12px;
 }
 
@@ -132,31 +145,22 @@
   color: rgba(255, 255, 255, 0.76);
 }
 
-/* Right column is intentionally empty (we reserve space to balance layout) */
-.heroRight {
-  min-height: 340px;
-}
-
-.landingPage {
-  position: relative;
-  z-index: 1;
-}
-
-/* Ambient monogram: anchored to right side, behind everything */
+/* Ambient monogram: centered and behind content */
 .heroBgMonogram {
   position: absolute;
-  right: -140px;
-  top: 56%;
-  transform: translateY(-50%);
-  z-index: 1; /* behind content (z=2) but above base bg (z=0) */
+  inset: 0;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  
   pointer-events: none;
   user-select: none;
 }
 
 .heroBgMonogram img {
-  width: min(740px, 78vw);
+  width: min(760px, 88vw);
   height: auto;
-  opacity: 0.12;          /* stronger but still background */
+  opacity: 0.12;
   filter: blur(0.25px);
   transform: rotate(-2deg);
 }
@@ -167,22 +171,12 @@
     padding: 84px 18px;
   }
 
-  .heroInner {
-    grid-template-columns: 1fr; /* stack */
-    gap: 22px;
-  }
-
-  .heroRight {
-    display: none; /* no need to reserve space on mobile */
-  }
-
-  .heroBgMonogram {
-    right: -240px;
-    top: 62%;
+  .heroContent {
+    gap: 14px;
   }
 
   .heroBgMonogram img {
-    width: min(820px, 130vw);
+    width: min(860px, 130vw);
     opacity: 0.09;
   }
 }

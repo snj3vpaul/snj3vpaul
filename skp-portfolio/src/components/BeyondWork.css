@@ -1,0 +1,67 @@
+/* BeyondWork.css */
+
+.beyondWork {
+  padding: 96px 20px;
+}
+
+.beyondWorkInner {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.beyondWorkHeader {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.beyondWorkHeader h2 {
+  font-size: clamp(1.8rem, 1.2rem + 1.5vw, 2.4rem);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.beyondWorkHeader p {
+  color: var(--muted, #666);
+  line-height: 1.6;
+}
+
+.pillarGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.pillarCard {
+  padding: 28px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pillarCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.pillarIcon {
+  font-size: 22px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.pillarCard h3 {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.pillarCard ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.pillarCard li {
+  margin-bottom: 10px;
+  line-height: 1.55;
+  color: var(--text, #eaeaea);
+}
