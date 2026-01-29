@@ -1,620 +1,353 @@
+/* =========================
+   Aceternity-style Feature Grid (Vite + CSS)
+========================= */
 
-/* src/sections/About/AboutSection.css */
-
-/* ============================
-   About Section — Clean + Interactive
-   ============================ */
-
-#about {
-  position: relative;
-  padding: clamp(72px, 8vw, 120px) 20px;
-  scroll-margin-top: 96px;
-}
-
-.about {
-  position: relative;
-}
-
-.aboutCard {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ambient glow inside the card */
-.aboutGlow {
-  position: absolute;
-  inset: -220px;
-  background:
-    radial-gradient(520px 360px at 18% 18%, rgba(0, 255, 255, 0.12), transparent 60%),
-    radial-gradient(520px 360px at 82% 28%, rgba(120, 140, 255, 0.10), transparent 62%),
-    radial-gradient(640px 420px at 50% 78%, rgba(255, 255, 255, 0.06), transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-  filter: saturate(110%);
-}
-
-/* ============================
-   Card system
-   ============================ */
-
-.card {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-    rgba(10, 12, 18, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+.asWrap {
   position: relative;
   z-index: 1;
+  padding: 90px 0 40px;
 }
 
-.cardPad {
-  padding: clamp(20px, 3vw, 28px);
+.asInner {
+  width: min(1120px, 92%);
+  margin: 0 auto;
 }
 
-/* ============================
-   Typography helpers
-   ============================ */
-
-.sectionSub {
-  color: rgba(230, 235, 255, 0.75);
-  font-size: 0.95rem;
+.asHeader {
+  text-align: center;
+  padding: 0 16px;
 }
 
-.aboutHeader {
-  position: relative;
-  z-index: 1;
-  max-width: 920px;
-}
-
-.aboutKicker {
-  margin: 0 0 8px 0;
-  font-size: 12px;
-  letter-spacing: 0.14em;
+.asEyebrow {
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  font-size: 0.78rem;
   opacity: 0.75;
+  margin: 0 0 10px;
 }
 
-.aboutTitle {
+.asTitle {
   margin: 0;
-  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
-  line-height: 1.15;
-  font-weight: 750;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.7rem, 2.6vw, 2.7rem);
+  line-height: 1.12;
 }
 
-.aboutIntro {
-  margin: 10px 0 0 0;
-  max-width: 76ch;
+.asSub {
+  margin: 12px auto 0;
+  max-width: 70ch;
+  opacity: 0.82;
+  line-height: 1.65;
 }
 
-.aboutMeta {
-  opacity: 0.9;
-}
-
-/* ============================
-   Impact strip
-   ============================ */
-
-.aboutImpact {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
-  margin-bottom: 16px;
-}
-
-.aboutImpactItem {
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.04);
+/* shell border like Aceternity */
+.asGridShell {
+  margin-top: 30px;
   border-radius: 14px;
-  padding: 12px 14px;
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
-}
-
-.aboutImpactItem:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(0, 255, 255, 0.18);
-}
-
-.aboutImpactTop {
-  display: block;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.aboutImpactBottom {
-  display: block;
-  margin-top: 4px;
-  font-size: 14px;
-  opacity: 0.95;
-}
-
-/* ============================
-   Main grid: Accordion + Skills Playground
-   ============================ */
-
-.aboutMainGrid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-@media (max-width: 980px) {
-  .aboutMainGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================
-   Accordion
-   ============================ */
-
-.aboutAccordion {
-  display: grid;
-  gap: 10px;
-  margin-top: 0;
-}
-
-.aboutAccItem {
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
   overflow: hidden;
-  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+  background: rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(6px);
 }
 
-.aboutAccItem:hover {
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.aboutAccItem.isOpen {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(0, 255, 255, 0.16);
-}
-
-.aboutAccButton {
-  width: 100%;
-  text-align: left;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  padding: 14px 14px;
+/* grid */
+.asGrid {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-  cursor: pointer;
+  grid-template-columns: 1fr;
 }
 
-.aboutAccButton:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.14);
-  border-radius: 14px;
+/* card */
+.asCard {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 18px 16px;
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.10);
 }
 
-.aboutAccKicker {
-  grid-column: 1 / 2;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.75;
+.asCardGlow {
+  position: absolute;
+  inset: -2px;
+  background:
+    radial-gradient(520px 240px at 15% 0%, rgba(120, 140, 255, 0.18), rgba(0, 0, 0, 0) 60%),
+    radial-gradient(520px 240px at 85% 10%, rgba(0, 255, 255, 0.10), rgba(0, 0, 0, 0) 58%);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
-.aboutAccTitle {
-  grid-column: 1 / 2;
-  margin-top: 2px;
-  font-size: 16px;
+/* typography */
+.asCardTitle {
+  position: relative;
+  margin: 0;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.15rem;
   line-height: 1.25;
 }
 
-.aboutAccIcon {
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-  align-self: center;
-  justify-self: end;
+.asCardDesc {
+  position: relative;
+  margin: 10px 0 0;
+  max-width: 60ch;
+  opacity: 0.80;
+  line-height: 1.55;
+}
+
+/* skeleton area */
+.asSkeleton {
+  position: relative;
+  margin-top: 14px;
+  height: 100%;
+  min-height: 210px;
+}
+
+/* border utilities (imitates Tailwind ones in the snippet) */
+.as-border-b {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+.as-border-r {
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* column utilities (imitates col-span setup) */
+.as-col-1 {
+  grid-column: span 1;
+}
+
+/* responsive: 6-column grid on large screens */
+@media (min-width: 1024px) {
+  .asGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .lg\:as-col-2 {
+    grid-column: span 2;
+  }
+  .lg\:as-col-3 {
+    grid-column: span 3;
+  }
+  .lg\:as-col-4 {
+    grid-column: span 4;
+  }
+
+  .lg\:as-border-r {
+    border-right: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  .lg\:as-border-none {
+    border: none !important;
+  }
+}
+
+/* =========================
+   Skeleton styles (Aceternity-ish)
+========================= */
+
+.skWrap {
+  position: relative;
+  height: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  padding: 14px;
+}
+
+/* gradient overlays */
+.skOverlayTop {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent);
+  pointer-events: none;
+}
+.skOverlayBottom {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 90px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  pointer-events: none;
+}
+
+/* Highlight skeleton */
+.skHighlight .skBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.skLines {
+  margin-top: 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.skLine {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.skLineShort {
+  width: 60%;
+}
+
+.skPills {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Testing skeleton */
+.skMiniGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.skMiniCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.skMiniIcon {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 18px;
-  opacity: 0.92;
-  transition: transform 220ms ease, opacity 220ms ease, background 180ms ease, border-color 180ms ease;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
-.aboutAccItem:hover .aboutAccIcon {
+.skMiniTitle {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.skMiniSub {
+  font-size: 0.88rem;
+  opacity: 0.78;
+  margin-top: 2px;
+}
+
+.skSpark {
+  position: absolute;
+  inset: auto -80px -80px auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 255, 255, 0.16),
+    rgba(0, 0, 0, 0) 70%
+  );
+  filter: blur(2px);
+}
+
+/* Network skeleton */
+.skNetHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skNetIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.aboutAccIcon.rot {
-  transform: rotate(45deg);
-}
-
-.aboutAccPanel {
-  overflow: hidden;
-}
-
-.aboutAccInner {
-  padding: 0 14px 14px 14px;
-}
-
-/* ============================
-   Pills (inside accordion copy)
-   ============================ */
-
-.aboutPills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.aboutPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
   border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 999px;
-  padding: 8px 10px;
-  font-size: 12px;
-  opacity: 0.95;
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
 }
 
-.aboutPill:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(0, 255, 255, 0.14);
+.skNetTitle {
+  font-weight: 800;
 }
 
-/* ============================
-   Skills Playground
-   ============================ */
-
-.aboutSkillsPlay {
-  position: relative;
-  overflow: hidden;
+.skNetSub {
+  font-size: 0.88rem;
+  opacity: 0.78;
+  margin-top: 2px;
 }
 
-.aboutSkillsPlay::before {
-  content: "";
-  position: absolute;
-  inset: -140px;
-  background:
-    radial-gradient(520px 360px at 70% 18%, rgba(0, 255, 255, 0.10), transparent 60%),
-    radial-gradient(520px 360px at 22% 72%, rgba(120, 140, 255, 0.10), transparent 60%);
-  pointer-events: none;
-  opacity: 0.95;
-  z-index: 0;
-}
-
-.aboutSkillsTop,
-.aboutSkillsControls,
-.aboutChipsFun,
-.aboutPinned,
-.aboutSkillsNote {
-  position: relative;
-  z-index: 1;
-}
-
-.aboutSkillsTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.aboutSkillsKicker {
-  margin: 0;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.aboutSkillsTitle {
-  margin: 6px 0 0 0;
-  font-size: 18px;
-  line-height: 1.2;
-}
-
-.aboutSkillsHint {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  opacity: 0.82;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 8px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.aboutHintDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 99px;
-  background: rgba(0, 255, 255, 0.55);
-  box-shadow: 0 0 18px rgba(0, 255, 255, 0.45);
-}
-
-/* Controls */
-.aboutSkillsControls {
+.skNetRows {
+  margin-top: 14px;
   display: grid;
   gap: 10px;
-  margin-bottom: 12px;
 }
 
-.aboutSearchWrap {
-  position: relative;
-}
-
-.aboutSearch {
-  width: 100%;
-  border-radius: 14px;
-  padding: 12px 40px 12px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
-  color: inherit;
-  outline: none;
-}
-
-.aboutSearch::placeholder {
-  color: rgba(230, 235, 255, 0.55);
-}
-
-.aboutSearch:focus {
-  border-color: rgba(0, 255, 255, 0.35);
-  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.12);
-}
-
-.aboutClear {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 0;
-  background: rgba(255, 255, 255, 0.06);
-  color: inherit;
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.aboutClear:hover {
-  background: rgba(255, 255, 255, 0.09);
-}
-
-.aboutVibes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.aboutVibe {
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.03);
-  color: inherit;
-  border-radius: 999px;
-  padding: 8px 10px;
-  font-size: 12px;
-  cursor: pointer;
-  opacity: 0.92;
-  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
-}
-
-.aboutVibe:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.aboutVibe.isActive {
-  border-color: rgba(0, 255, 255, 0.25);
-  background: rgba(0, 255, 255, 0.06);
-}
-
-/* Chips — (fixes your run-together issue) */
-.aboutChipsFun {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0 14px 0;
-}
-
-.aboutChipBtn {
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.03);
-  color: inherit;
-  border-radius: 999px;
-  padding: 10px 12px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
-  white-space: nowrap;
-}
-
-.aboutChipBtn:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.aboutChipBtn.isPinned {
-  border-color: rgba(0, 255, 255, 0.22);
-  background: rgba(0, 255, 255, 0.07);
-  box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.08);
-}
-
-.aboutChipLabel {
-  font-size: 13px;
-}
-
-.aboutChipTag {
-  font-size: 11px;
-  opacity: 0.85;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* Pinned area */
-.aboutPinned {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: 12px;
-}
-
-.aboutPinnedHead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.aboutPinnedTitle {
-  margin: 0;
-  font-size: 14px;
-}
-
-.aboutPinnedSub {
-  margin: 0;
-  font-size: 12px;
-  opacity: 0.7;
-}
-
-.aboutPinnedEmpty {
-  border: 1px dashed rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 14px;
-  padding: 12px;
-  font-size: 13px;
-  opacity: 0.85;
-}
-
-.aboutPinnedGrid {
+.skNetRow {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 0.9fr 1.1fr;
   gap: 10px;
 }
 
-.aboutPinnedCard {
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 16px;
-  padding: 12px 12px;
-  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+.skNetRow span {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.aboutPinnedCard:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.14);
-}
-
-.aboutPinnedCardTop {
+/* Globe skeleton */
+.skGlobeTop {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 10px;
-  margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
-.aboutPinnedName {
-  font-size: 13px;
-  font-weight: 650;
-}
-
-.aboutPinnedX {
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
-  color: inherit;
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
-}
-
-.aboutPinnedX:hover {
-  transform: translateY(-1px);
+.skGlobeChip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 11px;
+  border-radius: 999px;
   background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  font-weight: 700;
+  font-size: 0.86rem;
 }
 
-.aboutPinnedWhy {
-  margin: 0;
-  font-size: 13px;
-  opacity: 0.85;
-  line-height: 1.35;
+.skGlobeStage {
+  position: relative;
+  height: 250px;
+  margin-top: 12px;
+  display: grid;
+  place-items: center;
 }
 
-/* ============================
-   Responsive
-   ============================ */
-
-@media (max-width: 720px) {
-  .aboutImpact {
-    grid-template-columns: 1fr;
-  }
-
-  .aboutAccTitle {
-    font-size: 15px;
-  }
-
-  #about {
-    padding: 64px 16px;
-  }
+.skCanvas {
+  position: absolute;
+  right: -40px;
+  bottom: -220px;
+  transform: scale(0.95);
+  opacity: 0.95;
 }
 
 @media (max-width: 520px) {
-  .aboutTitle {
-    font-size: 1.8rem;
-  }
-
-  .sectionSub {
-    font-size: 0.9rem;
-  }
-
-  .aboutSkillsHint {
-    display: none;
+  .skCanvas {
+    right: -65px;
+    bottom: -240px;
+    transform: scale(0.85);
   }
 }
-
-/* ============================
-   Reduced motion support
-   ============================ */
-
-@media (prefers-reduced-motion: reduce) {
-  .aboutImpactItem,
-  .aboutAccItem,
-  .aboutAccIcon,
-  .aboutPill,
-  .aboutVibe,
-  .aboutChipBtn,
-  .aboutPinnedCard,
-  .aboutPinnedX {
-    transition: none !important;
-  }
-}
-

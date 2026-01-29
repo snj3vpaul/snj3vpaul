@@ -65,7 +65,7 @@ const ITEMS: ImpactItem[] = [
       "Clear takeaways for users and defenders",
     ],
     tags: ["Mobile Security", "Threat Modeling", "SoK", "iOS"],
-    links: [{ label: "Read Publication", url: "#" }],
+    links: [{ label: "Read Publication", url: "https://www.journalijar.com/uploads/2022/04/6276555b2375a_IJAR-39401.pdf" }],
   },
 ];
 
