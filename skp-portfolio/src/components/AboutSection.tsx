@@ -1,6 +1,6 @@
 // src/sections/About/AboutSection.tsx
 
-import React from "react";
+//import React from "react";
 import "./AboutSection.css";
 
 type AboutSectionProps = {
