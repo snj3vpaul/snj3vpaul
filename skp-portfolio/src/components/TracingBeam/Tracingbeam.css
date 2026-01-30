@@ -1,0 +1,80 @@
+/* TracingBeam.css */
+
+.tb {
+  position: relative;
+}
+
+.tbContent {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rail container */
+.tbRail {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 999px;
+  /* top/bottom/left/width set inline */
+}
+
+/* Base faint line */
+.tbLine {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.035),
+    rgba(255, 255, 255, 0.06)
+  );
+}
+
+/* Active fill: grows downward with progress */
+.tbFill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  transform-origin: top;
+  /* A richer gradient for “Aceternity-ish” look */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.10),
+    rgba(140, 160, 255, 0.18),
+    rgba(255, 255, 255, 0.10)
+  );
+  filter: blur(0px);
+}
+
+/* Head: glowing dot with soft halo */
+.tbHead {
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow:
+    0 0 0 6px rgba(140, 160, 255, 0.12),
+    0 0 22px rgba(140, 160, 255, 0.20),
+    0 0 60px rgba(255, 255, 255, 0.08);
+
+  opacity: 0.92;
+}
+
+/* Optional: add soft “beam aura” */
+.tbRail::after {
+  content: "";
+  position: absolute;
+  inset: -12px -10px;
+  border-radius: 999px;
+  background: radial-gradient(
+    60px 260px at 50% 40%,
+    rgba(140, 160, 255, 0.06),
+    transparent 60%
+  );
+  opacity: 0.9;
+}

@@ -3,180 +3,85 @@
 .hero {
   position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 96px 20px;
-  overflow: hidden;
-  background: transparent;
-  z-index: 1;
-  text-align: center;
-}
-
-/* subtle depth */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(1000px 650px at 18% 38%, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0) 60%),
-    radial-gradient(900px 650px at 84% 55%, rgba(120, 140, 255, 0.05), rgba(0, 0, 0, 0) 62%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* centered content container */
-.heroContent {
-  width: min(980px, 100%);
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-
   display: grid;
-  gap: 16px;
-  justify-items: center;
+  align-items: center;
+  padding: 96px 20px;
 }
 
-/* optional: subtle readable "halo" behind text (keeps pillar bright but text readable) */
-.heroContent::before {
-  content: "";
-  position: absolute;
-  inset: -24px -18px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(10, 10, 20, 0.52) 0%,
-    rgba(10, 10, 20, 0.28) 42%,
-    rgba(10, 10, 20, 0) 72%
-  );
-  filter: blur(1px);
-  z-index: -1;
-  pointer-events: none;
-  border-radius: 28px;
+.heroInner {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.heroContent {
+  max-width: 560px;
 }
 
 .heroTitle {
-  margin: 0;
-  font-size: clamp(2.6rem, 1.7rem + 2.8vw, 4.1rem);
-  line-height: 1.03;
-  letter-spacing: -0.04em;
-  color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  font-size: clamp(32px, 4vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
 .heroSubtitle {
-  margin: 0;
-  max-width: 62ch;
-  font-size: clamp(1.05rem, 0.95rem + 0.45vw, 1.25rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.72);
+  font-size: 16px;
+  opacity: 0.85;
+  max-width: 52ch;
+  margin-bottom: 28px;
 }
 
-/* Buttons */
 .heroActions {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 12px;
 }
 
-.btn {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.9);
-
-  padding: 11px 14px;
-  border-radius: 14px;
+.btnPrimary,
+.btnSecondary {
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: 650;
-  letter-spacing: 0.01em;
-
-  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
-  will-change: transform;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-  border-color: rgba(255, 255, 255, 0.24);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.btn:active {
-  transform: translateY(0px);
 }
 
 .btnPrimary {
-  background: rgba(255, 255, 255, 0.92);
-  color: rgba(0, 0, 0, 0.9);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: white;
+  color: black;
+  border: none;
 }
 
-.btnPrimary:hover {
-  background: rgba(255, 255, 255, 1);
-  border-color: rgba(255, 255, 255, 0.35);
+.btnSecondary {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  background: transparent;
 }
 
-.btnGhost {
-  background: rgba(255, 255, 255, 0.03);
+.heroVisual {
+  position: relative;
 }
 
-/* Pills */
-.heroMeta {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 12px;
-}
-
-.pill {
-  font-size: 0.86rem;
-  padding: 7px 10px;
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.76);
-}
-
-/* Ambient monogram: centered and behind content */
-.heroBgMonogram {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  
-  pointer-events: none;
-  user-select: none;
-}
-
-.heroBgMonogram img {
-  width: min(760px, 88vw);
+.heroImage {
+  width: 100%;
   height: auto;
-  opacity: 0.12;
-  filter: blur(0.25px);
-  transform: rotate(-2deg);
+  border-radius: 16px;
+  object-fit: cover;
 }
 
-/* Responsive */
+/* Mobile */
 @media (max-width: 900px) {
-  .hero {
-    padding: 84px 18px;
+  .heroInner {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 
-  .heroContent {
-    gap: 14px;
-  }
-
-  .heroBgMonogram img {
-    width: min(860px, 130vw);
-    opacity: 0.09;
+  .heroVisual {
+    order: -1;
   }
 }
