@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import "./TracingBeam.css";
+import "./Tracingbeam.css";
 
 type TracingBeamProps = {
   children: React.ReactNode;
