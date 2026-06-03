@@ -1,11 +1,13 @@
 // src/sections/Hero/Hero.tsx
 import { motion } from "framer-motion";
+import { FaLinkedin } from "react-icons/fa";
 import heroImage from "@/assets/LandingPage/portfolio.png";
 import "./Hero.css";
 
 export default function Hero() {
-  const scrollToAbout = () => {
-    const el = document.getElementById("about");
+  const scrollToWork = () => {
+    // points at the projects/case-studies section
+    const el = document.getElementById("projects") ?? document.getElementById("about");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -23,22 +25,33 @@ export default function Hero() {
             Building secure, scalable <br /> systems with intent
           </h1>
 
+          {/* Names the standards explicitly — this is what recruiters and ATS search for,
+              and what differentiates you from a generic security/dev profile. */}
           <p className="heroSubtitle">
-            Cybersecurity engineer focused on cryptography, network security,
-            and building reliable products that scale.
+            Cryptographic validation &amp; security-compliance work across
+            FIPS&nbsp;140-3, NDcPP, and EUCC — turning complex standards into
+            validated products and audit-ready evidence.
           </p>
 
           <div className="heroActions">
-            <button className="btnPrimary" onClick={scrollToAbout}>
-              Know More
+            <button className="btnPrimary" onClick={scrollToWork}>
+              View case studies
             </button>
+
+            {/* FIX: file in public/ is cv.pdf — the old href (/Sanjeev_K_Paul_CV.pdf) 404'd.
+                Either keep this href, or rename public/cv.pdf to match a nicer download name. */}
+            <a className="btnSecondary" href="/cv.pdf" download="Sanjeev_K_Paul_CV.pdf">
+              Download résumé
+            </a>
 
             <a
               className="btnSecondary"
-              href="/Sanjeev_K_Paul_CV.pdf"
-              download
+              href="https://www.linkedin.com/in/sanjeev-kumar-paul/"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Open Sanjeev Kumar Paul's LinkedIn profile"
             >
-              Download CV
+              <FaLinkedin aria-hidden="true" /> LinkedIn
             </a>
           </div>
         </motion.div>
@@ -52,9 +65,10 @@ export default function Hero() {
         >
           <img
             src={heroImage}
-            alt="Portfolio hero"
+            alt="Sanjeev Kumar Paul"
             className="heroImage"
             draggable={false}
+            fetchPriority="high"
           />
         </motion.div>
       </div>
