@@ -15,7 +15,7 @@ export const profile = {
   email: "sanjeevkumarpaul25@gmail.com", // ← replace with your preferred contact address
   availability:
     "Technical Project Management, Security Certifications",
-  standards: ["FIPS 140-3", , "NDcPP", "EUCC", "IPv6/USGv6"],
+  standards: ["FIPS 140-3", "NDcPP", "EUCC", "IPv6/USGv6"],
   links: {
     linkedin: "https://www.linkedin.com/in/sanjeev-kumar-paul/",
     github: "https://github.com/snj3vpaul/",
@@ -140,32 +140,58 @@ export type TimelineItem = {
   validated?: boolean;
 };
 
-export const standards: TimelineItem[] = [
+export const education: TimelineItem[] = [
   {
-    year: "2024 — present",
-    title: "FIPS 140-3 cryptographic module validation (CMVP domain)",
-    body: "Hands-on validation and program coordination in the FIPS-CC space: approved-mode verification, evidence production, and reviewer-facing documentation.",
+    year: "2015-2019",
+    title: "Bachelor’s Degree — Information Technology",
+    body:
+      "Undergraduate foundation in programming, algorithms, data structures, and software engineering principles.",
     validated: true,
   },
   {
-    year: "In progress",
-    title: "[ Certification — e.g. Security+, CySA+, or CISSP Associate ]",
-    body: "Add the credentials you hold or are pursuing. Name the issuing body and date — recruiters and ATS search for these exact terms.",
-    validated: false,
-  },
-  {
-    year: "2022",
-    title: "Published security research — SoK: iPhone platform security",
-    body: "Peer-shared systematization of knowledge on mobile platform security and threat modeling.",
-    validated: true,
-  },
-  {
-    year: "Graduated",
-    title: "Concordia University — [ degree, field ]",
-    body: "Add your program and any security/cryptography focus areas.",
+    year: "2020-2022",
+    title: "Master’s Degree — Concordia University",
+    body:
+      "Graduate studies focused on computing systems, security fundamentals, and applied technical problem-solving.",
     validated: true,
   },
 ];
+
+export const certifications: TimelineItem[] = [
+  {
+    year: "2025",
+    title: "CompTIA CySA+",
+    body:
+      "Cybersecurity Analyst certification covering threat detection, vulnerability management, and security operations.",
+    validated: true,
+  },
+  {
+    year: "2025",
+    title: "CompTIA Security+",
+    body:
+      "Foundational cybersecurity certification covering network security, cryptography, and risk management.",
+    validated: true,
+  },
+  {
+    year: "2024",
+    title: "INE Junior Penetration Tester (eJPT)",
+    body:
+      "Offensive security certification focused on penetration testing fundamentals and attack path analysis.",
+    validated: true,
+  },
+];
+
+export const publications: TimelineItem[] = [
+  {
+    year: "2022",
+    title: "SoK: Is iPhone Actually Secure?",
+    body:
+      "Systematization of knowledge analyzing iPhone platform security, threat models, and real-world attack surfaces.",
+    validated: true,
+  },
+];
+
+
 
 // level: 1 = Working, 2 = Proficient, 3 = Lead (the highest column reached)
 export type CapabilityRow = { domain: string; level: 1 | 2 | 3 };
