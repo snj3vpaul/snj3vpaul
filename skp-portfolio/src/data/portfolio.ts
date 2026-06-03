@@ -14,8 +14,8 @@ export const profile = {
   location: "Ottawa, Canada · UTC−5",
   email: "sanjeevkumarpaul25@gmail.com", // ← replace with your preferred contact address
   availability:
-    "Open to: Security Compliance · Cryptographic Validation · Technical PM",
-  standards: ["FIPS 140-3", "CMVP", "NDcPP", "EUCC", "NIST 800-53"],
+    "Technical Project Management, Security Certifications",
+  standards: ["FIPS 140-3", , "NDcPP", "EUCC", "IPv6/USGv6"],
   links: {
     linkedin: "https://www.linkedin.com/in/sanjeev-kumar-paul/",
     github: "https://github.com/snj3vpaul/",
@@ -25,12 +25,11 @@ export const profile = {
 };
 
 export const hero = {
-  // The hero <h1> is split so one word can be italic-accented.
   titleLead: "Turning complex security standards into ",
   titleEm: "validated",
   titleTail: " products.",
   sub:
-    "I lead and execute cryptographic validation and security-compliance work — verifying real cryptographic behavior against the standard, then producing the audit-ready evidence that stands up under review.",
+    "Cybersecurity professional focused on cryptographic validation, compliance execution, and audit-ready technical delivery — bridging engineering, testing, and regulatory requirements across FIPS and Common Criteria environments.",
 };
 
 export type Metric = { value: string; label: string };
@@ -51,29 +50,52 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "fips-vpn",
+    id: "forticlient-7-0-2",
     flagship: true,
-    badges: ["Cryptographic Validation"],
+    badges: ["Cryptographic Validation", "FIPS 140-3"],
     status: { kind: "validated", label: "Validated" },
     tag: "FIPS 140-3 · Software Level 1",
-    title: "VPN Client — FIPS 140-3 Cryptographic Validation",
+    title: "FortiClient 7.0.2 — FIPS 140-3 Validation (Completed)",
     role: "Role: Validator & technical coordinator",
     summary:
-      "Drove a VPN client toward FIPS 140-3 Software Level 1 expectations: mapped the cryptographic boundary and key-management flows, verified approved-mode behavior on the wire rather than relying on documentation, and produced reproducible, validator-facing evidence that reduced review cycles.",
+      "Completed FIPS 140-3 validation for FortiClient 7.0.2 by correctly scoping the cryptographic module to the VPN’s cryptographic boundary rather than the full application. Mapped key-management flows, verified approved-mode behavior on the wire instead of relying on documentation, and produced reproducible, validator-facing evidence supporting successful assessment closure.",
     metrics: [
-      { value: "XX", label: "Findings closed" },
-      { value: "XX%", label: "Fewer review cycles" },
-      { value: "XX", label: "Pages of evidence" },
-      { value: "XX", label: "Stakeholders aligned" },
+      { value: "Validated", label: "Certification status achieved" },
+      { value: "On-wire", label: "Behavior verification approach" },
+      { value: "Boundary-driven", label: "Crypto module scoping model" },
+      { value: "Reduced", label: "Review iteration cycles" },
     ],
     links: [
-      { label: "Validation summary", url: "#" },
       {
         label: "NIST CMVP reference",
         url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program",
       },
     ],
   },
+
+  {
+    id: "forticlient-crypto-module-v1",
+    badges: ["Cryptographic Validation", "FIPS 140-3"],
+    status: { kind: "in-progress", label: "In Review" },
+    tag: "FIPS 140-3 · Crypto Module",
+    title: "FortiClient Crypto Module v1.0 — FIPS 140-3 Validation (In Review)",
+    role: "Role: Validator & technical coordinator (autonomous execution)",
+    summary:
+      "Driving FIPS 140-3 validation efforts for FortiClient Crypto Module v1.0 with autonomous ownership of module scoping, VPN integration analysis, and cryptographic boundary definition. Ensuring alignment between VPN architecture and standalone crypto module requirements, while mapping key-management flows and verifying approved-mode behavior on the wire. Producing validator-ready evidence under active review cycles with iterative feedback from stakeholders and labs.",
+    metrics: [
+      { value: "In Review", label: "Certification stage" },
+      { value: "Autonomous", label: "Execution ownership level" },
+      { value: "Cross-team", label: "Coordination scope" },
+      { value: "Iterative", label: "Validation cycles ongoing" },
+    ],
+    links: [
+      {
+        label: "NIST CMVP reference",
+        url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program",
+      },
+    ],
+  },
+
   {
     id: "sok-iphone",
     badges: ["Publication", "Mobile Security · Threat Modeling"],
@@ -81,7 +103,7 @@ export const caseStudies: CaseStudy[] = [
     title: "SoK: Is iPhone Actually Secure?",
     role: "Role: Author",
     summary:
-      "A structured security assessment of the iPhone platform — threat models, platform controls, and practical limitations — mapped to real-world attack surfaces, with clear takeaways for users and defenders.",
+      "Structured security analysis of the iPhone platform, covering threat models, platform security controls, and practical limitations mapped to real-world attack surfaces, with clear implications for users and defenders.",
     links: [
       {
         label: "Read publication",
@@ -89,22 +111,25 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
   },
+
   {
     id: "canterbury",
-    badges: ["Product", "React · Secure inputs"],
+    badges: ["Product", "React · Secure inputs", "Technical Delivery"],
     status: { kind: "shipped", label: "Shipped" },
-    tag: "Public-facing web app",
-    title: "Canterbury Cricket Club — Website Build",
-    role: "Role: Builder & maintainer",
+    tag: "Production web application",
+    title: "Canterbury Cricket Club — Secure Website Delivery",
+    role: "Role: Builder, maintainer & project lead",
     summary:
-      "Designed and shipped a public club website with a component-driven architecture, a structured content model, and hardened, validated form handling with safe rendering — built to a performance budget.",
+      "Led end-to-end design, development, and deployment of a production website for Canterbury Cricket Club. Built a React-based system with structured content modeling, secure input validation, SEO optimization, automation workflows, and hardened form handling to mitigate malformed input and injection risks.",
     metrics: [
-      { value: "XX", label: "Lighthouse perf" },
-      { value: "XXs", label: "Load time" },
-      { value: "XX", label: "Reusable components" },
-      { value: "100%", label: "Validated forms" },
+      { value: "Live", label: "Production system" },
+      { value: "Secure", label: "Validated input handling" },
+      { value: "Automated", label: "Content workflows" },
+      { value: "Scalable", label: "Component architecture" },
     ],
-    links: [{ label: "Live site", url: "https://canterburycricketclub.com" }],
+    links: [
+      { label: "Live site", url: "https://canterburycricketclub.com" },
+    ],
   },
 ];
 
@@ -147,35 +172,99 @@ export type CapabilityRow = { domain: string; level: 1 | 2 | 3 };
 
 export const capabilities: CapabilityRow[] = [
   { domain: "Cryptographic validation (FIPS 140-3 / CMVP)", level: 3 },
-  { domain: "Security testing & evidence (sanity / functional)", level: 2 },
-  { domain: "Network security (on-the-wire analysis)", level: 2 },
-  { domain: "Compliance docs & audit readiness", level: 3 },
+  { domain: "Security compliance & audit readiness", level: 3 },
+  { domain: "Evidence production & technical documentation", level: 3 },
+  { domain: "Technical communication & compliance reporting", level: 3 },
+  { domain: "Cross-functional stakeholder coordination", level: 3 },
+
+  { domain: "Network security & traffic analysis", level: 2 },
+  { domain: "Threat modeling & platform security", level: 2 },
   { domain: "Technical project / program management", level: 2 },
+  { domain: "Vulnerability analysis & security assessment", level: 2 },
+  { domain: "Secure SDLC & release coordination", level: 2 },
+  { domain: "AI prompt engineering & workflow optimization", level: 2 },
+  { domain: "Secure web application delivery", level: 2 },
+  { domain: "Cloud deployment & Vercel production workflows", level: 2 },
+
+  { domain: "Programming & scripting (Python · JavaScript · Bash/PowerShell)", level: 1 },
 ];
 
 export type Stage = { n: string; title: string; body: string };
 export const lifecycle: Stage[] = [
-  { n: "01", title: "Scope", body: "Define the module boundary & applicable requirements." },
-  { n: "02", title: "Threat model", body: "Map attack surface, assets, and approved modes." },
-  { n: "03", title: "Test", body: "Sanity + functional, on-the-wire verification." },
-  { n: "04", title: "Evidence", body: "Reproducible steps and validator-facing records." },
-  { n: "05", title: "Review", body: "Coordinate with lab/dev; close findings." },
-  { n: "06", title: "Validated", body: "Audit-ready package, standard met." },
+  {
+    n: "01",
+    title: "Scope & Requirements",
+    body:
+      "Define the certification target, cryptographic boundary, deployment assumptions, and applicable FIPS 140-3 / NDcPP requirements with engineering, product, and compliance stakeholders.",
+  },
+  {
+    n: "02",
+    title: "Architecture & Gap Review",
+    body:
+      "Review implementation details, security architecture, approved algorithms, and platform behavior to identify compliance gaps, documentation issues, and testing dependencies early.",
+  },
+  {
+    n: "03",
+    title: "Cross-Team Coordination",
+    body:
+      "Coordinate continuously across development, QA, release engineering, product management, and external validation labs to align deliverables, timelines, environment setup, and certification expectations.",
+  },
+  {
+    n: "04",
+    title: "Testing & Validation",
+    body:
+      "Execute sanity, functional, and standards-driven validation activities including approved-mode verification, operational behavior analysis, traffic inspection, and reproducible test execution.",
+  },
+  {
+    n: "05",
+    title: "Findings & Bug Tracking",
+    body:
+      "Log compliance findings, documentation defects, and technical issues; track remediation with developers and QA teams while managing iterative reviewer feedback and retest cycles.",
+  },
+  {
+    n: "06",
+    title: "Evidence & Certification Delivery",
+    body:
+      "Produce audit-ready evidence packages, reviewer-facing documentation, test records, and certification artifacts for submission to validation labs and regulatory programs.",
+  },
 ];
 
 export type Experience = { when: string; title: string; org: string; body: string };
 export const experience: Experience[] = [
   {
-    when: "2024 — Present",
-    title: "Project Manager — FIPS-CC domain",
-    org: "[ Company ]",
-    body: "Coordinate cryptographic validation efforts across development, QA, and lab stakeholders; own documentation-heavy, regulated workflows and keep them audit-ready.",
+    when: "2025 — Present",
+    title: "Project Management Compliance Analyst",
+    org: "Fortinet",
+    body:
+      "Promoted into a project-management role supporting cryptographic validation and security-compliance programs. Coordinate engineering, QA, and validation stakeholders across documentation-heavy regulated workflows, evidence production, review management, and audit-ready delivery in FIPS 140-3 and Common Criteria environments.",
   },
   {
-    when: "[ dates ]",
-    title: "[ Prior role — e.g. Security Engineer / Analyst ]",
-    org: "[ Company ]",
-    body: "[ One or two lines of scope and a measurable outcome. ]",
+    when: "2023 — 2025",
+    title: "Junior Project Management Compliance Analyst",
+    org: "Fortinet",
+    body:
+      "Supported cryptographic-module validation initiatives by coordinating testing activities, reviewer-facing documentation, approved-mode verification efforts, and technical evidence collection for regulated security programs.",
+  },
+  {
+    when: "2022-2023",
+    title: "Junior Compliance Analyst",
+    org: "Fortinet",
+    body:
+      "Worked within security-compliance and validation workflows supporting FIPS/Common Criteria processes, technical documentation, evidence preparation, and cross-functional coordination across engineering and QA teams.",
+  },
+  {
+    when: "2024 — Present",
+    title: "Digital Media Manager",
+    org: "Canterbury Cricket Club",
+    body:
+      "Led digital growth initiatives, website delivery, and online engagement strategy. Helped scale interactions beyond 125K+ while building and maintaining the club’s production website and media pipeline.",
+  },
+  {
+    when: "2022 — Present",
+    title: "Cybersecurity Writer & Contributor",
+    org: "Medium",
+    body:
+      "Publish educational cybersecurity content focused on certifications, security fundamentals, cryptographic compliance, and practical guidance for learners entering the field.",
   },
 ];
 
