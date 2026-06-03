@@ -1,27 +1,35 @@
-import LightPillar from "../components/LightPillar";
-import Hero from "../sections/Hero/Hero";
-import "./LandingPage.css"; // create if needed
-import BeyondWork from "@/components/BeyondWork";
-import ProjectsSection from "@/components/ProjectsSection";
-import AboutSection from "@/components/AboutSection";
-import TracingBeam from "@/components/TracingBeam/TracingBeam";
+// src/pages/LandingPage.tsx
+import { useReveal } from "../hooks/useReveal";
+import Hero from "../sections/Hero";
+import Work from "../sections/Work";
+import Standards from "../sections/Standards";
+import Capabilities from "../sections/Capabilities";
+import Experience from "../sections/Experience";
+import BeyondWork from "../sections/BeyondWork";
+import Contact from "../sections/Contact";
+import { profile } from "../data/portfolio";
+
 export default function LandingPage() {
+  useReveal();
+
   return (
-    <div className="landing">
-      {/* Background FX */}
-      <LightPillar />
-
-      {/* Content */}
-      <main className="landingContent">
-        <TracingBeam left={18} width={2} paddingY={24}>
+    <>
+      <main>
         <Hero />
-
-        {/* other sections */}
-        <AboutSection />
-        <ProjectsSection />
+        <Work />
+        <Standards />
+        <Capabilities />
+        <Experience />
         <BeyondWork />
-        </TracingBeam>
+        <Contact />
       </main>
-    </div>
+
+      <footer>
+        <div className="wrap foot-in">
+          <span>© {new Date().getFullYear()} {profile.name}</span>
+          <span>Built secure · No client-side secrets · FIPS 140-3 · NDcPP · EUCC</span>
+        </div>
+      </footer>
+    </>
   );
 }
