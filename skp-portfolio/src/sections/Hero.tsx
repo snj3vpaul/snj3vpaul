@@ -16,23 +16,11 @@ export default function Hero() {
           </h1>
           <p className="sub reveal">{hero.sub}</p>
 
-          <div className="std-row reveal">
-            {profile.standards.map((s) => (
-              <span className="std" key={s}>
-                {s}
-              </span>
-            ))}
-          </div>
-
           <div className="actions reveal">
             <a className="btn primary" href="#work">
               View case studies
             </a>
-            <a
-              className="btn ghost"
-              href={profile.links.cv}
-              download="Sanjeev_K_Paul_CV.pdf"
-            >
+            <a className="btn ghost" href={profile.links.cv} download="Sanjeev_K_Paul_CV.pdf">
               Download résumé
             </a>
             <a
@@ -46,20 +34,27 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="portrait reveal" aria-label={`Portrait of ${profile.name}`}>
-          {/* Replace the placeholder block below with your optimized photo:
-              <img src="/portfolio.webp" alt={profile.name} loading="eager" /> */}
+        <div className="portrait reveal">
+          <img
+            src="/portrait.webp"
+            alt={profile.name}
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            style={{ objectPosition: "center top" }}
+          />
           <div className="scan" aria-hidden="true" />
           <span className="corner c1" />
           <span className="corner c2" />
           <span className="corner c3" />
           <span className="corner c4" />
-          <div className="ph">
-            <div className="glyph">{profile.name.charAt(0)}</div>
-            <small>// drop your optimized portrait here (~200KB WebP)</small>
-          </div>
           <span className="tag">{profile.location}</span>
         </div>
+      </div>
+
+      <div className="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span className="line" />
       </div>
     </section>
   );

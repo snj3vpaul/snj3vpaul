@@ -209,3 +209,68 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-f
   .cell{padding:13px 12px;font-size:12.5px}
   section{padding:84px 0}
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   MOTION & STRUCTURE UPDATE
+   (compressed hero + scroll cue · trust marquee · featured case · credentials)
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* hero: compressed so the trust strip peeks above the fold */
+.hero{min-height:86vh}
+.scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--faint);font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;pointer-events:none}
+.scroll-cue .line{width:1px;height:36px;background:rgba(255,255,255,.12);position:relative;overflow:hidden;border-radius:2px}
+.scroll-cue .line::after{content:"";position:absolute;left:0;top:-60%;width:1px;height:60%;background:var(--accent);animation:cue 1.9s cubic-bezier(.7,0,.3,1) infinite}
+@keyframes cue{0%{top:-60%}100%{top:100%}}
+@media (prefers-reduced-motion:reduce){.scroll-cue .line::after{animation:none;top:0;height:100%;opacity:.4}}
+@media(max-width:900px){.scroll-cue{display:none}}
+
+/* trust strip — full-bleed band with a slow marquee of marks */
+.trust-band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2);padding:24px 0}
+.trust-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);text-align:center;margin-bottom:18px}
+.marquee{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:scrollx 34s linear infinite;will-change:transform}
+.trust-band:hover .marquee-track{animation-play-state:paused}
+.marquee-track .mark{display:inline-flex;align-items:center;gap:14px;padding:0 28px;font-family:var(--mono);font-size:15px;letter-spacing:.03em;color:var(--dim);white-space:nowrap}
+.marquee-track .mark::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.6}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .marquee{-webkit-mask-image:none;mask-image:none}
+  .marquee-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;gap:8px 0}
+}
+
+/* featured (flagship) case — asymmetric: narrative left, snapshot rail right */
+.case.featured{padding:0;overflow:hidden}
+.featured-grid{display:grid;grid-template-columns:1.35fr .9fr}
+.featured-main{padding:34px}
+.featured-main h3{font-size:clamp(23px,2.6vw,30px);margin-top:12px;line-height:1.1}
+.featured-main .summary{font-size:15.5px}
+.featured-rail{border-left:1px solid var(--line);background:rgba(143,183,255,.04);padding:34px 30px;display:flex;flex-direction:column;gap:0}
+.snap-row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:13px}
+.snap-row:first-child{padding-top:0}
+.snap-row .k{color:var(--faint)}
+.snap-row .v{color:var(--text);text-align:right}
+.featured-rail .metrics{grid-template-columns:1fr 1fr;border-top:none;padding-top:24px;margin-top:auto;gap:18px}
+.featured-rail .metric .v{font-size:26px}
+.cases-rest{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-top:20px}
+@media(max-width:900px){
+  .featured-grid{grid-template-columns:1fr}
+  .featured-rail{border-left:none;border-top:1px solid var(--line)}
+  .featured-rail .metrics{margin-top:24px}
+}
+
+/* credentials — three differentiated columns (education / certs / publications) */
+.creds{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.cred-col h3{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.cred-item{border-top:1px solid var(--line);padding:18px 0}
+.cred-item:last-child{border-bottom:1px solid var(--line)}
+.cred-item .name{font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:9px}
+.cred-item .name .st{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.cred-item .name .st.ok{background:var(--ok)}
+.cred-item .meta{font-family:var(--mono);font-size:12px;color:var(--faint);margin-top:6px}
+.cred-item a.name:hover{color:var(--accent)}
+.cred-item a{text-decoration:none;color:var(--text)}
+@media(max-width:900px){.creds{grid-template-columns:1fr;gap:8px}}
+
+/* reconciliation tweaks */
+.cred-item .desc{color:var(--dim);font-size:13px;margin-top:8px;line-height:1.45}
+.featured-rail .metrics{margin-top:22px}

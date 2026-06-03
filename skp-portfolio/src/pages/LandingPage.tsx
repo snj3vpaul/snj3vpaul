@@ -1,10 +1,12 @@
 // src/pages/LandingPage.tsx
 import { useReveal } from "../hooks/useReveal";
 import Hero from "../sections/Hero";
+import TrustStrip from "../sections/TrustStrip";
 import Work from "../sections/Work";
-import Standards from "../sections/Standards";
-import Capabilities from "../sections/Capabilities";
+import Lifecycle from "../sections/LifeCycle";
 import Experience from "../sections/Experience";
+import Capabilities from "../sections/Capabilities";
+import Credentials from "../sections/Credentials";
 import BeyondWork from "../sections/BeyondWork";
 import Contact from "../sections/Contact";
 import { profile } from "../data/portfolio";
@@ -16,10 +18,12 @@ export default function LandingPage() {
     <>
       <main>
         <Hero />
+        <TrustStrip />
         <Work />
-        <Standards />
-        <Capabilities />
+        <Lifecycle />
         <Experience />
+        <Capabilities />
+        <Credentials />
         <BeyondWork />
         <Contact />
       </main>

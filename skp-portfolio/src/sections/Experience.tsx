@@ -7,7 +7,7 @@ export default function Experience() {
       <div className="wrap">
         <div className="reveal">
           <div className="eyebrow">
-            <span className="num">05</span> Experience
+            <span className="num">03</span> Experience
           </div>
           <h2 className="title">Where I've delivered.</h2>
         </div>
