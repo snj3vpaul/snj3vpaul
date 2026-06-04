@@ -14,7 +14,7 @@ export const profile = {
   email: "sanjeevkumarpaul25@gmail.com",
   availability: "Open to: Technical Project Management · Security Certification programs",
   // Drives the moving trust strip below the hero.
-  standards: ["FIPS 140-3", "NDcPP", "EUCC", "Common Criteria", "IPv6 / USGv6", "Cryptography"],
+  standards: ["FIPS 140-3", "CMVP", "NDcPP", "EUCC", "Common Criteria", "IPv6 / USGv6"],
   links: {
     linkedin: "https://www.linkedin.com/in/sanjeev-kumar-paul/",
     github: "https://github.com/snj3vpaul/",
@@ -23,7 +23,7 @@ export const profile = {
   },
 };
 
-export const trustLabel = "Key Domain";
+export const trustLabel = "Operating standards & frameworks";
 
 export const hero = {
   titleLead: "Turning complex security standards into ",
@@ -54,26 +54,27 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "forticlient-Crypto Library",
+    id: "forticlient-7-0-2",
     flagship: true,
     badges: ["Cryptographic Validation", "FIPS 140-3"],
     status: { kind: "validated", label: "Validated" },
     tag: "FIPS 140-3 · Software Level 1",
-    title: "FortiClient Crypto Library ",
-    role: "Project Lead, Technical Writer",
+    title: "FortiClient 7.0.2 — FIPS 140-3 Validation",
+    role: "Validator & technical coordinator",
     summary:
       "Completed FIPS 140-3 validation for FortiClient 7.0.2 by correctly scoping the cryptographic module to the VPN’s cryptographic boundary rather than the full application. Mapped key-management flows, verified approved-mode behavior on the wire instead of relying on documentation, and produced reproducible, validator-facing evidence supporting successful assessment closure.",
     // Snapshot replaces vague metric tiles for the flagship — cleaner, factual rail.
     snapshot: [
       { k: "Standard", v: "FIPS 140-3" },
       { k: "Level", v: "Software Level 1" },
-            { k: "Scoping", v: "Crypto-boundary driven" },
+      { k: "Approach", v: "On-wire verification" },
+      { k: "Scoping", v: "Crypto-boundary driven" },
       { k: "Status", v: "Validated" },
     ],
     links: [
       {
         label: "NIST CMVP reference",
-        url: "https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp4931.pdf",
+        url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program",
       },
     ],
   },
@@ -182,11 +183,64 @@ export const publications: TimelineItem[] = [
 ];
 
 // ── Beyond work (human layer) ───────────────────────────────────────────────────
-export type Beyond = { kind: string; title: string; body: string };
-export const beyond: Beyond[] = [
-  { kind: "// sport", title: "Cricket", body: "Punjab Under-16 district camp, reignited through competitive club cricket with Canterbury CC — consistent training and match prep." },
-  { kind: "// sport", title: "Football", body: "University-level left back, now playing CDM — defensive reads, transitions, and work rate that translate to disciplined delivery." },
-  { kind: "// community", title: "Volunteering", body: "Contributor to Khalsa Aid humanitarian relief, and a judge at a Montessori school science exhibition — practical, people-focused giving back." },
+export type BeyondStat = { value: string; label: string };
+export type BeyondMedia = { type: "youtube" | "file"; src: string; poster?: string };
+export type BeyondItem = {
+  kind: string;        // monospace kicker, e.g. "// sport"
+  title: string;
+  blurb: string;
+  featured?: boolean;  // one item renders as the large media panel
+  stats?: BeyondStat[];
+  image?: string;      // optional photo — public path like "/beyond/cricket.webp"
+  video?: BeyondMedia; // optional clip — see commented examples below
+};
+
+export const beyond: BeyondItem[] = [
+  {
+    kind: "// sport",
+    title: "Cricket",
+    featured: true,
+    blurb:
+      "From a Punjab Under-16 district camp to competitive club cricket with Canterbury CC — the game taught me preparation, patience, and performing under pressure.",
+    stats: [
+      { value: "Punjab U16", label: "District camp" },
+      { value: "Canterbury CC", label: "Club cricket" },
+      { value: "Left-Hand", label: "Player" },
+    ],
+    // Add a photo:  image: "/beyond/cricket.webp",
+    // Or a clip:    video: { type: "youtube", src: "YOUTUBE_ID", poster: "/beyond/cricket.webp" },
+    //               video: { type: "file", src: "/beyond/cricket.mp4", poster: "/beyond/cricket.webp" },
+  },
+  {
+    kind: "// sport",
+    title: "Football",
+    blurb:
+      "University-level left back, now playing CDM — defensive reads, transitions, and work rate that carry straight into how I deliver.",
+    stats: [
+      { value: "LB → CDM", label: "Position" },
+      { value: "University", label: "Level" },
+    ],
+  },
+  {
+    kind: "// community",
+    title: "Volunteering",
+    blurb:
+      "Humanitarian relief with Khalsa Aid, and judging a Montessori school science exhibition — staying useful to people beyond a screen.",
+    stats: [
+      { value: "Khalsa Aid", label: "Relief work" },
+      { value: "Science fair", label: "Judge" },
+    ],
+  },
+  {
+    kind: "// media",
+    title: "Digital & Writing",
+    blurb:
+      "Built and grew Canterbury CC's digital presence, and write cybersecurity explainers on Medium for newcomers to the field.",
+    stats: [
+      { value: "125K+", label: "Interactions scaled" },
+      { value: "Medium", label: "Security writing" },
+    ],
+  },
 ];
 
 export const navItems = [

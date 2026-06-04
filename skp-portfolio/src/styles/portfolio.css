@@ -274,3 +274,46 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-f
 /* reconciliation tweaks */
 .cred-item .desc{color:var(--dim);font-size:13px;margin-top:8px;line-height:1.45}
 .featured-rail .metrics{margin-top:22px}
+
+
+/* ── Beyond Work: featured media panel + stat cards ──────────────────────────
+   Paste this at the END of src/styles/portfolio.css. Uses your design tokens,
+   so it inherits the warm theme automatically. */
+
+#beyond .title{max-width:24ch}
+
+.beyond-featured{
+  display:grid;grid-template-columns:1.05fr 1fr;
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  background:linear-gradient(180deg,var(--surface),var(--bg-2));margin-top:44px;
+}
+.beyond-featured .bf-content{padding:34px;display:flex;flex-direction:column;justify-content:center}
+.beyond-featured .ic{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.06em}
+.beyond-featured h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,34px);line-height:1.05;margin-top:10px}
+.beyond-featured p{color:var(--dim);margin-top:14px;max-width:46ch}
+
+/* media frame — photo / video / placeholder all share this */
+.media{position:relative;min-height:330px;background:linear-gradient(180deg,var(--surface-2),var(--bg-2))}
+.media img,.media video,.media iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;display:block}
+.media .scan{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0 22px,rgba(216,199,172,.03) 22px 23px)}
+.media .play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(16,14,12,.28);border:0;cursor:pointer;transition:background .25s}
+.media .play:hover{background:rgba(16,14,12,.12)}
+.media .play .disc{width:64px;height:64px;border-radius:50%;border:1px solid var(--line-strong);background:rgba(16,14,12,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;transition:transform .25s}
+.media .play:hover .disc{transform:scale(1.06)}
+.media .play .disc::after{content:"";width:0;height:0;border-left:17px solid var(--text);border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.media.placeholder{display:grid;place-items:center}
+.media.placeholder .glyph{font-family:var(--serif);font-size:72px;color:var(--line-strong)}
+
+/* stat pills */
+.bstats{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.bstat{border:1px solid var(--line);border-radius:12px;padding:11px 14px;min-width:0}
+.bstat .v{font-family:var(--serif);font-size:21px;line-height:1.05;overflow-wrap:break-word}
+.bstat .l{font-family:var(--mono);font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+.bcard .bstats{margin-top:16px}
+.bcard .bstat{padding:9px 12px}
+.bcard .bstat .v{font-size:18px}
+
+@media(max-width:900px){
+  .beyond-featured{grid-template-columns:1fr}
+  .media{min-height:240px}
+}

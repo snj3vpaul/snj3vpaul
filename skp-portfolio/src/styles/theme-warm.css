@@ -1,0 +1,96 @@
+/* src/styles/theme-warm.css
+   ────────────────────────────────────────────────────────────────────────────
+   Personal theme: warm, understated, grey/dark monochrome with subtle motion.
+   Import AFTER the base stylesheet so it overrides cleanly:
+
+     import "./styles/portfolio.css";
+     import "./styles/theme-warm.css";
+
+   Nothing here is colorful by design — warmth comes from the neutrals, and a
+   single soft "oat" tone does all the emphasis. Tweak --accent to taste.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root{
+  /* warm near-blacks (a hint of brown instead of cool blue-black) */
+  --bg:#100E0C;
+  --bg-2:#15120F;
+  --surface:#1B1815;
+  --surface-2:#221E1A;
+
+  /* hairlines in warm white */
+  --line:rgba(236,231,223,.09);
+  --line-strong:rgba(236,231,223,.17);
+
+  /* warm text scale */
+  --text:#ECE7DF;     /* bone */
+  --dim:#A8A299;      /* warm grey */
+  --faint:#6E685F;    /* warm faint */
+
+  /* single emphasis tone — soft warm oat, not a saturated hue */
+  --accent:#D8C7AC;
+  --accent-soft:rgba(216,199,172,.12);
+
+  /* "validated" kept meaningful but muted into an earthy sage */
+  --ok:#A6B28C;
+  --ok-soft:rgba(166,178,140,.14);
+}
+
+/* ── ambient background: warm glow, fainter+warmer grid, subtle grain ───────── */
+.bg{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+.bg::before{
+  background-image:
+    linear-gradient(rgba(236,231,223,.016) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(236,231,223,.016) 1px,transparent 1px);
+}
+.bg::after{
+  background:radial-gradient(circle,rgba(216,199,172,.08),transparent 60%);
+}
+
+/* ── recolor the few spots that hard-coded the old blue ─────────────────────── */
+.featured-rail{background:rgba(216,199,172,.04)}
+.case.flag{box-shadow:inset 0 1px 0 rgba(216,199,172,.08)}
+
+/* status dot: warm sage pulse (override the old green keyframes) */
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(166,178,140,.40)}
+  70%{box-shadow:0 0 0 7px rgba(166,178,140,0)}
+  100%{box-shadow:0 0 0 0 rgba(166,178,140,0)}
+}
+
+/* ── warmth = softer geometry ───────────────────────────────────────────────── */
+.case,.matrix{border-radius:20px}
+.bcard,.stage,.direct a.row,.field input,.field textarea{border-radius:14px}
+.btn{border-radius:13px}
+.portrait{border-radius:22px}
+.status-line{border-radius:100px}
+
+/* primary button: warm, soft lift (no hue, just a gentle brighten) */
+.btn.primary{background:var(--text);color:var(--bg)}
+.btn.primary:hover{background:#FBF7F0}
+
+/* links/hover settle into the oat tone rather than a color */
+.lnk:hover,.navlinks a:hover,.navlinks a.active{color:var(--accent)}
+
+/* ── motion: subtle & purposeful (calmer, shorter travel, slower marquee) ───── */
+.reveal{transform:translateY(12px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.stagger>*{transform:translateY(12px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.marquee-track{animation-duration:46s}                 /* slower, calmer drift */
+.case,.bcard,.direct a.row{transition:border-color .3s ease,transform .3s ease,background .3s ease}
+.case:hover,.bcard:hover{transform:translateY(-2px)}   /* gentler than before */
+
+@media (prefers-reduced-motion:reduce){
+  .reveal,.stagger>*{transform:none;transition:none}
+}
+
+/* ── metric tiles: keep word-values inside the card ──────────────────────────
+   `1fr` tracks won't shrink below their content (minmax(auto,1fr)), so long
+   words overflowed the card. minmax(0,1fr) + min-width:0 lets them shrink, and
+   the value type is sized for words rather than short numbers. */
+.metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.metric{min-width:0}
+.metric .v{font-size:clamp(16px,1.8vw,21px);line-height:1.15;overflow-wrap:break-word;hyphens:auto}
+.metric .k{overflow-wrap:break-word}
+.featured-rail .metric .v{font-size:19px}
+@media(max-width:680px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
