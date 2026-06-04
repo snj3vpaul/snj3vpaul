@@ -35,18 +35,34 @@
   --ok-soft:rgba(166,178,140,.14);
 }
 
-/* ── ambient background: warm glow, fainter+warmer grid, subtle grain ───────── */
+/* ── ambient background: NO grid — soft warm wash + faint film grain ────────── */
+.bg::before{display:none}   /* removes the blueprint grid across the whole page */
 .bg{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-}
-.bg::before{
   background-image:
-    linear-gradient(rgba(236,231,223,.016) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(236,231,223,.016) 1px,transparent 1px);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(120% 85% at 50% -5%, rgba(216,199,172,.05), transparent 55%);
+  background-size:160px 160px, 100% 100%;
+  background-repeat:repeat, no-repeat;
+  background-position:center, center top;
 }
-.bg::after{
-  background:radial-gradient(circle,rgba(216,199,172,.08),transparent 60%);
-}
+.bg::after{background:radial-gradient(circle, rgba(216,199,172,.06), transparent 62%)}
+
+/* ── ALTERNATIVES ────────────────────────────────────────────────────────────
+   Want to try a different feel? Pick ONE and paste it just below this block
+   (later rules win, so it overrides the default above).
+
+   A) Soft dots instead of a grid (still a pattern, but gentler):
+      .bg::before{display:block;inset:0;background:none;background-image:radial-gradient(rgba(236,231,223,.05) 1px,transparent 1.6px);background-size:24px 24px;-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 35%,transparent 80%);mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 35%,transparent 80%)}
+
+   B) Cleanest — grain only, no glow:
+      .bg::after{display:none}
+
+   C) Soft "aurora" (a touch more life, two faint warm blooms):
+      .bg::after{top:-25%;width:100%;height:80%;border-radius:0;filter:blur(40px);
+        background:
+          radial-gradient(38% 50% at 18% 12%, rgba(216,199,172,.10), transparent 60%),
+          radial-gradient(42% 55% at 86% 0%, rgba(166,178,140,.07), transparent 60%)}
+*/
 
 /* ── recolor the few spots that hard-coded the old blue ─────────────────────── */
 .featured-rail{background:rgba(216,199,172,.04)}
