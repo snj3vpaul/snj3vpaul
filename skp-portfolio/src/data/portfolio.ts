@@ -168,8 +168,8 @@ export type TimelineItem = {
 };
 
 export const education: TimelineItem[] = [
-  { year: "2015 — 2019", title: "Bachelor’s — Information Technology", body: "Foundation in programming, algorithms, data structures, and software engineering.", validated: true },
-  { year: "2020 — 2022", title: "Master’s — Concordia University", body: "Graduate study in computing systems, security fundamentals, and applied technical problem-solving.", validated: true },
+  { year: "2015 — 2019", title: "Bachelor’s — Information Technology", body: "Panjab Univesity Alumni. Foundation in programming, algorithms, data structures, and software engineering.", validated: true },
+  { year: "2020 — 2022", title: "Master’s — Information Systems Security", body: "Concordia University Graduate completed study in computing systems, security fundamentals, and applied technical problem-solving.", validated: true },
 ];
 
 export const certifications: TimelineItem[] = [
