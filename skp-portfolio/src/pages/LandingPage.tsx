@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import { caseStudies, certifications, education, experience, profile, publications } from '../data/portfolio';
 import type { CaseStudy } from '../data/portfolio';
@@ -65,6 +65,14 @@ function ProjectCard({ project, index }: { project: CaseStudy; index: number }) 
       <summary>Read project details <span aria-hidden="true">+</span></summary>
       <div className="hyb-disclosure-body">
         <p>{project.summary}</p>
+
+{project.contribution && (
+  <div className="hyb-contribution">
+    <strong>My contribution</strong>
+    <p>{project.contribution}</p>
+  </div>
+)}
+
         {!!project.snapshot?.length && <dl className="hyb-facts">{project.snapshot.map(f => <div key={f.k}><dt>{f.k}</dt><dd>{f.v}</dd></div>)}</dl>}
         {!!project.metrics?.length && <dl className="hyb-facts">{project.metrics.map(m => <div key={m.label}><dt>{m.label}</dt><dd>{m.value}</dd></div>)}</dl>}
         {!!project.links.length && <div className="hyb-case-links">{project.links.map(link => <a key={link.url} href={link.url} target={isExternal(link.url) ? '_blank' : undefined} rel={isExternal(link.url) ? 'noopener noreferrer' : undefined}>{link.label} ↗</a>)}</div>}
@@ -73,12 +81,33 @@ function ProjectCard({ project, index }: { project: CaseStudy; index: number }) 
   </article>;
 }
 
+type WorkFilter = 'all' | 'security' | 'independent';
+const projectIsIndependent = (project: CaseStudy) => project.badges.includes('Product');
+
 function SelectedWork() {
-  // Preserve the ordering, status, metrics, and URLs from the user's real portfolio data.
+  const [filter, setFilter] = useState<WorkFilter>('all');
+  // Keep all original data and statuses; filtering affects presentation only.
+  const visible = caseStudies.filter(project => filter === 'all' ||
+    (filter === 'independent' ? projectIsIndependent(project) : !projectIsIndependent(project)));
+  const categories: { key: WorkFilter; label: string; count: number }[] = [
+    { key: 'all', label: 'All work', count: caseStudies.length },
+    { key: 'security', label: 'Security & validation', count: caseStudies.filter(project => !projectIsIndependent(project)).length },
+    { key: 'independent', label: 'Independent builds', count: caseStudies.filter(projectIsIndependent).length },
+  ];
   return <section className="hyb-section hyb-work" id="work" aria-labelledby="hyb-work-heading">
     <div className="hyb-container">
       <SectionHeading headingId="hyb-work-heading" index="01" label="SELECTED WORK" title="Things I've worked on." text={hybridContent.workIntro}/>
-      <div className="hyb-project-grid">{caseStudies.map((project, i) => <ProjectCard key={project.id} project={project} index={i} />)}</div>
+      <div className="hyb-filter-bar" role="group" aria-label="Filter project case studies">
+        {categories.map(category => <button key={category.key} type="button"
+          aria-pressed={filter === category.key}
+          className={`hyb-filter${filter === category.key ? ' is-active' : ''}`}
+          onClick={() => setFilter(category.key)}>
+          {category.label} <span>{category.count}</span>
+        </button>)}
+      </div>
+      <div className="hyb-project-grid" aria-live="polite" aria-relevant="additions removals">
+        {visible.map(project => <ProjectCard key={project.id} project={project} index={caseStudies.indexOf(project)} />)}
+      </div>
     </div>
   </section>;
 }
@@ -104,30 +133,75 @@ function Experience() {
   </section>;
 }
 
+function Practice() {
+  return <section className="hyb-section hyb-practice" id="practice" aria-labelledby="hyb-practice-heading">
+    <div className="hyb-container">
+      <SectionHeading headingId="hyb-practice-heading" index="04" label="THE TOOLBOX" title={hybridContent.practiceTitle} text={hybridContent.practiceIntro} />
+      <div className="hyb-practice-grid">
+        {hybridContent.practice.map((group, i) => <article className="hyb-practice-group" key={group.title}>
+          <span className="hyb-kicker">0{i + 1} / {group.label}</span>
+          <h3>{group.title}</h3>
+          <p>{group.description}</p>
+          <ul aria-label={group.title}>{group.skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+        </article>)}
+      </div>
+    </div>
+  </section>;
+}
+
 type DiaryItem = (typeof hybridContent.diary)[number];
-function DiaryTile({ item }: { item: DiaryItem }) {
+function DiaryTile({ item, onOpen }: { item: DiaryItem; onOpen: (item: DiaryItem) => void }) {
   const [failed, setFailed] = useState(false);
   return <figure className={`hyb-diary-tile hyb-diary-${item.size}`}>
-    <div className="hyb-diary-image">
-      {!failed && item.image ? <img src={item.image} loading="lazy" alt={item.illustration ? `Editorial placeholder illustration for ${item.title}` : item.title} onError={() => setFailed(true)} /> : <div className="hyb-diary-empty">PHOTO DIARY / {item.title}</div>}
-      {item.illustration && <span className="hyb-diary-placeholder">PHOTO PLACEHOLDER</span>}
-    </div>
+    <button type="button" className="hyb-diary-image hyb-diary-open" onClick={() => onOpen(item)}
+      aria-label={`Open ${item.title} journal note`}>
+      {!failed && item.image ? <img src={item.image} loading="lazy" alt={item.illustration ? `Illustrative image for ${item.title}` : item.title} onError={() => setFailed(true)} /> : <span className="hyb-diary-empty">PHOTO DIARY / {item.title}</span>}
+      {item.illustration && <span className="hyb-diary-placeholder">ILLUSTRATIVE ARTWORK</span>}
+      <span className="hyb-diary-view" aria-hidden="true">Open note ↗</span>
+    </button>
     <figcaption><span className="hyb-kicker">{item.eyebrow}</span><h3>{item.title}</h3><p>{item.body}</p>{'href' in item && item.href && <a href={item.href} target="_blank" rel="noopener noreferrer">My CricHeroes profile ↗</a>}</figcaption>
   </figure>;
 }
+
 function Diary() {
+  const [selected, setSelected] = useState<DiaryItem | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (selected && !dialog.open) dialog.showModal();
+    if (!selected && dialog.open) dialog.close();
+  }, [selected]);
+
   return <section className="hyb-section hyb-life" id="life" aria-labelledby="hyb-life-heading">
     <div className="hyb-container">
-      <SectionHeading headingId="hyb-life-heading" index="04" label="THE OTHER HALF" title={hybridContent.diaryTitle} text={hybridContent.diaryIntro}/>
-      <div className="hyb-diary-grid">{hybridContent.diary.map(item => <DiaryTile item={item} key={item.id}/>)}</div>
+      <SectionHeading headingId="hyb-life-heading" index="05" label="THE OTHER HALF" title={hybridContent.diaryTitle} text={hybridContent.diaryIntro}/>
+      <div className="hyb-diary-grid">{hybridContent.diary.map(item => <DiaryTile item={item} key={item.id} onOpen={setSelected}/>)}</div>
       <div className="hyb-notes"><span className="hyb-kicker">AND ALSO…</span><div>{hybridContent.smallNotes.map(note => <span key={note}>{note}</span>)}</div></div>
+      <details className="hyb-kitchen-note">
+        <summary><span className="hyb-kicker">FROM THE KITCHEN</span><strong>{hybridContent.kitchenTitle}</strong><span aria-hidden="true">+</span></summary>
+        <p>{hybridContent.kitchenText}</p>
+      </details>
     </div>
+    <dialog ref={dialogRef} className="hyb-diary-dialog" onClose={() => setSelected(null)}
+      aria-labelledby="hyb-dialog-title" onClick={event => { if (event.target === event.currentTarget) event.currentTarget.close(); }}>
+      {selected && <div className="hyb-diary-dialog-inner">
+        <button type="button" className="hyb-dialog-close" onClick={() => dialogRef.current?.close()} aria-label="Close journal note">Close ×</button>
+        <div className="hyb-dialog-picture"><img src={selected.image} alt={selected.illustration ? `Illustrative artwork for ${selected.title}` : selected.title} />
+          {selected.illustration && <span className="hyb-diagram-caption">Illustrative artwork — personal photos can replace this</span>}
+        </div>
+        <div className="hyb-dialog-copy"><span className="hyb-kicker">{selected.eyebrow}</span>
+          <h3 id="hyb-dialog-title">{selected.title}</h3><p>{selected.body}</p>
+          {'href' in selected && selected.href && <a href={selected.href} target="_blank" rel="noopener noreferrer">See my CricHeroes profile ↗</a>}
+        </div>
+      </div>}
+    </dialog>
   </section>;
 }
 
 function Writing() {
   return <section className="hyb-section" id="writing" aria-labelledby="hyb-writing-heading"><div className="hyb-container">
-    <SectionHeading headingId="hyb-writing-heading" index="05" label="WORDS & IDEAS" title="Putting thoughts into words." text={hybridContent.writingIntro}/>
+    <SectionHeading headingId="hyb-writing-heading" index="06" label="WORDS & IDEAS" title="Putting thoughts into words." text={hybridContent.writingIntro}/>
     <div className="hyb-writing-grid">
       {publications.filter(p => !!p.url).map(p => <a className="hyb-writing-card" key={p.title} href={p.url} target="_blank" rel="noopener noreferrer"><span className="hyb-kicker">RESEARCH / {p.year}</span><h3>{p.title}</h3><p>{p.body}</p><span className="hyb-writing-cta">Read publication ↗</span></a>)}
       <a className="hyb-writing-card" href={profile.links.medium} target="_blank" rel="noopener noreferrer"><span className="hyb-kicker">ESSAYS / MEDIUM</span><h3>Writing to understand.</h3><p>Security concepts, practical questions, and things I want to make clearer for others.</p><span className="hyb-writing-cta">Explore my writing ↗</span></a>
@@ -138,7 +212,7 @@ function Writing() {
 function Credentials() {
   return <section className="hyb-section hyb-credentials" id="credentials" aria-label="Education and professional certifications"><div className="hyb-container">
     <div className="hyb-credential-grid">
-      <div><span className="hyb-kicker">06 / EDUCATION</span>{education.map(item => <div className="hyb-credential-item" key={item.title}><strong>{item.title}</strong><span>{item.year}</span></div>)}</div>
+      <div><span className="hyb-kicker">07 / EDUCATION</span>{education.map(item => <div className="hyb-credential-item" key={item.title}><strong>{item.title}</strong><span>{item.year}</span></div>)}</div>
       <div><span className="hyb-kicker">CERTIFICATIONS</span>{certifications.map(item => <div className="hyb-credential-item" key={item.title}><strong>{item.title}</strong><span>{item.year}</span></div>)}</div>
     </div>
   </div></section>;
@@ -154,6 +228,7 @@ export default function LandingPage() {
         <SelectedWork />
         <MyStory />
         <Experience />
+        <Practice />
         <Diary />
         <Writing />
         <Credentials />

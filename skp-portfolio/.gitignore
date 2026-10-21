@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local environment and generated builds
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+
+# Redesign experiments and installer backup directories
+.*-backup/
+*-implementation/
+technical-minimal-portfolio/
+

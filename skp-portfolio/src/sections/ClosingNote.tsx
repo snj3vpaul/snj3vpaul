@@ -13,7 +13,7 @@ export default function ClosingNote() {
       <div className="hyb-container">
         <div className="hyb-note-header">
           <span className="hyb-kicker">
-            07 / A CLOSING NOTE
+            08 / A CLOSING NOTE
           </span>
 
           <span className="hyb-note-author">

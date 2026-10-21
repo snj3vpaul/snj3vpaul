@@ -19,6 +19,25 @@ export const hybridContent = {
     'I tend to keep a low profile, but I have strong opinions and a lot of curiosity. Writing helps me make sense of both. The rest of life — sport, community, movement, cooking, travel — keeps the picture bigger than work.',
   ],
   workIntro: 'A selection of security validation programs and independent projects. Open a card to read the context, my contribution, and references.',
+  practiceTitle: 'The kind of problems I work through.',
+  practiceIntro: 'A practical toolkit, drawn from the projects and validation work shown here — not a wall of self-rated skill bars.',
+  practice: [
+    {
+      label: 'SECURITY ASSURANCE', title: 'Make the requirements testable.',
+      description: 'The analytical work behind cryptographic validation, module scoping, and reproducible evidence.',
+      skills: ['FIPS 140-3', 'Cryptographic boundaries', 'Approved-mode verification', 'Key-management flows'],
+    },
+    {
+      label: 'TECHNICAL DELIVERY', title: 'Help complex work move forward.',
+      description: 'Bringing the engineering, testing, documentation, and review process into alignment.',
+      skills: ['Validation coordination', 'Reviewer evidence', 'Cross-team delivery', 'Technical writing'],
+    },
+    {
+      label: 'INDEPENDENT BUILDS', title: 'Stay hands-on outside the day job.',
+      description: 'From club websites to content systems — building, shipping, and improving things I care about.',
+      skills: ['React', 'Content modeling', 'Input validation', 'Web SEO'],
+    },
+  ],
   diaryTitle: 'Away from the desk, life is still happening.',
   diaryIntro: 'Not everything I enjoy needs to become a professional accomplishment. Some things are worth doing simply because they matter.',
   diary: [
@@ -27,8 +46,17 @@ export const hybridContent = {
     { id: 'writing', eyebrow: '03 / QUIET HOURS', title: 'Thinking out loud.', body: 'Notes, security writing, and ideas I want to understand a little better.', image: '/hybrid/notebook.svg', illustration: true, size: 'regular' },
   ],
   smallNotes: ['Football and team sport', 'Volunteering and community', 'Kettlebells for functional movement', 'Protein-focused cooking and marinade experiments'],
+  kitchenTitle: 'A little experimentation, away from the keyboard.',
+  kitchenText: 'I enjoy protein-focused cooking, especially figuring out how a different marinade can change a familiar dish. No elaborate food blog here — just another way I like to experiment.',
   writingIntro: 'Some things are better understood once you try to explain them. Research and notes from topics I keep returning to.',
   contactTitle: "That's me, in a few scrolls.",
+
+nextChapter: {
+  label: "WHAT COMES NEXT",
+  title: "More depth. Broader ownership.",
+  text:
+    "I want to keep growing at the intersection of security assurance, technical analysis, and certification delivery — taking on more complex work and greater responsibility for bringing people and evidence together. Leadership, to me, starts with sound judgment and dependable follow-through.",
+},
 
   contactText:
   "I've shared a little about the work I do, the things I'm learning, and what keeps me occupied beyond a screen.",
