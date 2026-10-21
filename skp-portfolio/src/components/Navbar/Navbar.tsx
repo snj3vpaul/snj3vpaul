@@ -1,80 +1,62 @@
-// src/components/Navbar/Navbar.tsx
-import { useEffect, useState } from "react";
-import { profile, navItems } from "../../data/portfolio";
-import ThemeToggle from "../ThemeToggle";
+import { useEffect, useId, useState } from 'react';
+import { profile } from '../../data/portfolio';
+import { hybridContent } from '../../data/hybridContent';
+
+type Theme = 'light' | 'dark';
+const THEME_KEY = 'skp-theme';
+const links = [
+  { href: '#work', label: 'Work' },
+  { href: '#story', label: 'My story' },
+  { href: '#life', label: 'Off duty' },
+  { href: '#writing', label: 'Writing' },
+  { href: '#experience', label: 'Experience' },
+];
+
+function initialTheme(): Theme {
+  if (typeof window === 'undefined') return 'light';
+  try {
+    const stored = window.localStorage.getItem(THEME_KEY);
+    if (stored === 'light' || stored === 'dark') return stored;
+  } catch { /* localStorage may be restricted */ }
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const menuId = useId();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<Theme>(initialTheme);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    try { window.localStorage.setItem(THEME_KEY, theme); } catch { /* optional */ }
+  }, [theme]);
 
   useEffect(() => {
-    const ids = [...navItems.map((n) => n.href.slice(1)), "contact"];
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => !!el);
-    if (!("IntersectionObserver" in window)) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-    sections.forEach((s) => io.observe(s));
-    return () => io.disconnect();
-  }, []);
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') setMenuOpen(false); };
+    document.addEventListener('keydown', close);
+    return () => document.removeEventListener('keydown', close);
+  }, [menuOpen]);
 
   return (
-    <header className={`nav${scrolled ? " scrolled" : ""}`}>
-      <div className="wrap navbar">
-        <a className="brand" href="#home" aria-label={`Home — ${profile.name}`}>
-          <span className="mark">{profile.shortName}</span>
-          <span>
-            <b>{profile.name}</b>
-            <span className="role">{profile.tagline}</span>
-          </span>
-        </a>
-
-        <nav
-          className={`navlinks${open ? " open" : ""}`}
-          aria-label="Primary"
-          onClick={() => setOpen(false)}
-        >
-          {navItems.map((n) => (
-            <a
-              key={n.href}
-              href={n.href}
-              className={active === n.href.slice(1) ? "active" : ""}
-            >
-              {n.label}
-            </a>
-          ))}
-          <a className="cta" href="#contact">
-            Get in touch ↗
-          </a>
+    <header className="hyb-nav">
+      <div className="hyb-container hyb-nav-upper">
+        <span>{hybridContent.edition}</span><span>{hybridContent.location}</span>
+      </div>
+      <div className="hyb-container hyb-nav-main">
+        <a className="hyb-brand" href="#home" aria-label={`${profile.name} — home`}>sanjeev<span>.</span></a>
+        <nav id={menuId} className={`hyb-nav-links${menuOpen ? ' is-open' : ''}`} aria-label="Main navigation">
+          {links.map(link => <a href={link.href} key={link.href} onClick={() => setMenuOpen(false)}>{link.label}</a>)}
+          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact ↗</a>
+          {hybridContent.resumeEnabled && <a href={profile.links.cv} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>Résumé ↗</a>}
         </nav>
-
-        <ThemeToggle />
-        <button
-          className={`menu-btn${open ? " open" : ""}`}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <div className="hyb-nav-actions">
+          <button className="hyb-theme" type="button" onClick={() => setTheme(value => value === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}>
+            <span aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
+          </button>
+          <button className="hyb-menu" type="button" aria-controls={menuId} aria-expanded={menuOpen} aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? 'Close' : 'Menu'} <span aria-hidden="true">{menuOpen ? '×' : '+'}</span></button>
+        </div>
       </div>
     </header>
   );

@@ -49,7 +49,7 @@ function Badges({ c }: { c: CaseStudy }) {
         {c.badges.map((b) => (
           <span className="chip" key={b}>{b}</span>
         ))}
-        {c.status && <span className="chip ok">● {c.status.label}</span>}
+        {c.status && <span className={`chip status-chip status-${c.status.kind}`}>● {c.status.label}</span>}
       </div>
       <span className="chip">{c.tag}</span>
     </div>

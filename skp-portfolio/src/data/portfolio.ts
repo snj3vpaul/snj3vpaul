@@ -85,7 +85,7 @@ export const caseStudies: CaseStudy[] = [
       { k: "Level", v: "Software Level 1" },
       { k: "Approach", v: "Mantis Tracking, Multi-team Coordination, FIPS 140-3 IG Review" },
       { k: "Scoping", v: "Crypto-boundary driven" },
-      { k: "Status", v: "Validated" },
+      { k: "Status", v: "Fortinet's first validated module" },
     ],
     links: [
       {
@@ -111,7 +111,7 @@ export const caseStudies: CaseStudy[] = [
     { value: "Validated", label: "CMVP Status" },
     { value: "#5493", label: "Certificate" },
     { value: "Level 1", label: "Security Level" },
-    { value: "Aug 2026", label: "Initial Validation" },
+    { value: "Aug 2026", label: "VPN Validation" },
   ],
   links: [
     {
