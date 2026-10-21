@@ -33,6 +33,31 @@ export type CaseStudy = {
 };
 
 export const caseStudies: CaseStudy[] = [
+  {
+    id: "My First Autonomous Project Certification- Forticlient-7-0-2",
+    flagship: true,
+    badges: ["Cryptographic Validation", "FIPS 140-3"],
+    tag: "FIPS 140-3 · FortiClient 7.0.2 workstream",
+    title: "FortiClient 7.0.2 — My First Independent Certification Workstream",
+    role: "Project Manager & Technical Writer",
+    summary:
+      "Worked on module scoping for FortiClient 7.0.2, including the VPN cryptographic boundary, key-management flows, approved-mode checks, and reproducible evidence for certification review.",
+    contribution: "Investigated technical behavior, helped document findings, and coordinated evidence through the review workflow.",
+    // Snapshot replaces vague metric tiles for the flagship — cleaner, factual rail.
+    snapshot: [
+      { k: "Standard", v: "FIPS 140-3" },
+      { k: "Level", v: "Software Level 1" },
+      { k: "Approach", v: "Mantis Tracking, Multi-team Coordination, FIPS 140-3 IG Review" },
+      { k: "Scoping", v: "Crypto-boundary driven" },
+      { k: "Scope", v: "Certification workstream; distinct from the publicly listed module certificate" },
+    ],
+    links: [
+      {
+        label: "NIST CMVP reference",
+        url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program",
+      },
+    ],
+  },
   
 {
   id: "forticlient-crypto-module-v1",
@@ -42,30 +67,16 @@ export const caseStudies: CaseStudy[] = [
     label: "Validated",
   },
   tag: "FIPS 140-3 · Software Level 1 · CMVP #5493",
-  title:
-    "FortiClient Crypto Module v1.0 — FIPS 140-3 Validation",
-  role: "Security Assurance & Validation Coordination",
+  title: "FortiClient Crypto Module v1.0 — FIPS 140-3 Validation",
+  role: "Security assurance & validation coordination",
   summary:
-    "Supported module scoping, VPN integration analysis, key-management flow mapping, approved-mode verification, and reviewer-facing evidence. FortiClient Crypto Module v1.0 received FIPS 140-3 Level 1 validation on August 17, 2026, under NIST CMVP Certificate #5493.",
-  contribution:
-    "Helped translate module behavior into reviewable evidence and keep scoping, documentation, and validation discussions aligned.",
+    "Supported the FIPS 140-3 validation of FortiClient Crypto Module v1.0 through cryptographic module scoping, VPN integration analysis, cryptographic boundary definition, key-management flow mapping, approved-mode verification, and validator-facing evidence. The module achieved FIPS 140-3 Security Level 1 validation under NIST CMVP Certificate #5493 on August 17, 2026.",
+  contribution: "Worked on scoping, technical analysis, and preparation of reviewer-facing evidence within the larger certification effort.",
   metrics: [
-    {
-      value: "Validated",
-      label: "CMVP status",
-    },
-    {
-      value: "#5493",
-      label: "Certificate",
-    },
-    {
-      value: "Level 1",
-      label: "Overall security level",
-    },
-    {
-      value: "Aug 2026",
-      label: "Initial validation",
-    },
+    { value: "Validated", label: "CMVP Status" },
+    { value: "#5493", label: "Certificate" },
+    { value: "Level 1", label: "Security Level" },
+    { value: "Aug 2026", label: "Initial validation" },
   ],
   links: [
     {
@@ -74,38 +85,6 @@ export const caseStudies: CaseStudy[] = [
     },
   ],
 },
-{
-  id: "forticlient-7-0-2",
-  badges: ["Cryptographic Validation", "FIPS 140-3"],
-  tag: "FortiClient 7.0.2 · Certification workstream",
-  title: "FortiClient 7.0.2 — Scope & Validation Evidence",
-  role: "Project Management & Technical Documentation",
-  summary:
-    "Worked on cryptographic-module validation activities for FortiClient 7.0.2, including VPN cryptographic-boundary scoping, key-management flow mapping, approved-mode behavior checks, and reproducible evidence for review.",
-  contribution:
-    "Connected technical investigation with documentation, issue tracking, and coordination across the certification process.",
-  snapshot: [
-    {
-      k: "Standard",
-      v: "FIPS 140-3",
-    },
-    {
-      k: "Focus",
-      v: "VPN cryptographic boundary",
-    },
-    {
-      k: "Evidence",
-      v: "Approved-mode checks and review materials",
-    },
-  ],
-  links: [
-    {
-      label: "About the NIST CMVP program",
-      url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program",
-    },
-  ],
-},
-
 {
   id: "fortiproxy-firmware-l1",
   badges: ["Cryptographic Validation", "FIPS 140-3"],
@@ -151,12 +130,11 @@ export const caseStudies: CaseStudy[] = [
     title: "Canterbury Cricket Club — Secure Website Delivery",
     role: "Project Lead & Developer",
     summary:
-      "Led end-to-end design, development, and deployment of a production website for Canterbury Cricket Club. Built a React-based system with structured content modeling, secure input validation, SEO optimization, automation workflows, and hardened form handling to mitigate malformed input and injection risks.",
-    metrics: [
-      { value: "Live", label: "Production system" },
-      { value: "Secure", label: "Validated input handling" },
-      { value: "Automated", label: "Content workflows" },
-      { value: "Scalable", label: "Component architecture" },
+      "Designed, built, and deployed the Canterbury Cricket Club website. The project includes structured React components, content updates, form input handling, and search discoverability work.",
+    contribution: "Independent design, implementation, maintenance, and iteration for a real community project.",
+    snapshot: [
+      { k: "Stack", v: "React" },
+      { k: "Work", v: "Design, deployment and ongoing updates" },
     ],
     links: [{ label: "Live site", url: "https://canterburycricketclub.com" }],
   },
@@ -176,7 +154,7 @@ export const lifecycle: Stage[] = [
 // ── Experience ──────────────────────────────────────────────────────────────────
 export type Experience = { when: string; title: string; org: string; body: string };
 export const experience: Experience[] = [
-  { when: "2025 — Present", title: "Project Management Compliance Analyst", org: "Fortinet", body:"Moved into a project-management-focused compliance role, coordinating engineering, QA, documentation, and validation stakeholders. Work spans FIPS 140-3 and Common Criteria processes, review follow-up, technical evidence, and certification deliverables." },
+  { when: "2025 — Present", title: "Project Management Compliance Analyst", org: "Fortinet", body: "Promoted into a project-management role supporting cryptographic validation and security-compliance programs. Coordinate engineering, QA, and validation stakeholders across documentation-heavy regulated workflows, evidence production, review management, and audit-ready delivery in FIPS 140-3 and Common Criteria environments." },
   { when: "2023 — 2025", title: "Junior Project Management Compliance Analyst", org: "Fortinet", body: "Supported cryptographic-module validation by coordinating testing activities, reviewer-facing documentation, approved-mode verification, and technical evidence collection for regulated security programs." },
   { when: "2022 — 2023", title: "Junior Compliance Analyst", org: "Fortinet", body: "Worked within security-compliance and validation workflows supporting FIPS / Common Criteria processes, technical documentation, evidence preparation, and cross-functional coordination across engineering and QA." },
   { when: "2024 — Present", title: "Digital Media Manager", org: "Canterbury Cricket Club", body: "Led digital growth, website delivery, and engagement strategy — scaling interactions beyond 125K+ while building and maintaining the club’s production website and media pipeline." },

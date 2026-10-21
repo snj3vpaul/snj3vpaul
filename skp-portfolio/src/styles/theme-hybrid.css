@@ -107,8 +107,34 @@ body { margin: 0; background: var(--bg); color: var(--text); }
 .hyb-disclosure { margin-top: auto; border-top: 1px solid var(--line); min-width: 0; }
 .hyb-disclosure summary { padding: 18px 0 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--text); list-style: none; cursor: pointer; font-weight: 650; font-size: 13px; }
 .hyb-disclosure summary::-webkit-details-marker { display: none; }
-.hyb-disclosure summary span { color: var(--accent); font: 24px var(--hyb-serif); }
-.hyb-disclosure[open] summary span { transform: rotate(45deg); }
+
+/* Keep disclosure text horizontal */
+.hyb-disclosure summary > span:first-child {
+  color: var(--text);
+  font: inherit;
+  transform: none;
+}
+
+/* Style only the expand/collapse icon */
+.hyb-disclosure summary > .hyb-detail-indicator {
+  display: inline-block;
+  color: var(--accent);
+  font: 24px/1 var(--hyb-serif);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate only the + icon when expanded */
+.hyb-disclosure[open] summary > .hyb-detail-indicator {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hyb-disclosure summary > .hyb-detail-indicator {
+    transition: none;
+  }
+}
+
 .hyb-disclosure-body { border-top: 1px dashed var(--line); margin-top: 15px; padding-top: 17px; }
 .hyb .hyb-disclosure-body p { color: var(--dim); font-size: 14px; line-height: 1.8; margin-bottom: 20px; }
 .hyb-facts { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px 20px; margin: 0; }
@@ -478,4 +504,174 @@ body { margin: 0; background: var(--bg); color: var(--text); }
 }
 @media (prefers-reduced-motion: reduce) {
   .hyb .hyb-filter { transition: none; }
+}
+
+
+/* =========================================
+   CAREER PROGRESSION & PROJECT EVIDENCE
+   ========================================= */
+
+/* Individual project contributions */
+
+.hyb-contribution {
+  border-left: 2px solid var(--accent);
+  padding: 2px 0 2px 17px;
+  margin: 20px 0 24px;
+}
+
+.hyb-contribution strong {
+  display: block;
+  color: var(--text);
+  font: 650 11px/1.5 var(--hyb-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.hyb .hyb-contribution p {
+  margin: 0;
+}
+
+/* Forward-looking career narrative */
+
+.hyb-next-chapter {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.3fr) 1fr;
+  gap: 32px;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 30px;
+  margin-top: 45px;
+}
+
+.hyb-next-chapter h3 {
+  font: 400 clamp(26px, 3vw, 38px)/1.25 var(--hyb-serif);
+  letter-spacing: -0.035em;
+  margin: 0 0 12px;
+}
+
+.hyb .hyb-next-chapter p {
+  max-width: 74ch;
+  line-height: 1.8;
+  color: var(--dim);
+  margin: 0;
+}
+
+/* Responsive */
+
+@media (max-width: 660px) {
+  .hyb-next-chapter {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+
+/* =========================================
+   HERO PORTRAIT & PERSONAL NOTE FIX
+   ========================================= */
+
+/* Keep portrait and note in normal document flow */
+.hyb .hyb-hero-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+}
+
+/* Portrait frame — no overlapping or rotation */
+.hyb .hyb-portrait-frame {
+  position: relative;
+  inset: auto;
+
+  width: min(100%, 430px);
+  height: 430px;
+  flex-shrink: 0;
+
+  padding: 10px 10px 30px;
+  background: #c9cab5;
+  border: 0;
+
+  transform: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.10);
+}
+
+.hyb .hyb-portrait-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+/* Personal note sits BELOW the portrait */
+.hyb .hyb-portrait-caption {
+  position: static;
+  inset: auto;
+  transform: none;
+
+  width: min(100%, 430px);
+  max-width: none;
+  flex-shrink: 0;
+  align-self: flex-end;
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Editorial label */
+.hyb .hyb-portrait-caption > span {
+  display: block;
+  color: var(--accent);
+
+  font: 600 11px/1.5 var(--hyb-mono);
+  letter-spacing: 0.08em;
+}
+
+/* Personal description */
+.hyb .hyb-portrait-caption p {
+  margin: 12px 0;
+  color: var(--dim);
+
+  font: 400 17px/1.55 var(--hyb-serif);
+}
+
+/* Cricket link */
+.hyb .hyb-portrait-caption a {
+  display: inline-block;
+  color: var(--text);
+  font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 4px;
+}
+
+/* Responsive layout */
+@media (max-width: 880px) {
+  .hyb .hyb-hero-art {
+    align-items: center;
+  }
+
+  .hyb .hyb-portrait-caption {
+    align-self: center;
+  }
+}
+
+@media (max-width: 660px) {
+  .hyb .hyb-portrait-frame {
+    width: 100%;
+    height: min(96vw, 390px);
+  }
+
+  .hyb .hyb-portrait-caption {
+    width: 100%;
+  }
 }

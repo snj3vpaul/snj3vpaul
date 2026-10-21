@@ -6,11 +6,10 @@ type Theme = 'light' | 'dark';
 const THEME_KEY = 'skp-theme';
 const links = [
   { href: '#work', label: 'Work' },
-  { href: '#story', label: 'My story' },
-  { href: '#practice', label: 'Toolbox' },
-  { href: '#life', label: 'Off duty' },
-  { href: '#writing', label: 'Writing' },
   { href: '#experience', label: 'Experience' },
+  { href: '#story', label: 'My story' },
+  { href: '#life', label: 'Life outside work' },
+  { href: '#writing', label: 'Writing' },
 ];
 
 function initialTheme(): Theme {

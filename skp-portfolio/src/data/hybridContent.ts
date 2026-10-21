@@ -7,16 +7,9 @@ export const hybridContent = {
   edition: 'NOTES ON WORK & LIFE  /  VOL. 01',
   location: 'Ottawa, Canada',
   greeting: 'Hello, I’m',
-  
-strapline:
-  'Security assurance · FIPS 140-3 · Technical delivery',
-
-intro:
-  'I connect security requirements with real-world delivery — from FIPS 140-3 analysis and validation evidence to the people and processes that move certification work forward.',
-
-introAside:
-  'Rooted in technical analysis, growing through cross-team delivery. Quiet by nature, curious well beyond work.',
-
+  strapline: 'Ottawa / Security assurance / FIPS 140-3',
+  intro: 'I work on security certification: understanding requirements, asking difficult questions, and helping engineers turn their work into evidence a reviewer can actually examine.',
+  introAside: 'My path here wasn’t direct. Neither is everything else I enjoy: cricket, writing, travel, and learning to build things for myself.',
   heroNote: 'An open notebook',
   heroNoteText: 'Good work takes patience. A good life leaves room for the unexpected.',
   journeyTitle: 'Not quite the path I imagined. Still glad I took it.',
@@ -25,73 +18,37 @@ introAside:
     'I came to Canada hoping to find my way into defensive security. Then a call from Fortinet brought me into certification and cryptographic validation. That opportunity changed the direction of my professional life.',
     'I tend to keep a low profile, but I have strong opinions and a lot of curiosity. Writing helps me make sense of both. The rest of life — sport, community, movement, cooking, travel — keeps the picture bigger than work.',
   ],
-  
-workIntro:
-  'Selected certification work and independent projects — what the work involved, where I contributed, and what can be verified publicly.',
-
-  
-practiceTitle: 'Where analysis meets execution.',
-
-practiceIntro:
-  'My foundation is security assurance. The next step is deeper technical judgment and wider responsibility for delivery — not a title for its own sake.',
-
-practice: [
-  {
-    label: 'TECHNICAL ANALYSIS',
-    title: 'Understand the security question.',
-    description:
-      'Translate validation requirements into focused reviews, practical checks, and evidence that can be examined.',
-    skills: [
-      'FIPS 140-3',
-      'Cryptographic boundary scoping',
-      'Approved-mode behavior',
-      'Technical evidence',
-    ],
-  },
-  {
-    label: 'CERTIFICATION DELIVERY',
-    title: 'Keep the right people aligned.',
-    description:
-      'Support the work between engineering, QA, documentation, and external reviewers across certification cycles.',
-    skills: [
-      'Cross-team coordination',
-      'Review findings',
-      'Documentation',
-      'Common Criteria workflows',
-    ],
-  },
-  {
-    label: 'INDEPENDENT INITIATIVE',
-    title: 'Build things beyond my day job.',
-    description:
-      'Take an idea through implementation and iteration, and learn from the details that only become visible when something ships.',
-    skills: [
-      'React',
-      'Structured content',
-      'Input handling',
-      'Web delivery',
-    ],
-  },
-],
-
-nextChapter: {
-  label: 'WHAT COMES NEXT',
-  title: 'More depth. Broader ownership.',
-  text:
-    'I want to keep growing at the intersection of security assurance, technical analysis, and certification delivery — taking on more complex work and greater responsibility for bringing people and evidence together. Leadership, to me, starts with sound judgment and dependable follow-through.',
-},
-
+  workIntro: 'Certification projects at work, a cricket club website built outside it. Different problems, both worth the attention.',
+  practiceTitle: 'How I approach the work.',
+  practiceIntro: 'Not a list of tools I claim to know. These are the areas where I spend my time and attention.',
+  practice: [
+    {
+      label: 'SECURITY ASSURANCE', title: 'Make the requirements testable.',
+      description: 'The analytical work behind cryptographic validation, module scoping, and reproducible evidence.',
+      skills: ['FIPS 140-3', 'Cryptographic boundaries', 'Approved-mode verification', 'Key-management flows'],
+    },
+    {
+      label: 'TECHNICAL DELIVERY', title: 'Help complex work move forward.',
+      description: 'Bringing the engineering, testing, documentation, and review process into alignment.',
+      skills: ['Validation coordination', 'Reviewer evidence', 'Cross-team delivery', 'Technical writing'],
+    },
+    {
+      label: 'INDEPENDENT BUILDS', title: 'Stay hands-on outside the day job.',
+      description: 'From club websites to content systems — building, shipping, and improving things I care about.',
+      skills: ['React', 'Content modeling', 'Input validation', 'Web SEO'],
+    },
+  ],
   diaryTitle: 'Away from the desk, life is still happening.',
-  diaryIntro: 'Not everything I enjoy needs to become a professional accomplishment. Some things are worth doing simply because they matter.',
+  diaryIntro: 'This part isn’t about certifications or achievements. It’s about what I make time for.',
   diary: [
-    { id: 'cricket', eyebrow: '01 / THE FIELD', title: 'Cricket, always.', body: 'Time on the ground with Canterbury Cricket Club, and the stories that stay long after a match.', image: '/hybrid/ground.svg', illustration: true, size: 'large', href: 'https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS' },
-    { id: 'travel', eyebrow: '02 / ELSEWHERE', title: 'A different view.', body: 'Travel, new places, and noticing the things that make each place its own.', image: '/hybrid/travel-window.svg', illustration: true, size: 'regular' },
-    { id: 'writing', eyebrow: '03 / QUIET HOURS', title: 'Thinking out loud.', body: 'Notes, security writing, and ideas I want to understand a little better.', image: '/hybrid/notebook.svg', illustration: true, size: 'regular' },
+    { id: 'cricket', eyebrow: '01 / THE FIELD', title: 'Cricket, always.', body: 'Time on the ground with Canterbury Cricket Club, and the stories that stay long after a match.', image: '', illustration: true, size: 'large', href: 'https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS' },
+    { id: 'travel', eyebrow: '02 / ELSEWHERE', title: 'A different view.', body: 'Travel, new places, and noticing the things that make each place its own.', image: '', illustration: true, size: 'regular' },
+    { id: 'writing', eyebrow: '03 / QUIET HOURS', title: 'Thinking out loud.', body: 'Notes, security writing, and ideas I want to understand a little better.', image: '', illustration: true, size: 'regular' },
   ],
   smallNotes: ['Football and team sport', 'Volunteering and community', 'Kettlebells for functional movement', 'Protein-focused cooking and marinade experiments'],
   kitchenTitle: 'A little experimentation, away from the keyboard.',
   kitchenText: 'I enjoy protein-focused cooking, especially figuring out how a different marinade can change a familiar dish. No elaborate food blog here — just another way I like to experiment.',
-  writingIntro: 'Some things are better understood once you try to explain them. Research and notes from topics I keep returning to.',
+  writingIntro: 'I write when a question keeps returning. Sometimes that becomes research; sometimes, just a useful explanation.',
   contactTitle: "That's me, in a few scrolls.",
 
   contactText:
