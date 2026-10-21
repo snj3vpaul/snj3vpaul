@@ -60,7 +60,7 @@ export const caseStudies: CaseStudy[] = [
     status: { kind: "validated", label: "Validated" },
     tag: "FIPS 140-3 · Software Level 1",
     title: "FortiClient 7.0.2 — FIPS 140-3 Validation",
-    role: "Validator & technical coordinator",
+    role: "Project Manager & Technical Writer",
     summary:
       "Completed FIPS 140-3 validation for FortiClient 7.0.2 by correctly scoping the cryptographic module to the VPN’s cryptographic boundary rather than the full application. Mapped key-management flows, verified approved-mode behavior on the wire instead of relying on documentation, and produced reproducible, validator-facing evidence supporting successful assessment closure.",
     // Snapshot replaces vague metric tiles for the flagship — cleaner, factual rail.
@@ -84,7 +84,7 @@ export const caseStudies: CaseStudy[] = [
     status: { kind: "in-progress", label: "In Review" },
     tag: "FIPS 140-3 · Crypto Module",
     title: "FortiClient Crypto Module v1.0 — FIPS 140-3 (In Review)",
-    role: "Validator & technical coordinator (autonomous execution)",
+    role: "Project Manager & Technical Writer",
     summary:
       "Driving FIPS 140-3 validation for a standalone cryptographic module with autonomous ownership of module scoping, VPN integration analysis, and cryptographic boundary definition. Aligning VPN architecture with standalone crypto-module requirements, mapping key-management flows, verifying approved-mode behavior on the wire, and producing validator-ready evidence under active review cycles.",
     metrics: [
@@ -108,7 +108,7 @@ export const caseStudies: CaseStudy[] = [
     status: { kind: "shipped", label: "Shipped" },
     tag: "Production web application",
     title: "Canterbury Cricket Club — Secure Website Delivery",
-    role: "Builder, maintainer & project lead",
+    role: "Project Lead & Developer",
     summary:
       "Led end-to-end design, development, and deployment of a production website for Canterbury Cricket Club. Built a React-based system with structured content modeling, secure input validation, SEO optimization, automation workflows, and hardened form handling to mitigate malformed input and injection risks.",
     metrics: [
