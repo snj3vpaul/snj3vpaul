@@ -28,7 +28,17 @@ export const hybridContent = {
   ],
   smallNotes: ['Football and team sport', 'Volunteering and community', 'Kettlebells for functional movement', 'Protein-focused cooking and marinade experiments'],
   writingIntro: 'Some things are better understood once you try to explain them. Research and notes from topics I keep returning to.',
-  contactTitle: 'A good conversation can start anywhere.',
-  contactText: 'Security validation, a project idea, cricket, or simply a thoughtful exchange — feel free to reach out.',
+  
+contactTitle: "That's me, in a few scrolls.",
+
+contactText:
+  "I've shared a little about the work I do, the things I'm learning, and what keeps me occupied beyond a screen.",
+
+contactInvitation:
+  "If something caught your attention — whether it's security, a project you're building, or cricket — I'd be glad to hear your perspective.",
+
+contactSignoff:
+  "I don't always have the answers. I usually have questions.",
+
   resumeEnabled: true,
 } as const;

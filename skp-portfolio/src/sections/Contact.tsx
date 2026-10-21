@@ -12,7 +12,11 @@ const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
 
 type Errors = { name?: boolean; email?: boolean; message?: boolean };
 
-export default function Contact() {
+export default function Contact({
+  id = "contact",
+}: {
+  id?: string;
+} = {}) {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<{ msg: string; ok: boolean }>({ msg: "", ok: true });
   const [sending, setSending] = useState(false);
@@ -66,7 +70,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact">
+    <section id={id}>
       <div className="wrap">
         <div className="reveal">
           <div className="eyebrow">

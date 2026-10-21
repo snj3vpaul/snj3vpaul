@@ -231,3 +231,210 @@ body { margin: 0; background: var(--bg); color: var(--text); }
   .hyb-project,.hyb-diary-image img,.hyb-writing-card { transition: none !important; transform: none !important; }
   .reveal,.stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+
+/* =========================================
+   THE CLOSING NOTE
+   Editorial contact section
+   ========================================= */
+
+.hyb #contact.hyb-closing-note {
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  padding: clamp(80px, 10vw, 140px) 0 65px;
+}
+
+/* Small editorial header */
+
+.hyb-note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.hyb-note-author {
+  font: 500 10px/1.5 var(--hyb-mono);
+  letter-spacing: 0.08em;
+  color: var(--faint);
+}
+
+/* Main written note */
+
+.hyb-note-content {
+  max-width: 830px;
+  padding: clamp(40px, 6vw, 80px) 0;
+}
+
+.hyb .hyb-note-content h2 {
+  font-family: var(--hyb-serif);
+  font-weight: 400;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+  color: var(--text);
+  margin: 0 0 36px;
+}
+
+.hyb .hyb-note-content > p {
+  max-width: 640px;
+  color: var(--dim);
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.9;
+  margin: 0 0 23px;
+}
+
+.hyb .hyb-note-content .hyb-note-thought {
+  font-family: var(--hyb-serif);
+  font-style: italic;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.5;
+  color: var(--accent);
+  margin-top: 40px;
+  margin-bottom: 0;
+}
+
+/* Email + professional links */
+
+.hyb-note-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 25px 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line);
+}
+
+.hyb .hyb-note-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 5px;
+}
+
+.hyb-note-email span {
+  color: var(--accent);
+  transition: transform 0.2s ease;
+}
+
+.hyb-note-email:hover span {
+  transform: translate(3px, -3px);
+}
+
+.hyb-note-social {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 26px;
+}
+
+.hyb .hyb-note-social a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dim);
+  text-decoration: none;
+}
+
+.hyb .hyb-note-social a:hover {
+  color: var(--accent);
+}
+
+/* Expandable existing contact form */
+
+.hyb-note-form {
+  max-width: 100%;
+  padding-top: 28px;
+}
+
+.hyb-note-form > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  color: var(--dim);
+  font-size: 13px;
+  list-style: none;
+}
+
+.hyb-note-form > summary::-webkit-details-marker {
+  display: none;
+}
+
+.hyb-note-form > summary span {
+  color: var(--accent);
+  font-size: 20px;
+  transition: transform 0.2s;
+}
+
+.hyb-note-form[open] > summary span {
+  transform: rotate(45deg);
+}
+
+.hyb #contact-form {
+  padding: 24px 0 0;
+  border: 0;
+  background: transparent;
+}
+
+.hyb #contact-form > .wrap {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+/* Hide the original form section introduction */
+.hyb #contact-form > .wrap > .reveal:first-child {
+  display: none;
+}
+
+.hyb #contact-form .contact-grid {
+  margin-top: 16px;
+}
+
+.hyb #contact-form input,
+.hyb #contact-form textarea {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+/* Mobile */
+
+@media (max-width: 660px) {
+  .hyb-note-header {
+    align-items: flex-start;
+  }
+
+  .hyb-note-author {
+    font-size: 9px;
+  }
+
+  .hyb .hyb-note-content h2 {
+    font-size: clamp(40px, 10vw, 58px);
+  }
+
+  .hyb-note-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hyb-note-social {
+    gap: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hyb-note-email span,
+  .hyb-note-form > summary span {
+    transition: none;
+  }
+}

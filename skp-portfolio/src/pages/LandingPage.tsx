@@ -3,8 +3,7 @@ import { useReveal } from '../hooks/useReveal';
 import { caseStudies, certifications, education, experience, profile, publications } from '../data/portfolio';
 import type { CaseStudy } from '../data/portfolio';
 import { hybridContent } from '../data/hybridContent';
-import Contact from '../sections/Contact';
-
+import ClosingNote from "../sections/ClosingNote";
 const isExternal = (value: string) => /^https?:\/\//i.test(value);
 
 function SectionHeading({ index, label, title, text, headingId }: { index: string; label: string; title: string; text?: string; headingId: string }) {
@@ -147,8 +146,31 @@ function Credentials() {
 
 export default function LandingPage() {
   useReveal();
-  return <div className="hyb">
-    <main><Hero/><SelectedWork/><MyStory/><Experience/><Diary/><Writing/><Credentials/><div className="hyb-contact-intro"><div className="hyb-container"><span className="hyb-kicker">07 / LET'S CONNECT</span><h2>{hybridContent.contactTitle}</h2><p>{hybridContent.contactText}</p></div></div><Contact/></main>
-    <footer className="hyb-footer"><div className="hyb-container"><span>© {new Date().getFullYear()} {profile.name}</span><span>Work, life, and everything in between.</span><a href="#home">Back to top ↑</a></div></footer>
-  </div>;
+
+  return (
+    <div className="hyb">
+      <main>
+        <Hero />
+        <SelectedWork />
+        <MyStory />
+        <Experience />
+        <Diary />
+        <Writing />
+        <Credentials />
+        <ClosingNote />
+      </main>
+
+      <footer className="hyb-footer">
+        <div className="hyb-container">
+          <span>
+            © {new Date().getFullYear()} {profile.name}
+          </span>
+          <span>
+            Work, life, and everything in between.
+          </span>
+          <a href="#home">Back to top ↑</a>
+        </div>
+      </footer>
+    </div>
+  );
 }
