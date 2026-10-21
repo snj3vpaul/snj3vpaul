@@ -19,7 +19,7 @@ function HeroImage() {
     <figure className="hyb-hero-art">
       <div className="hyb-portrait-frame">
         {!imageFailed ? (
-          <img src="/portrait.webp" alt="Sanjeev, photographed in Ottawa" onError={() => setImageFailed(true)} fetchPriority="high" />
+          <img src="/Sanjeev Paul Monogram Logo.png" alt="Sanjeev, photographed in Ottawa" onError={() => setImageFailed(true)} fetchPriority="high" />
         ) : (
           <div className="hyb-photo-empty">Portrait unavailable</div>
         )}
