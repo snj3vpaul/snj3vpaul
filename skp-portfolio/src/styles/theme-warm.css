@@ -100,13 +100,73 @@
   .reveal,.stagger>*{transform:none;transition:none}
 }
 
-/* ── metric tiles: keep word-values inside the card ──────────────────────────
-   `1fr` tracks won't shrink below their content (minmax(auto,1fr)), so long
-   words overflowed the card. minmax(0,1fr) + min-width:0 lets them shrink, and
-   the value type is sized for words rather than short numbers. */
-.metrics{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.metric{min-width:0}
-.metric .v{font-size:clamp(16px,1.8vw,21px);line-height:1.15;overflow-wrap:break-word;hyphens:auto}
-.metric .k{overflow-wrap:break-word}
-.featured-rail .metric .v{font-size:19px}
-@media(max-width:680px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* =========================================
+   CASE STUDY METRICS — RESPONSIVE FIX
+   ========================================= */
+
+/* Two columns instead of four */
+.case .metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 24px;
+  margin-top: 24px;
+  padding-top: 24px;
+}
+
+.case .metric {
+  min-width: 0;
+}
+
+/* Keep metric values on a single line */
+.case .metric .v {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+/* Let descriptions wrap ONLY at spaces */
+.case .metric .k {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: var(--faint);
+  text-transform: uppercase;
+  margin-top: 8px;
+
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+/* Remove special metric value styling */
+.case .metric .v.ph2 {
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-style: normal;
+  color: var(--text);
+}
+
+/* Featured case-study sidebar */
+.featured-rail .metrics {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.featured-rail .metric .v {
+  font-size: 19px;
+}
+
+/* Very narrow mobile screens */
+@media (max-width: 380px) {
+  .case .metrics {
+    grid-template-columns: 1fr;
+  }
+}

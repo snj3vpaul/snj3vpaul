@@ -9,12 +9,12 @@ export type Status = "validated" | "in-progress" | "shipped";
 export const profile = {
   name: "Sanjeev Kumar Paul",
   shortName: "SKP",
-  tagline: "Cryptographic Validation · Compliance",
-  location: "Ottawa, Canada · UTC−5",
+  tagline: "Cybersecurity · FIPS 140-3 · Security assurance",
+  location: "Ottawa, Canada",
   email: "sanjeevkumarpaul25@gmail.com",
-  availability: "Open to: Technical Project Management · Security Certification programs",
+  availability: "Security assurance · Technical analysis · Project management",
   // Drives the moving trust strip below the hero.
-  standards: ["FIPS 140-3", "CMVP", "NDcPP", "EUCC", "Common Criteria", "IPv6 / USGv6"],
+  standards: ["FIPS 140-3", "NDcPP", "EUCC", "Common Criteria", "IPv6 / USGv6"],
   links: {
     linkedin: "https://www.linkedin.com/in/sanjeev-kumar-paul/",
     github: "https://github.com/snj3vpaul/",
@@ -26,12 +26,28 @@ export const profile = {
 export const trustLabel = "Operating standards & frameworks";
 
 export const hero = {
-  titleLead: "Turning complex security standards into ",
-  titleEm: "validated",
-  titleTail: " products.",
-  sub:
-    "Cybersecurity professional focused on cryptographic validation, compliance execution, and audit-ready technical delivery — bridging engineering, testing, and regulatory requirements across FIPS and Common Criteria environments.",
+  titleLead: "Hello, I'm Sanjeev. I make complex security work ",
+  titleEm: "clearer",
+  titleTail: ".",
+  sub: "I work at the intersection of cryptographic validation, security assurance, and technical coordination — connecting engineering decisions to the evidence needed to stand behind them.",
 };
+
+export const personalStory = {
+  paragraphs: [
+    "I grew up in a tier-three city, in an education system that felt worlds apart from the one I would later navigate in Canada. The path here was neither obvious nor neatly planned.",
+    "I came to Canada with ambitions of working in defensive security. Then Fortinet called. Certification and cryptographic validation weren't quite the path I'd pictured, but becoming part of that world changed the direction of my life.",
+    "That experience has made me appreciate the distance between knowing a standard and making it real — the questions, people, technical decisions, and careful work that live in between.",
+    "I'm generally low-profile, but I have plenty of thoughts. Writing gives me a way to explore them, and projects outside work give me room to try new ideas without having to turn everything into a career milestone.",
+  ],
+  signoff: "Still learning. Still building. Still figuring out the next chapter.",
+};
+
+export const principles = [
+  { title: "Start with the right question", body: "Before jumping to a solution, I want to understand the actual problem and the assumptions behind it." },
+  { title: "Make evidence do the talking", body: "In security validation, a convincing claim is one you can trace, test, and explain." },
+  { title: "Work across boundaries", body: "Technical work becomes more effective when engineers, reviewers, and project stakeholders understand one another." },
+  { title: "Keep room for curiosity", body: "Side projects, sport, and writing remind me that learning doesn't have to stay inside a job description." },
+];
 
 // ── Case studies (proof of work) ───────────────────────────────────────────────
 export type Metric = { value: string; label: string };
@@ -54,12 +70,12 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    id: "forticlient-7-0-2",
+    id: "My First Autonomous Project Certification- Forticlient-7-0-2",
     flagship: true,
     badges: ["Cryptographic Validation", "FIPS 140-3"],
     status: { kind: "validated", label: "Validated" },
     tag: "FIPS 140-3 · Software Level 1",
-    title: "FortiClient 7.0.2 — FIPS 140-3 Validation",
+    title: "My First Autonomous Project Certification— FortiClient 7.0.2 — FIPS 140-3 Validation",
     role: "Project Manager & Technical Writer",
     summary:
       "Completed FIPS 140-3 validation for FortiClient 7.0.2 by correctly scoping the cryptographic module to the VPN’s cryptographic boundary rather than the full application. Mapped key-management flows, verified approved-mode behavior on the wire instead of relying on documentation, and produced reproducible, validator-facing evidence supporting successful assessment closure.",
@@ -67,7 +83,7 @@ export const caseStudies: CaseStudy[] = [
     snapshot: [
       { k: "Standard", v: "FIPS 140-3" },
       { k: "Level", v: "Software Level 1" },
-      { k: "Approach", v: "On-wire verification" },
+      { k: "Approach", v: "Mantis Tracking, Multi-team Coordination, FIPS 140-3 IG Review" },
       { k: "Scoping", v: "Crypto-boundary driven" },
       { k: "Status", v: "Validated" },
     ],
@@ -78,28 +94,69 @@ export const caseStudies: CaseStudy[] = [
       },
     ],
   },
-  {
-    id: "forticlient-crypto-module-v1",
-    badges: ["Cryptographic Validation", "FIPS 140-3"],
-    status: { kind: "in-progress", label: "In Review" },
-    tag: "FIPS 140-3 · Crypto Module",
-    title: "FortiClient Crypto Module v1.0 — FIPS 140-3 (In Review)",
-    role: "Project Manager & Technical Writer",
-    summary:
-      "Driving FIPS 140-3 validation for a standalone cryptographic module with autonomous ownership of module scoping, VPN integration analysis, and cryptographic boundary definition. Aligning VPN architecture with standalone crypto-module requirements, mapping key-management flows, verifying approved-mode behavior on the wire, and producing validator-ready evidence under active review cycles.",
-    metrics: [
-      { value: "In Review", label: "Certification stage" },
-      { value: "Autonomous", label: "Execution ownership" },
-      { value: "Cross-team", label: "Coordination scope" },
-      { value: "Iterative", label: "Validation cycles" },
-    ],
-    links: [
-      {
-        label: "NIST CMVP reference",
-        url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program",
-      },
-    ],
+  
+{
+  id: "forticlient-crypto-module-v1",
+  badges: ["Cryptographic Validation", "FIPS 140-3"],
+  status: {
+    kind: "validated",
+    label: "Validated",
   },
+  tag: "FIPS 140-3 · Software Level 1 · CMVP #5493",
+  title: "FortiClient Crypto Module v1.0 — FIPS 140-3 Validation",
+  role: "Validator & Technical Coordinator",
+  summary:
+    "Supported the FIPS 140-3 validation of FortiClient Crypto Module v1.0 through cryptographic module scoping, VPN integration analysis, cryptographic boundary definition, key-management flow mapping, approved-mode verification, and validator-facing evidence. The module achieved FIPS 140-3 Security Level 1 validation under NIST CMVP Certificate #5493 on August 17, 2026.",
+  metrics: [
+    { value: "Validated", label: "CMVP Status" },
+    { value: "#5493", label: "Certificate" },
+    { value: "Level 1", label: "Security Level" },
+    { value: "Aug 2026", label: "Initial Validation" },
+  ],
+  links: [
+    {
+      label: "NIST CMVP Certificate #5493",
+      url: "https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5493",
+    },
+  ],
+},
+{
+  id: "fortiproxy-firmware-l1",
+  badges: ["Cryptographic Validation", "FIPS 140-3"],
+  status: {
+    kind: "in-progress",
+    label: "Submitted for Review",
+  },
+  tag: "FIPS 140-3 · Firmware · Level 1 Target",
+  title: "FortiProxy Firmware — FIPS 140-3 Level 1",
+  role: "Security Certification Project",
+  summary:
+    "FortiProxy firmware cryptographic-module validation project targeting FIPS 140-3 Security Level 1. The project has been submitted for review and is awaiting completion of the validation process. Certification has not yet been granted.",
+  metrics: [
+    { value: "Submitted", label: "Current Stage" },
+    { value: "Level 1", label: "Target Security Level" },
+  ],
+  links: [],
+},
+{
+  id: "fortiproxy-vm-l1",
+  badges: ["Cryptographic Validation", "FIPS 140-3"],
+  status: {
+    kind: "in-progress",
+    label: "Submitted for Review",
+  },
+  tag: "FIPS 140-3 · Virtual Machine · Level 1 Target",
+  title: "FortiProxy-VM — FIPS 140-3 Level 1",
+  role: "Security Certification Project",
+  summary:
+    "FortiProxy-VM cryptographic-module validation project targeting FIPS 140-3 Security Level 1. The project has been submitted for review and is awaiting completion of the validation process. Certification has not yet been granted.",
+  metrics: [
+    { value: "Submitted", label: "Current Stage" },
+    { value: "Level 1", label: "Target Security Level" },
+  ],
+  links: [],
+},
+
   // NOTE: "SoK: Is iPhone Actually Secure?" was removed from here — it now lives
   // once, in the Publications column of the Credentials section (see below).
   {
@@ -243,9 +300,17 @@ export const beyond: BeyondItem[] = [
   },
 ];
 
+// Personal notes are not performance claims; keep this section genuinely human.
+export const otherInterests = [
+  { title: "Travel", body: "I enjoy discovering unfamiliar places and noticing how people live differently." },
+  { title: "Kettlebells & movement", body: "Functional mobility matters to me more than chasing gym numbers." },
+  { title: "Cooking experiments", body: "A simple protein-focused meal can still be an experiment in marinades and flavor." },
+];
+
 export const navItems = [
+  { href: "#story", label: "My story" },
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
-  { href: "#capabilities", label: "Capabilities" },
-  { href: "#credentials", label: "Credentials" },
+  { href: "#beyond", label: "Outside work" },
+  { href: "#writing", label: "Writing" },
 ];

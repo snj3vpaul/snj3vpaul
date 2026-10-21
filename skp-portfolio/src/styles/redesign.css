@@ -1,0 +1,62 @@
+/* Layered AFTER portfolio.css and theme-warm.css. No extra dependency. */
+:root {
+  --faint: #9c9488;
+  --editorial-highlight: #d8c7ac;
+}
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 100px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.theme-toggle { flex: none; display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; color: var(--text); background: var(--surface); border: 1px solid var(--line-strong); font: inherit; cursor: pointer; }
+.theme-toggle:hover { border-color: var(--accent); }
+.navbar { gap: 12px; }
+.hero-personal { margin-top: 16px; color: var(--dim); font-size: 0.9rem; line-height: 1.6; }
+.editorial-story { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-2); }
+.editorial-story-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(26px, 6vw, 100px); align-items: start; }
+.story-prose { max-width: 68ch; }
+.story-prose p { color: var(--dim); line-height: 1.85; margin-bottom: 1.1rem; font-size: clamp(1rem, 1.5vw, 1.13rem); }
+.story-prose .story-signoff { color: var(--accent); font-weight: 600; }
+.principles-grid, .writing-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 36px; }
+.principle-tile, .writing-card { padding: clamp(24px, 3vw, 36px); border: 1px solid var(--line-strong); border-radius: 18px; background: var(--surface); }
+.principle-index, .writing-kicker, .writing-link { font-size: 0.77rem; letter-spacing: 0.05em; color: var(--accent); }
+.principle-tile h3, .writing-card h3 { margin: 22px 0 12px; font-size: clamp(1.2rem, 2.2vw, 1.65rem); line-height: 1.25; }
+.principle-tile p, .writing-card p { color: var(--dim); line-height: 1.75; }
+.writing-card { display: flex; flex-direction: column; color: var(--text); text-decoration: none; transition: border-color 180ms ease, transform 180ms ease; }
+.writing-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.writing-card p { flex: 1; }
+.writing-link { margin-top: 24px; }
+/* Light mode: override all shared design tokens, retaining the warm identity. */
+:root[data-theme="light"] {
+  --bg: #f7f2ea;
+  --bg-2: #eee6da;
+  --surface: #fffaf3;
+  --surface-2: #f0e8dd;
+  --line: rgba(58, 43, 30, .13);
+  --line-strong: rgba(58, 43, 30, .24);
+  --text: #282018;
+  --dim: #5e5144;
+  --faint: #756655;
+  --accent: #80532c;
+  --accent-soft: rgba(128,83,44,.1);
+  --ok: #426345;
+  --ok-soft: rgba(66,99,69,.13);
+}
+:root[data-theme="light"] .bg { background-image: radial-gradient(90% 70% at 50% -5%, rgba(138,99,58,.06), transparent 65%); }
+:root[data-theme="light"] .bg::after { opacity: 0.35; }
+:root[data-theme="light"] .btn.primary { background: var(--text); color: var(--bg); }
+:root[data-theme="light"] .btn.primary:hover { background: #4b392b; }
+:root[data-theme="light"] .featured-rail { background: rgba(128,83,44,.055); }
+@media (max-width: 900px) {
+  .editorial-story-grid { grid-template-columns: 1fr; }
+  .navlinks:not(.open) { visibility: hidden; pointer-events: none; }
+  .navlinks.open { visibility: visible; pointer-events: auto; }
+}
+@media (max-width: 680px) {
+  .principles-grid, .writing-grid { grid-template-columns: 1fr; }
+  .theme-toggle { width: 36px; height: 36px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .writing-card, .case, .bcard { transition: none !important; transform: none !important; }
+  .marquee-track, .scan { animation: none !important; }
+  .reveal, .stagger > * { transition: none !important; transform: none !important; opacity: 1 !important; }
+}

@@ -15,6 +15,7 @@ export default function Hero() {
             {hero.titleTail}
           </h1>
           <p className="sub reveal">{hero.sub}</p>
+          <p className="hero-personal reveal">Away from the desk: cricket, football, community, travel, writing, and building for fun.</p>
 
           <div className="actions reveal">
             <a className="btn primary" href="#work">

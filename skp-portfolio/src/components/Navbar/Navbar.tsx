@@ -1,6 +1,7 @@
 // src/components/Navbar/Navbar.tsx
 import { useEffect, useState } from "react";
 import { profile, navItems } from "../../data/portfolio";
+import ThemeToggle from "../ThemeToggle";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -63,6 +64,7 @@ export default function Navbar() {
           </a>
         </nav>
 
+        <ThemeToggle />
         <button
           className={`menu-btn${open ? " open" : ""}`}
           aria-label="Toggle menu"

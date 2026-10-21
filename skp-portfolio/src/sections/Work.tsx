@@ -4,21 +4,24 @@ import type { CaseStudy } from "../data/portfolio";
 
 const isExternal = (url: string) => /^https?:\/\//i.test(url);
 
-function Metrics({ items }: { items: NonNullable<CaseStudy["metrics"]> }) {
+
+function Metrics({
+  items,
+}: {
+  items: NonNullable<CaseStudy["metrics"]>;
+}) {
   return (
     <div className="metrics">
-      {items.map((m) => {
-        const ph = /x/i.test(m.value);
-        return (
-          <div className="metric" key={m.label}>
-            <div className={`v${ph ? " ph2" : ""}`}>{m.value}</div>
-            <div className="k">{m.label}</div>
-          </div>
-        );
-      })}
+      {items.map((m) => (
+        <div className="metric" key={m.label}>
+          <div className="v">{m.value}</div>
+          <div className="k">{m.label}</div>
+        </div>
+      ))}
     </div>
   );
 }
+
 
 function Foot({ links }: { links: CaseStudy["links"] }) {
   return (

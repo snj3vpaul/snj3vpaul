@@ -1,6 +1,6 @@
 // src/sections/BeyondWork.tsx
 import { useState } from "react";
-import { beyond } from "../data/portfolio";
+import { beyond, otherInterests } from "../data/portfolio";
 import type { BeyondItem } from "../data/portfolio";
 
 function Media({ item }: { item: BeyondItem }) {
@@ -84,7 +84,7 @@ export default function BeyondWork() {
           <div className="eyebrow">
             <span className="num">06</span> Beyond work
           </div>
-          <h2 className="title">More than the work — the habits that shape how I deliver.</h2>
+          <h2 className="title">The things that make life interesting.</h2>
         </div>
 
         {featured && (
@@ -99,6 +99,7 @@ export default function BeyondWork() {
           </div>
         )}
 
+        <p className="lead">Sport, community, movement, good food, and the occasional detour. Not everything needs to turn into a productivity lesson.</p>
         <div className="beyond stagger">
           {rest.map((b) => (
             <div className="bcard" key={b.title}>
@@ -107,6 +108,14 @@ export default function BeyondWork() {
               <p>{b.blurb}</p>
               <Stats stats={b.stats} />
             </div>
+          ))}
+        </div>
+        <div className="principles-grid" aria-label="Other interests">
+          {otherInterests.map((item) => (
+            <article className="principle-tile" key={item.title}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
           ))}
         </div>
       </div>
