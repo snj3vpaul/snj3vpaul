@@ -1,0 +1,25 @@
+from playwright.sync_api import sync_playwright
+from pathlib import Path
+base=Path('/mnt/data/sanjeev-editorial-portfolio')
+html=(base/'index.html').read_text()
+html=html.replace('https://raw.githubusercontent.com/snj3vpaul/snj3vpaul/main/skp-portfolio/public/portrait.webp','data:image/webp;base64,broken').replace('https://raw.githubusercontent.com/snj3vpaul/snj3vpaul/main/skp-portfolio/src/assets/beyondwork/cricket/fifer.jpeg','data:image/jpeg;base64,broken')
+html=html.replace('<link rel="stylesheet" href="styles.css">', '<style>'+(base/'styles.css').read_text()+'</style>')
+html=html.replace('<script src="script.js" defer></script>', '<script>'+(base/'script.js').read_text()+'</script>')
+html=html.replace('<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">','')
+with sync_playwright() as p:
+ b=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--no-proxy-server'])
+ page=b.new_page(viewport={'width':390,'height':844})
+ errors=[]
+ page.on('pageerror', lambda error: errors.append(str(error)))
+ page.set_content(html,wait_until='domcontentloaded')
+ print('Before menu:',page.locator('.menu-toggle').get_attribute('aria-expanded'),page.locator('#mobile-nav').is_visible(),flush=True)
+ page.locator('.menu-toggle').click(timeout=5000)
+ print('After menu:',page.locator('.menu-toggle').get_attribute('aria-expanded'),page.locator('#mobile-nav').is_visible(),flush=True)
+ page.locator('#mobile-nav a[href="#work"]').click(timeout=5000)
+ print('After nav click:',page.locator('.menu-toggle').get_attribute('aria-expanded'),page.locator('#mobile-nav').is_visible(),flush=True)
+ print('Click hash:',page.evaluate('location.hash'),flush=True)
+ page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+ page.wait_for_timeout(500)
+ print('Progress:',page.evaluate("document.getElementById('progress-line').style.transform"),flush=True)
+ print('Errors:',errors,flush=True)
+ b.close()
