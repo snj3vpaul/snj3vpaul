@@ -24,12 +24,12 @@
     <div class="wrap header-inner">
       <a class="wordmark" href="#top" aria-label="Sanjeev Paul, back to top">sanjeev<span class="wordmark-dot">.</span><span class="wordmark-caption">KUMAR PAUL</span></a>
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a><a href="#practice">Practice</a><a href="#journey">Journey</a><a href="#outside">Outside work</a><a href="#writing">Writing</a>
+        <a href="#professional-work">Professional Work</a><a href="#personal-projects">Personal Projects</a><a href="#practice">Practice</a><a href="#journey">Journey</a><a href="#outside">Outside work</a><a href="#writing">Writing</a>
       </nav>
       <a class="header-hello" href="#contact">Say hello <span aria-hidden="true">↗</span></a>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
     </div>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#work">Work</a><a href="#practice">Practice</a><a href="#journey">Journey</a><a href="#outside">Outside work</a><a href="#writing">Writing</a><a href="#contact">Contact</a></nav>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#professional-work">Professional Work</a><a href="#personal-projects">Personal Projects</a><a href="#practice">Practice</a><a href="#journey">Journey</a><a href="#outside">Outside work</a><a href="#writing">Writing</a><a href="#contact">Contact</a></nav>
   </header>
 
   <main id="main">
@@ -45,7 +45,7 @@
               <p class="intro-details">That means asking difficult questions, understanding how things really work, and helping engineers turn their answers into evidence a reviewer can trust.</p>
               <p class="intro-fields">Cryptographic validation <span>·</span> FIPS 140-3 <span>·</span> Common Criteria</p></div>
           </div>
-          <div class="intro-actions"><a class="solid-link" href="#work">Explore selected work <span aria-hidden="true">↗</span></a><a class="plain-link" href="#journey">A little about me <span aria-hidden="true">↓</span></a></div>
+          <div class="intro-actions"><a class="solid-link" href="#professional-work">Explore selected work <span aria-hidden="true">↗</span></a><a class="plain-link" href="#journey">A little about me <span aria-hidden="true">↓</span></a></div>
         </div>
         <div class="intro-right">
           <figure class="cipher-figure" aria-label="A typographic illustration of a message being encoded and decoded, with a greeting that changes languages">
@@ -58,14 +58,20 @@
               </div>
               <div class="cipher-stage" aria-label="A simple text encoding illustration">
                 <div class="cipher-block">
-                  <span class="cipher-label">ENCODED / BYTES</span>
-                  <code id="cipher-code">01001000 01100101 01101100 01101100 01101111</code>
+                  <span class="cipher-label">UTF-8 / HEX BYTES</span>
+                  <code id="cipher-code">48 65 6c 6c 6f</code>
                 </div>
                 <div class="cipher-divider" aria-hidden="true">↔</div>
                 <div class="cipher-block cipher-block-plain">
                   <span class="cipher-label">DECODED / MEANING</span>
                   <strong id="cipher-plain">HELLO</strong>
                 </div>
+              </div>
+              <div class="digest-study" id="digest-study" hidden>
+                <div class="digest-heading"><span>SHA-256 (FIRST 16 BYTES) OF THE GREETING ABOVE</span>
+                  <button type="button" class="digest-compare" id="digest-compare" aria-pressed="false">Change one character ↗</button></div>
+                <code class="digest-result" id="digest-result" aria-label="SHA-256 digest truncated to the first sixteen bytes">&nbsp;</code>
+                <p class="digest-difference" id="digest-difference" hidden><span id="digest-change-description"></span><code id="digest-changed"></code></p>
               </div>
               <div class="waypoint-map" aria-hidden="true"><span>01 &nbsp; TRACE</span><span>02 &nbsp; DECODE</span><span>03 &nbsp; VERIFY</span><span>04 &nbsp; UNDERSTAND</span></div>
             </div>
@@ -86,24 +92,40 @@
       </div>
     </section>
 
-    <section class="work-section" id="work" aria-labelledby="work-title">
+    <!-- Legacy fragment preserved for previously shared #work links. -->
+    <span class="legacy-work-anchor" id="work" aria-hidden="true"></span>
+    <section class="work-section" id="professional-work" aria-labelledby="professional-work-title">
       <div class="wrap">
         <div class="heading-grid">
-          <p class="section-tag"><span class="section-number">01</span> / SELECTED WORK</p>
-          <div class="heading-main"><div class="heading-line"><h2 id="work-title">A few things<br>I've <i>worked on.</i></h2><p>Not a collection of buzzwords. A closer look at the work, the context, and where I contributed.</p></div></div>
+          <p class="section-tag"><span class="section-number">01A</span> / PROFESSIONAL WORK</p>
+          <div class="heading-main"><div class="heading-line"><h2 id="professional-work-title" tabindex="-1">Professional<br><i>Work.</i></h2><p>Not a collection of buzzwords. A closer look at the work, the context, and where I contributed.</p></div></div>
         </div>
+        <p class="section-intro">Cryptographic validation, FIPS 140-3, Common Criteria, and compliance delivery across engineering, QA, and external review.</p>
+        <p class="project-status-legend"><span class="legend-validated"></span> Publicly validated module <span class="legend-awaiting"></span> Submitted for review, not yet validated</p>
         <div class="project-list">
           <article class="project project-featured">
             <div class="project-index">01 <span class="project-index-rule"></span></div>
-            <div class="project-main"><div class="project-meta">CRYPTOGRAPHIC VALIDATION <span>·</span> FIPS 140-3</div><h3>FortiClient Crypto Module <i>v1.0</i></h3><p>Supported the validation effort through cryptographic scoping, VPN integration analysis, boundary definition, key-management flow mapping, approved-mode verification, and reviewer-facing evidence.</p><div class="project-evidence"><span><b>LEVEL 1</b> SOFTWARE MODULE</span><span><b>#5493</b> CMVP CERTIFICATE</span><span><b>17 AUG 2026</b> VALIDATION DATE</span></div><a class="record-link" href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5493" target="_blank" rel="noopener noreferrer">See the public NIST record <span aria-hidden="true">↗</span></a></div>
+            <div class="project-main"><div class="project-meta">CRYPTOGRAPHIC VALIDATION <span>·</span> FIPS 140-3</div><h3>FortiClient Crypto Module <i>v1.0</i></h3><div class="project-clarity"><p><b>What I did</b> Supported the validation effort through cryptographic scoping, VPN integration analysis, boundary definition, key-management flow mapping, approved-mode verification, and reviewer-facing evidence.</p><p><b>What was validated</b> NIST CMVP Certificate #5493 records validation of FortiClient Crypto Module v1.0 at Security Level 1, not personal certification by one contributor.</p></div><div class="project-evidence"><span><b>LEVEL 1</b> SOFTWARE MODULE</span><span><b>#5493</b> CMVP CERTIFICATE</span><span><b>17 AUG 2026</b> VALIDATION DATE</span></div><a class="record-link" href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5493" target="_blank" rel="noopener noreferrer">See the public NIST record <span aria-hidden="true">↗</span></a></div>
             <aside class="project-stamp"><div class="stamp-circle"><small>CMVP / 2026</small><strong>5493</strong><small>VALIDATED</small></div><span class="stamp-caption">PUBLIC VALIDATION RECORD</span></aside>
           </article>
-          <article class="project"><div class="project-index">02 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">FIPS 140-3 <span>·</span> EARLY RESPONSIBILITY</div><h3>My first independent<br><i>certification workstream.</i></h3><p>On FortiClient 7.0.2, I worked on VPN cryptographic boundaries, key-management behavior, approved-mode checks, and technical evidence for review. An important early step in learning to own a workstream, not a claim to sole ownership of a certificate.</p></div><div class="project-side-note"><span class="status-indicator">WORKSTREAM CONTRIBUTION</span><small>PROJECT MANAGEMENT<br>& TECHNICAL WRITING</small></div></article>
-          <article class="project"><div class="project-index">03 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">FIPS 140-3 <span>·</span> FIRMWARE</div><h3>FortiProxy <i>firmware</i></h3><p>A Security Level 1 cryptographic-validation workstream submitted for review. Documentation and technical coordination are part of the work; certification has not yet been granted.</p></div><div class="project-side-note"><span class="status-indicator status-pending"><span aria-hidden="true">◌</span> SUBMITTED FOR REVIEW</span><small>LEVEL 1 TARGET</small></div></article>
-          <article class="project"><div class="project-index">04 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">FIPS 140-3 <span>·</span> VIRTUAL MACHINE</div><h3>FortiProxy <i>VM</i></h3><p>A separate Security Level 1 validation workstream for the virtual-machine deployment. Submitted for review; validation remains pending.</p></div><div class="project-side-note"><span class="status-indicator status-pending"><span aria-hidden="true">◌</span> SUBMITTED FOR REVIEW</span><small>LEVEL 1 TARGET</small></div></article>
-          <article class="project project-personal"><div class="project-index">05 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">INDEPENDENT BUILD <span>·</span> REACT</div><h3>Canterbury<br><i>Cricket Club.</i></h3><p>A very different kind of problem: I designed, built, and maintain a community cricket club website. It has taught me a lot about making something useful for people who actually depend on it.</p><a class="record-link" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer">Visit the club website <span aria-hidden="true">↗</span></a></div><div class="personal-art" aria-hidden="true"><span class="personal-art-caption">SIDE PROJECT / A DIFFERENT FIELD</span><div class="pitch-lines"></div><span class="ball-mark">✳</span></div></article>
+          <article class="project"><div class="project-index">02 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">FIPS 140-3 <span>·</span> EARLY RESPONSIBILITY</div><h3>My first independent<br><i>certification workstream.</i></h3><div class="project-clarity"><p><b>What I did</b> On FortiClient 7.0.2, I worked on VPN cryptographic boundaries, key-management behavior, approved-mode checks, and technical evidence for review. An important early step in learning to own a workstream, not a claim to sole ownership of a certificate.</p><p><b>Validation context</b> A FortiClient 7.0.2 workstream contribution; this entry is not an independently issued validation certificate.</p></div></div><div class="project-side-note"><span class="status-indicator">WORKSTREAM CONTRIBUTION</span><small>PROJECT MANAGEMENT<br>& TECHNICAL WRITING</small></div></article>
+          <article class="project project-awaiting"><div class="project-index">03 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">FIPS 140-3 <span>·</span> FIRMWARE</div><h3>FortiProxy <i>firmware</i></h3><div class="project-clarity"><p><b>What I did</b> A Security Level 1 cryptographic-validation workstream submitted for review. Documentation and technical coordination are part of the work; certification has not yet been granted.</p><p><b>Validation status</b> The Level 1 target workstream is submitted for review; validation has not been granted.</p></div></div><div class="project-side-note"><span class="status-indicator status-pending"><span aria-hidden="true">◌</span> SUBMITTED FOR REVIEW</span><small>LEVEL 1 TARGET</small></div></article>
+          <article class="project project-awaiting"><div class="project-index">04 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">FIPS 140-3 <span>·</span> VIRTUAL MACHINE</div><h3>FortiProxy <i>VM</i></h3><div class="project-clarity"><p><b>What I did</b> A separate Security Level 1 validation workstream for the virtual-machine deployment. Submitted for review; validation remains pending.</p><p><b>Validation status</b> The Level 1 target workstream is submitted for review; validation remains pending.</p></div></div><div class="project-side-note"><span class="status-indicator status-pending"><span aria-hidden="true">◌</span> SUBMITTED FOR REVIEW</span><small>LEVEL 1 TARGET</small></div></article>
         </div>
         <p class="work-endnote">A note on accuracy — I distinguish contributions to certification projects from the formal validation of the modules themselves. Those are not the same thing.</p>
+      </div>
+    </section>
+
+    <section class="work-section personal-projects-section" id="personal-projects" aria-labelledby="personal-projects-title">
+      <div class="wrap">
+        <div class="heading-grid">
+          <p class="section-tag"><span class="section-number">01B</span> / PERSONAL PROJECTS</p>
+          <div class="heading-main"><div class="heading-line"><h2 id="personal-projects-title" tabindex="-1">Personal<br><i>Projects.</i></h2></div></div>
+        </div>
+        <p class="section-intro">Independent development and community contributions outside formal employment.</p>
+        <div class="project-list">
+          <article class="project project-personal"><div class="project-index">05 <span class="project-index-rule"></span></div><div class="project-main"><div class="project-meta">INDEPENDENT BUILD <span>·</span> REACT</div><h3>Canterbury<br><i>Cricket Club.</i></h3><div class="project-clarity"><p><b>What I did</b> A very different kind of problem: I designed, built, and maintain a community cricket club website. It has taught me a lot about making something useful for people who actually depend on it.</p><p><b>What shipped</b> The Canterbury Cricket Club website, designed, built and maintained as an independent community project.</p></div><a class="record-link" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer">Visit the club website <span aria-hidden="true">↗</span></a></div><div class="personal-art" aria-hidden="true"><span class="personal-art-caption">SIDE PROJECT / A DIFFERENT FIELD</span><div class="pitch-lines"></div><span class="ball-mark">✳</span></div></article>
+        </div>
       </div>
     </section>
 
@@ -112,9 +134,20 @@
       <div class="method-grid">
         <div class="method-intro"><p>Often, the value is in the translation: from a requirement to a concrete engineering question, and from an answer to evidence someone else can examine.</p><div class="method-note"><span class="note-mini-symbol" aria-hidden="true">✳</span><span>THE THREE QUESTIONS<br>I KEEP COMING BACK TO</span></div></div>
         <div class="method-list">
-          <article class="method"><span>01 / UNDERSTAND</span><h3>What is actually <i>in scope?</i></h3><p>Define cryptographic boundaries, deployment assumptions, requirements, and the behavior that matters.</p></article>
-          <article class="method"><span>02 / VERIFY</span><h3>What can we <i>demonstrate?</i></h3><p>Follow implementation details through tests, approved-mode checks, findings, and reproducible evidence.</p></article>
-          <article class="method"><span>03 / COMMUNICATE</span><h3>Can someone else <i>follow it?</i></h3><p>Help engineers, QA, product teams, and validators work from the same understanding.</p></article>
+          <svg class="workflow-map" viewBox="0 0 720 130" role="img" aria-label="Four steps: Requirements, Questions, Implementation, Evidence" xmlns="http://www.w3.org/2000/svg">
+            <path class="workflow-track" d="M70 45H650" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 7"/>
+            <path class="workflow-flow" d="M70 45H650" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="18 34"/>
+            <g class="workflow-point"><circle cx="70" cy="45" r="8"/><text x="70" y="83" text-anchor="middle">01</text><text x="70" y="104" text-anchor="middle">REQUIREMENTS</text></g>
+            <g class="workflow-point"><circle cx="263" cy="45" r="8"/><text x="263" y="83" text-anchor="middle">02</text><text x="263" y="104" text-anchor="middle">QUESTIONS</text></g>
+            <g class="workflow-point"><circle cx="457" cy="45" r="8"/><text x="457" y="83" text-anchor="middle">03</text><text x="457" y="104" text-anchor="middle">IMPLEMENTATION</text></g>
+            <g class="workflow-point"><circle cx="650" cy="45" r="8"/><text x="650" y="83" text-anchor="middle">04</text><text x="650" y="104" text-anchor="middle">EVIDENCE</text></g>
+          </svg>
+          <div class="workflow-disclosures">
+            <details><summary><span>01</span> Requirements <span aria-hidden="true">+</span></summary><p>Define cryptographic boundaries, deployment assumptions, requirements, and the behavior that matters.</p></details>
+            <details><summary><span>02</span> Questions <span aria-hidden="true">+</span></summary><p>What is actually <em>in scope?</em> What can we <em>demonstrate?</em></p></details>
+            <details><summary><span>03</span> Implementation <span aria-hidden="true">+</span></summary><p>Follow implementation details through tests, approved-mode checks, findings, and reproducible evidence.</p></details>
+            <details><summary><span>04</span> Evidence <span aria-hidden="true">+</span></summary><p>Can someone else <em>follow it?</em> Help engineers, QA, product teams, and validators work from the same understanding.</p></details>
+          </div>
         </div>
       </div>
       <div class="practice-bottom"><span>FIPS 140-3</span><span>COMMON CRITERIA / NDCPP</span><span>TECHNICAL WRITING</span><span>VALIDATION COORDINATION</span></div>
@@ -126,11 +159,11 @@
       <div class="background-row"><div><span class="micro-label">BEFORE THAT</span><p><b>Concordia University</b><br>Master’s, Information Systems Security <span>·</span> 2020—2022</p></div><div><span class="micro-label">STILL LEARNING</span><p><b>CySA+ · Security+ · eJPT</b><br>Credentials are useful. Curiosity matters more.</p></div></div><a class="resume-link" href="https://raw.githubusercontent.com/snj3vpaul/snj3vpaul/main/skp-portfolio/public/cv.pdf" target="_blank" rel="noopener noreferrer">View my résumé <span aria-hidden="true">↗</span></a>
     </div></section>
 
-    <section class="outside-section" id="outside" aria-labelledby="outside-title"><div class="wrap outside-grid"><div class="outside-copy"><p class="section-tag"><span class="section-number">04</span> / NOT ON THE RÉSUMÉ</p><h2 id="outside-title">There's more to me<br>than <i>the day job.</i></h2><p>Cricket has been a constant. So have writing, learning things for no particular reason, and finding time for the people around me.</p><p>I've spent time helping Canterbury Cricket Club with its digital presence, and I still love being out on the ground. The field teaches a different sort of teamwork.</p><a class="plain-link outside-link" href="https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS" target="_blank" rel="noopener noreferrer">A little cricket proof <span aria-hidden="true">↗</span></a><div class="outside-list"><span>WRITING</span><span>FOOTBALL</span><span>COMMUNITY</span><span>TRAVEL</span><span>COOKING</span></div></div><figure class="outside-figure"><div class="outside-visual outside-graphic" aria-hidden="true"><span class="graphic-label">CRICKET / OFF HOURS</span><div class="field-rings ring-one"></div><div class="field-rings ring-two"></div><div class="field-rings ring-three"></div><div class="pitch-strip"></div><div class="crease crease-top"></div><div class="crease crease-bottom"></div><div class="ball-core"></div><div class="ball-trail"></div><div class="graphic-card"><small>WHAT THE GAME GIVES BACK</small><strong>Patience.<br>Timing.<br>Perspective.</strong><span>Team sport, community, and a different kind of field awareness.</span></div><div class="graphic-note"><span>ON THE FIELD</span><small>DISCIPLINE / RHYTHM / TEAMWORK</small></div></div><figcaption><span>FIG. 02 — AWAY FROM THE DESK</span><span>GOOD DAYS AREN'T ALL SPENT INSIDE.</span></figcaption></figure></div></section>
+    <section class="outside-section" id="outside" aria-labelledby="outside-title"><div class="wrap outside-grid"><div class="outside-copy"><p class="section-tag"><span class="section-number">04</span> / NOT ON THE RÉSUMÉ</p><h2 id="outside-title">There's more to me<br>than <i>the day job.</i></h2><p>Cricket has been a constant. So have writing, learning things for no particular reason, and finding time for the people around me.</p><p>I designed, built, and maintain Canterbury Cricket Club's website, and I still love being out on the ground. The field teaches a different sort of teamwork.</p><a class="plain-link outside-link" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer">See the club website <span aria-hidden="true">↗</span></a><a class="plain-link outside-link outside-secondary" href="https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS" target="_blank" rel="noopener noreferrer">A little cricket proof <span aria-hidden="true">↗</span></a><div class="outside-list"><span>WRITING</span><span>FOOTBALL</span><span>COMMUNITY</span><span>TRAVEL</span><span>COOKING</span></div></div><figure class="outside-figure"><div class="outside-visual outside-graphic" aria-hidden="true"><span class="graphic-label">CRICKET / OFF HOURS</span><div class="field-rings ring-one"></div><div class="field-rings ring-two"></div><div class="field-rings ring-three"></div><div class="pitch-strip"></div><div class="crease crease-top"></div><div class="crease crease-bottom"></div><div class="ball-core"></div><div class="ball-trail"></div><div class="graphic-card"><small>WHAT THE GAME GIVES BACK</small><strong>Patience.<br>Timing.<br>Perspective.</strong><span>Team sport, community, and a different kind of field awareness.</span></div><div class="graphic-note"><span>ON THE FIELD</span><small>DISCIPLINE / RHYTHM / TEAMWORK</small></div></div><figcaption><span>FIG. 02 — AWAY FROM THE DESK</span><span>GOOD DAYS AREN'T ALL SPENT INSIDE.</span></figcaption></figure></div></section>
 
     <section class="writing-section" id="writing" aria-labelledby="writing-title"><div class="wrap"><div class="heading-grid"><p class="section-tag"><span class="section-number">05</span> / NOTES & WRITING</p><div class="heading-main"><div class="heading-line"><h2 id="writing-title">Some things are<br>worth <i>writing down.</i></h2><p>I write to understand things better. Sometimes a question turns into research; sometimes it's simply an explanation worth sharing.</p></div><div class="writing-entries"><a href="https://www.journalijar.com/uploads/2022/04/6276555b2375a_IJAR-39401.pdf" target="_blank" rel="noopener noreferrer"><span>2022 <b>RESEARCH PAPER</b></span><strong>SoK: Is iPhone Actually Secure?</strong><span class="writing-arrow" aria-hidden="true">↗</span></a><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer"><span>ONGOING <b>ARTICLES & NOTES</b></span><strong>Thoughts on security, technology, and what I’m learning.</strong><span class="writing-arrow" aria-hidden="true">↗</span></a></div></div></div></div></section>
 
-    <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="wrap contact-layout"><p class="section-tag light-tag"><span class="section-number">06</span> / THE CONVERSATION</p><div class="contact-main"><span class="contact-small">IF SOMETHING HERE RESONATED</span><h2 id="contact-title">Have a question?<br><i>I'd love to hear it.</i></h2><p>Whether it's a tricky compliance question, a project you're building, or cricket, I’m always interested in a good conversation.</p><div class="contact-cta"><a class="mail-link" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev">Send me a note <span aria-hidden="true">↗</span></a><span>NO FORM TO FILL OUT.<br>JUST AN EMAIL.</span></div></div></div></section>
+    <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="wrap contact-layout"><p class="section-tag light-tag"><span class="section-number">06</span> / THE CONVERSATION</p><div class="contact-main"><span class="contact-small">IF SOMETHING HERE RESONATED</span><h2 id="contact-title">Have a question?<br><i>I'd love to hear it.</i></h2><p>Whether it's a tricky compliance question, a project you're building, or cricket, I’m always interested in a good conversation.</p><div class="contact-cta"><div class="contact-actions"><a class="mail-link" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev">Send me a note <span aria-hidden="true">↗</span></a><div class="copy-group"><button type="button" class="copy-email" id="copy-email" data-email="sanjeevkumarpaul25@gmail.com">Copy email address <span aria-hidden="true">↗</span></button><span class="copy-feedback" id="copy-feedback" role="status" aria-live="polite"></span></div></div><span>NO FORM TO FILL OUT.<br>JUST AN EMAIL.</span></div></div></div></section>
   </main>
   <footer class="site-footer"><div class="wrap footer-inner"><a class="footer-name" href="#top">sanjeev<span>.</span></a><span>MADE WITH CURIOSITY, IN OTTAWA.</span><div><a href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">Writing ↗</a></div><span>© <span id="current-year">2026</span> SANJEEV KUMAR PAUL</span></div></footer>
 </body>
