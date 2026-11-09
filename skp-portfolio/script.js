@@ -1,12 +1,28 @@
-/* Tiny interactions, without libraries or ornamental animation. */
+/* Small, dependency-free interactions. The page reads fully without JS. */
 (() => {
   'use strict';
   function init() {
-    const menuButton = document.querySelector('.menu-toggle');
-    const mobileNav = document.querySelector('#mobile-nav');
-    const header = document.querySelector('.site-header');
-    const progress = document.getElementById('progress-line');
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let scene = null;
 
+    /* ---- Colour scheme: dark (default) / light, remembered per browser ---- */
+    const themeButtons = document.querySelectorAll('[data-theme-set]');
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    function applyTheme(theme, save) {
+      root.setAttribute('data-theme', theme);
+      themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === theme)));
+      if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f3f3ef' : '#0b0b0b');
+      if (save) { try { localStorage.setItem('theme', theme); } catch { /* storage unavailable */ } }
+      scene?.setTheme(theme);
+    }
+    applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
+    themeButtons.forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.themeSet, true)));
+
+    /* ---- Mobile menu ---- */
+    const menuButton = document.querySelector('.menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    const header = document.querySelector('.topbar');
     function setMenu(open) {
       if (!menuButton || !mobileNav) return;
       menuButton.setAttribute('aria-expanded', String(open));
@@ -18,150 +34,119 @@
     mobileNav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
     document.addEventListener('click', e => { if (header && !header.contains(e.target)) setMenu(false); });
-    const media = window.matchMedia('(min-width: 881px)');
-    media.addEventListener?.('change', event => { if (event.matches) setMenu(false); });
 
-
-    /* ---- Work sections: preserve native fragment scrolling and focus headings ---- */
-    const workTargets = {
-      '#professional-work': 'professional-work-title',
-      '#personal-projects': 'personal-projects-title'
-    };
-    function focusWorkHeading() {
-      const headingId = workTargets[window.location.hash];
-      if (headingId) document.getElementById(headingId)?.focus({ preventScroll: true });
+    /* ---- Ottawa local time ---- */
+    const timeNode = document.getElementById('local-time');
+    if (timeNode) {
+      const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hour12: false });
+      const tick = () => { timeNode.textContent = fmt.format(new Date()); };
+      tick();
+      setInterval(tick, 20000);
     }
-    window.addEventListener('hashchange', focusWorkHeading);
-    if (workTargets[window.location.hash]) requestAnimationFrame(focusWorkHeading);
-    document.querySelectorAll('a[href="#professional-work"], a[href="#personal-projects"]').forEach(link => {
-      link.addEventListener('click', () => requestAnimationFrame(focusWorkHeading));
-    });
 
-    let scheduled = false;
-    function updateProgress() {
-      if (!progress) return;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      progress.style.transform = `scaleX(${max > 0 ? Math.max(0, Math.min(1, window.scrollY / max)) : 0})`;
-      scheduled = false;
-    }
-    window.addEventListener('scroll', () => {
-      if (!scheduled) { scheduled = true; requestAnimationFrame(updateProgress); }
-    }, { passive: true });
-    window.addEventListener('resize', updateProgress, { passive: true });
-    updateProgress();
-    const year = document.getElementById('current-year');
-    if (year) year.textContent = String(new Date().getFullYear());
-
-    /* ---- Hero greeting, UTF-8 encoding and genuine SHA-256 ---- */
+    /* ---- Hello in several languages, with its UTF-8 bytes ---- */
     const helloWord = document.getElementById('hello-word');
     const helloOrigin = document.getElementById('hello-origin');
     const cipherCode = document.getElementById('cipher-code');
-    const cipherPlain = document.getElementById('cipher-plain');
-    const digestStudy = document.getElementById('digest-study');
-    const digestResult = document.getElementById('digest-result');
-    const digestChanged = document.getElementById('digest-changed');
-    const digestDifference = document.getElementById('digest-difference');
-    const digestDescription = document.getElementById('digest-change-description');
-    const compareButton = document.getElementById('digest-compare');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const greetings = [
-      ['Hello', 'ENGLISH'], ['Bonjour', 'FRENCH'], ['नमस्ते', 'HINDI'],
-      ['ਸਤ ਸ੍ਰੀ ਅਕਾਲ', 'PUNJABI'], ['নমস্কার', 'BENGALI']
-    ];
-    const encoder = new TextEncoder();
-    let greetingIndex = 0;
-    let comparing = false;
-    let digestRequest = 0;
-    const toHex = bytes => Array.from(bytes, b => b.toString(16).padStart(2, '0')).join(' ');
-    const digest = async word => {
-      const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(word)));
-      return Array.from(bytes.slice(0, 16), b => b.toString(16).padStart(2, '0')).join('');
-    };
-    async function showDigest(word) {
-      if (!digestStudy || !digestResult || !window.crypto?.subtle) return;
-      const request = ++digestRequest;
+    const greetings = [['Hello', 'English'], ['Bonjour', 'French'], ['नमस्ते', 'Hindi'], ['ਸਤ ਸ੍ਰੀ ਅਕਾਲ', 'Punjabi'], ['নমস্কার', 'Bengali']];
+    if (helloWord && helloOrigin && cipherCode && !reduceMotion) {
+      const encoder = new TextEncoder();
+      let i = 0;
+      setInterval(() => {
+        if (document.hidden) return;
+        helloWord.classList.add('is-fading');
+        setTimeout(() => {
+          i = (i + 1) % greetings.length;
+          const [word, language] = greetings[i];
+          helloWord.textContent = word;
+          helloOrigin.textContent = language;
+          cipherCode.textContent = Array.from(encoder.encode(word), b => b.toString(16).padStart(2, '0')).join(' ');
+          helloWord.classList.remove('is-fading');
+        }, 300);
+      }, 2800);
+    }
+
+    /* ---- Chapter marker and current nav item ---- */
+    const marker = { num: document.getElementById('chapter-num'), name: document.getElementById('chapter-name') };
+    const navLinks = document.querySelectorAll('.nav a');
+    const chapters = document.querySelectorAll('[data-chapter]');
+    if ('IntersectionObserver' in window && chapters.length) {
+      const io = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (marker.num) marker.num.textContent = el.dataset.chapter;
+        if (marker.name) marker.name.textContent = el.dataset.chapterName;
+        navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === `#${el.id}`));
+      }), { rootMargin: '-45% 0px -50% 0px' });
+      chapters.forEach(c => io.observe(c));
+      const markerEl = document.querySelector('.chapter-marker');
+      const heroEl = document.querySelector('.hero');
+      if (markerEl && heroEl) new IntersectionObserver(([e]) => markerEl.classList.toggle('is-visible', !e.isIntersecting), { threshold: 0.05 }).observe(heroEl);
+    }
+
+    /* ---- Kinetic name: drifts sideways as the hero scrolls away ---- */
+    const giant = document.querySelector('[data-parallax]');
+    if (giant && !reduceMotion) {
+      let ticking = false;
+      const update = () => {
+        const y = Math.min(window.scrollY, window.innerHeight);
+        giant.style.transform = `translateX(${-y * 0.18}px)`;
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    }
+
+    /* ---- Hero halftone sphere (Three.js / WebGL): after load, hardware WebGL only ---- */
+    const heroCanvas = document.getElementById('hero-canvas');
+    const forced = /[?&]3d=1\b/.test(window.location.search);
+    const webglAvailable = () => {
       try {
-        const base = await digest(word);
-        if (request !== digestRequest) return;
-        digestResult.textContent = base;
-        if (comparing && digestChanged && digestDescription && digestDifference) {
-          const graphemes = typeof Intl.Segmenter === 'function'
-            ? Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(word), s => s.segment)
-            : Array.from(word);
-          const modified = graphemes.slice(0, -1).join('') + '!';
-          const other = await digest(modified);
-          if (request !== digestRequest) return;
-          digestDescription.textContent = `Last character replaced: ${word} → ${modified}`;
-          digestChanged.textContent = other;
-          digestDifference.hidden = false;
-        } else if (digestDifference) digestDifference.hidden = true;
-      } catch { digestStudy.hidden = true; }
-    }
-    if (helloWord && helloOrigin && cipherCode && cipherPlain) {
-      if (window.crypto?.subtle && digestStudy) digestStudy.hidden = false;
-      function renderGreeting() {
-        const [word, language] = greetings[greetingIndex];
-        helloWord.textContent = word;
-        helloOrigin.textContent = language;
-        cipherCode.textContent = toHex(encoder.encode(word));
-        cipherPlain.textContent = word;
-        showDigest(word);
-      }
-      renderGreeting();
-      if (!reduceMotion) {
-        const nodes = [helloWord, helloOrigin, cipherCode, cipherPlain];
-        window.setInterval(() => {
-          if (comparing || document.hidden) return;
-          nodes.forEach((node, i) => window.setTimeout(() => node.classList.add('is-fading'), i * 50));
-          window.setTimeout(() => {
-            greetingIndex = (greetingIndex + 1) % greetings.length;
-            renderGreeting();
-            nodes.forEach(node => node.classList.remove('is-fading'));
-          }, 290);
-        }, 3500);
-      }
-      compareButton?.addEventListener('click', () => {
-        comparing = !comparing;
-        compareButton.setAttribute('aria-pressed', String(comparing));
-        compareButton.textContent = comparing ? 'Close comparison ↗' : 'Change one character ↗';
-        showDigest(greetings[greetingIndex][0]);
-      });
+        const c = document.createElement('canvas');
+        const gl = c.getContext('webgl2') || c.getContext('webgl');
+        if (!gl) return false;
+        const info = gl.getExtension('WEBGL_debug_renderer_info');
+        const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+        gl.getExtension('WEBGL_lose_context')?.loseContext();
+        if (forced) return true;
+        if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)) return false;
+        return (navigator.hardwareConcurrency || 4) > 2;
+      } catch { return false; }
+    };
+    if (heroCanvas && !navigator.connection?.saveData && webglAvailable()) {
+      const load = () => import('./hero-scene.js')
+        .then(m => {
+          scene = m.mount(heroCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: root.getAttribute('data-theme') });
+          heroCanvas.closest('.hero')?.classList.add('has-3d');
+        })
+        .catch(() => { /* the still image stands in */ });
+      const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
+      if (document.readyState === 'complete') idle(load);
+      else window.addEventListener('load', () => idle(load), { once: true });
     }
 
-    /* ---- Career reveal: progressive enhancement, never hides content without JS ---- */
-    if (!reduceMotion && 'IntersectionObserver' in window) {
-      const rows = document.querySelectorAll('.career-rows article');
-      const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      }), { threshold: .1 });
-      rows.forEach(row => observer.observe(row));
-      document.documentElement.classList.add('has-js-reveal');
-    }
+    const year = document.getElementById('current-year');
+    if (year) year.textContent = String(new Date().getFullYear());
 
-    /* ---- Contact: copy email, with an older-browser fallback ---- */
+    /* ---- Copy email ---- */
     document.getElementById('copy-email')?.addEventListener('click', async event => {
       const email = event.currentTarget.dataset.email;
       const feedback = document.getElementById('copy-feedback');
       let copied = false;
-      try {
-        if (navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(email);
-          copied = true;
-        }
-      } catch { /* try the local selection fallback */ }
+      try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(email); copied = true; } } catch { /* fall through */ }
       if (!copied) {
         const area = document.createElement('textarea');
-        area.value = email;
-        area.style.cssText = 'position:fixed;left:-9999px;top:0';
-        document.body.appendChild(area);
-        area.select();
+        area.value = email; area.style.cssText = 'position:fixed;left:-9999px;top:0';
+        document.body.appendChild(area); area.select();
         try { copied = !!document.execCommand?.('copy'); } catch { /* unavailable */ }
         area.remove();
       }
-      if (feedback) feedback.textContent = copied ? 'Copied to clipboard.' : 'Copy unavailable — use the email link.';
+      if (feedback) feedback.textContent = copied ? 'Copied.' : 'Copy unavailable — use the link.';
+    });
+
+    /* ---- Outcome measurement (Vercel Web Analytics custom events) ---- */
+    document.addEventListener('click', event => {
+      const target = event.target instanceof Element ? event.target.closest('[data-track]') : null;
+      if (target && typeof window.va === 'function') window.va('event', { name: target.dataset.track });
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
