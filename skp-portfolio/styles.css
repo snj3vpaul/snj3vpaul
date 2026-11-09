@@ -122,6 +122,15 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .hero-foot { display: flex; justify-content: space-between; gap: 16px; padding: 14px 24px; margin-top: 18px; border-top: 1px solid var(--line); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .hero-foot a:hover { color: var(--fg); }
 
+/* scroll-driven run between the wickets (enabled only with the live 3D scene) */
+.hero-run.is-pinned { height: 260svh; }
+.hero-run.is-pinned .hero { position: sticky; top: 0; height: 100svh; min-height: 0; }
+.hero-run.is-pinned .hero-stage { opacity: calc(1 - var(--run, 0) * 9); transform: translateY(calc(var(--run, 0) * -60px)); }
+.hero-run.is-pinned .hero-stage, .hero-run.is-pinned .run-meter { transition: none; }
+.run-meter { position: absolute; left: 24px; top: calc(var(--bar) + 150px); display: flex; flex-direction: column; align-items: flex-start; gap: 2px; opacity: 0; pointer-events: none; }
+.hero-run.is-pinned .run-meter { opacity: calc(var(--run, 0) * 9 - .3); }
+.run-count { font: 200 clamp(40px, 5vw, 76px)/1 var(--cond); text-transform: uppercase; }
+
 /* ---------- chapters ---------- */
 .chapter { padding: clamp(88px, 11vw, 150px) 0; border-top: 1px solid var(--line); }
 .chapter-head { margin-bottom: clamp(36px, 5vw, 64px); }
@@ -257,6 +266,7 @@ a.card-visual:hover .card-arrow { transform: rotate(45deg); }
   [data-theme="light"] .hero::before { background-image: url(img/hero-figure-light-m.webp); }
 }
 @media (max-width: 640px) {
+  .run-meter { left: 16px; top: calc(var(--bar) + 120px); }
   .wrap { width: calc(100% - 36px); }
   .topbar { padding: 0 16px; }
   .brand { font-size: 10px; }
