@@ -112,32 +112,11 @@
         return (navigator.hardwareConcurrency || 4) > 2;
       } catch { return false; }
     };
-    /* Scroll-driven run: the hero stays pinned while the figure runs two. */
-    function setUpRun() {
-      const wrap = document.getElementById('hero-run');
-      const hero = wrap?.querySelector('.hero');
-      const count = document.getElementById('run-count');
-      if (!wrap || !hero) return;
-      wrap.classList.add('is-pinned');
-      let ticking = false;
-      const update = () => {
-        ticking = false;
-        const span = wrap.offsetHeight - window.innerHeight;
-        const p = span > 0 ? Math.min(1, Math.max(0, (window.scrollY - wrap.offsetTop) / span)) : 0;
-        hero.style.setProperty('--run', p.toFixed(4));
-        scene.setProgress(p);
-        if (count) count.textContent = p >= 0.92 ? '2 runs' : p >= 0.5 ? '1 run' : '0 runs';
-      };
-      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-      window.addEventListener('resize', update, { passive: true });
-      update();
-    }
     if (heroCanvas && !navigator.connection?.saveData && webglAvailable()) {
       const load = () => import('./hero-scene.js')
         .then(m => {
           scene = m.mount(heroCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: root.getAttribute('data-theme') });
           heroCanvas.closest('.hero')?.classList.add('has-3d');
-          if (!reduceMotion && scene.setProgress) setUpRun();
         })
         .catch(() => { /* the still image stands in */ });
       const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
