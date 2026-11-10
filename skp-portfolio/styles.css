@@ -1,5 +1,5 @@
 /*
- * Sanjeev Kumar Paul — portfolio.
+ * Sanjeev K Paul — portfolio.
  * Monochrome, two schemes (dark default, light on request). Halftone WebGL
  * sphere, condensed headlines, one very wide display word, monospace for the rest.
  * The page walks through the person first (hello, path, off hours, practice),
@@ -144,6 +144,35 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .contact-email a { border-bottom: 2px solid var(--fg); }
 .hello-copy .link-row { margin-top: 20px; }
 
+/* ---------- editorial pass (after sagardas.info): lead with work, tell the story, keep the CV for detail ---------- */
+.brand span { margin-left: 2px; }
+.brand-tag { margin-right: auto; color: var(--muted); font-size: 10px; }
+.brand { margin-right: 18px; }
+.nav-cta { padding: 5px 10px; border: 1px solid var(--fg); color: var(--fg) !important; }
+.headline em, .chapter-head h2 em, .contact h2 em { font-style: normal; color: var(--muted); }
+.headline em { font-weight: 300; }
+.hero-stage .btn { align-self: flex-start; }
+.hero-stack { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.hero-metric { margin-top: -8px; font-size: 12px; font-weight: 600; }
+.principles { display: grid; gap: 10px; align-content: start; }
+.principles span { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font: 300 clamp(22px, 2.2vw, 30px)/1.1 var(--cond); text-transform: uppercase; }
+.principles span:first-child { border-top: 1px solid var(--line); }
+.stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 80px); border-top: 1px solid var(--line); }
+.stat-grid > div { display: flex; flex-direction: column; padding: 22px 22px 0 0; }
+.stat-grid > div + div { padding-left: 22px; border-left: 1px solid var(--line); }
+.stat-grid dd { font: 200 clamp(56px, 7vw, 104px)/.9 var(--cond); }
+.stat-grid dt { margin-top: 12px; font-size: 12px; color: var(--muted); max-width: 26ch; }
+.timeline { border-top: 1px solid var(--line); }
+.timeline li { display: grid; grid-template-columns: 110px 1fr; column-gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.timeline span { grid-row: span 2; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+.timeline b { font: 400 clamp(20px, 1.9vw, 26px)/1.1 var(--cond); text-transform: uppercase; }
+.timeline em { font-style: normal; font-size: 13px; color: var(--muted); }
+.creds { margin-top: 18px; font-size: 13px; }
+.hello-mini { display: grid; gap: 4px; margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); }
+.hello-mini .hello-word { margin-top: 0; font-size: clamp(56px, 8vw, 120px); }
+.hello-mini .hello-meta { margin-top: 0; }
+.works-head .legend { margin: 0; white-space: nowrap; }
+
 /* ---------- chapters ---------- */
 .chapter { padding: clamp(88px, 11vw, 150px) 0; border-top: 1px solid var(--line); }
 .chapter-head { margin-bottom: clamp(36px, 5vw, 64px); }
@@ -269,6 +298,9 @@ a.card-visual:hover .card-arrow { transform: rotate(45deg); }
   .topbar { gap: 12px; }
 }
 @media (max-width: 900px) {
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; }
+  .stat-grid > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .brand-tag { display: none; }
   .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .steps-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .infobar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -281,6 +313,9 @@ a.card-visual:hover .card-arrow { transform: rotate(45deg); }
   [data-theme="light"] .hero::before { background-image: url(img/hero-figure-light-m.webp); }
 }
 @media (max-width: 640px) {
+  .timeline li { grid-template-columns: 1fr; }
+  .timeline span { grid-row: auto; }
+  .works-head .legend { white-space: normal; }
   .skills, .steps-4 { grid-template-columns: 1fr; }
   .facts > div { grid-template-columns: 1fr; gap: 2px; }
   .roles-full > li { grid-template-columns: 1fr; }

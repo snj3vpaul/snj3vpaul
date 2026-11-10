@@ -1,4 +1,4 @@
-# Sanjeev Kumar Paul — Personal Portfolio (Editorial Edition)
+# Sanjeev K Paul — Personal Portfolio (Editorial Edition)
 
 A standalone, dependency-free, one-page website. Designed to look and sound like an individual with a real career and real interests, rather than a generic generated technology template.
 

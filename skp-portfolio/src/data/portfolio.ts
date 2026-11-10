@@ -2,7 +2,7 @@
 export type Status = "validated" | "in-progress" | "shipped";
 
 export const profile = {
-  name: "Sanjeev Kumar Paul",
+  name: "Sanjeev K Paul",
   email: "sanjeevkumarpaul25@gmail.com",
   links: {
     linkedin: "https://www.linkedin.com/in/sanjeev-kumar-paul/",
