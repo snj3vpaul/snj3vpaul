@@ -124,6 +124,45 @@
       else window.addEventListener('load', () => idle(load), { once: true });
     }
 
+    /* ---- Project viewer: list on the left, one project at a time ---- */
+    document.querySelectorAll('[data-viewer]').forEach(viewer => {
+      const items = Array.from(viewer.querySelectorAll('.viewer-item'));
+      const panels = items.map(b => document.getElementById(b.getAttribute('aria-controls')));
+      if (!items.length || panels.some(p => !p)) return;
+      let index = 0;
+      const show = (next, focus) => {
+        index = (next + items.length) % items.length;
+        items.forEach((b, i) => b.setAttribute('aria-pressed', String(i === index)));
+        panels.forEach((p, i) => { p.hidden = i !== index; });
+        // keep the selected item visible inside the list without scrolling the page
+        const list = viewer.querySelector('.viewer-list');
+        const it = items[index];
+        if (it.offsetTop < list.scrollTop || it.offsetTop + it.offsetHeight > list.scrollTop + list.clientHeight) list.scrollTop = Math.max(0, it.offsetTop - list.clientHeight / 2);
+        if (it.offsetLeft < list.scrollLeft || it.offsetLeft + it.offsetWidth > list.scrollLeft + list.clientWidth) list.scrollLeft = Math.max(0, it.offsetLeft - 120);
+        if (focus) items[index].focus();
+      };
+      items.forEach((b, i) => b.addEventListener('click', () => show(i)));
+      viewer.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => show(index + Number(b.dataset.step))));
+      viewer.querySelector('.viewer-list').addEventListener('keydown', e => {
+        if (['ArrowDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); show(index + 1, true); }
+        if (['ArrowUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); show(index - 1, true); }
+      });
+      // Move the picture around: a gentle tilt that follows the pointer.
+      if (!reduceMotion) panels.forEach(p => {
+        const art = p.querySelector('.viewer-art');
+        const tilt = p.querySelector('.viewer-tilt');
+        if (!art || !tilt) return;
+        art.addEventListener('pointermove', e => {
+          const r = art.getBoundingClientRect();
+          tilt.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - 0.5) * 28}deg`);
+          tilt.style.setProperty('--rx', `${-((e.clientY - r.top) / r.height - 0.5) * 20}deg`);
+        });
+        art.addEventListener('pointerleave', () => { tilt.style.setProperty('--rx', '0deg'); tilt.style.setProperty('--ry', '0deg'); });
+      });
+      viewer.classList.add('is-ready');
+      show(0);
+    });
+
     const year = document.getElementById('current-year');
     if (year) year.textContent = String(new Date().getFullYear());
 
