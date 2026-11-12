@@ -44,12 +44,16 @@
   <header class="topbar" id="top">
     <a class="brand" href="#top">sanjeev<span aria-hidden="true">✳</span></a>
     <span class="brand-tag">Standards by trade. Curious by default.</span>
-    <nav class="nav" aria-label="Primary navigation"><a href="#work">Work</a><a href="#approach">Approach</a><a href="#journey">Journey</a><a href="#life">Life</a><a href="#writing">Writing</a><a href="cv.pdf" target="_blank" rel="noopener" data-track="resume-nav">Résumé ↗</a><a class="nav-cta" href="#contact">Let’s talk</a></nav>
+    <nav class="nav" aria-label="Primary navigation"><a href="#work">Work</a><a href="#lab">Tools</a><a href="#approach">Approach</a><a href="#journey">Journey</a><a href="#writing">Writing</a><a href="#life">Life</a><a href="cv.pdf" target="_blank" rel="noopener" data-track="resume-nav">Résumé ↗</a><a class="nav-cta" href="#contact">Let’s talk</a></nav>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#work">Work</a><a href="#approach">Approach</a><a href="#journey">Journey</a><a href="#life">Life</a><a href="#writing">Writing</a><a href="cv.pdf" target="_blank" rel="noopener" data-track="resume-nav">Résumé ↗</a><a href="#contact">Let’s talk</a></nav>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#work"><span>01</span>Selected work</a><a href="#lab"><span>02</span>Crypto Lab Chip</a><a href="#forkcast"><span>03</span>ForkCast</a><a href="#fabric"><span>04</span>What-The-Fabric</a><a href="#impact"><span>05</span>On the record</a><a href="#approach"><span>06</span>The approach</a><a href="#journey"><span>07</span>Along the way</a><a href="#writing"><span>08</span>Field notes</a><a href="#life"><span>09</span>Away from the desk</a><a href="#field"><span>10</span>On the field</a><a href="cv.pdf" target="_blank" rel="noopener" data-track="resume-nav">Résumé ↗</a><a href="#contact">Let’s talk</a></nav>
   </header>
 
-  <p class="chapter-marker" aria-hidden="true"><span id="chapter-num">01</span><span id="chapter-name">Work</span></p>
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <div class="jump">
+    <button class="chapter-marker" type="button" aria-expanded="false" aria-controls="jump-list"><span class="sr-only">Jump to a section. Current section: </span><span id="chapter-num">01</span><span id="chapter-name">Work</span><span class="jump-caret" aria-hidden="true">▴</span></button>
+    <nav class="jump-list" id="jump-list" aria-label="All sections" hidden></nav>
+  </div>
 
   <main id="main">
     <!-- ================= HERO ================= -->
@@ -150,6 +154,7 @@
               </div>
             </article>
             <p class="deck-hint" aria-hidden="true">Scroll · 4 projects</p>
+            <a class="pin-skip" href="#lab">Skip to the next section ↓</a>
           </div>
         </div>
       </div>
@@ -285,6 +290,7 @@
             </ol>
             <p class="s3-hint" aria-hidden="true">Keep scrolling →</p>
             <p class="s3-count" aria-hidden="true"><b>01</b> / 03</p>
+            <a class="pin-skip" href="#journey">Skip ↓</a>
           </div>
         </div>
       </div>
@@ -321,13 +327,30 @@
       </div>
     </section>
 
+    <!-- ================= WRITING ================= -->
+    <section class="chapter" id="writing" data-chapter="08" data-chapter-name="Writing" aria-labelledby="writing-title">
+      <div class="wrap">
+        <header class="works-head">
+          <div><p class="label">08 / Field notes</p><h2 id="writing-title">Thinking <i>out loud.</i></h2></div>
+          <a class="side-link" href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">All writing ↗</a>
+        </header>
+        <ul class="entries">
+          <li><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer"><small>Ongoing · Medium</small><strong>Notes on security, technology, and what I’m learning ↗</strong></a></li>
+          <li><a href="https://www.journalijar.com/uploads/2022/04/6276555b2375a_IJAR-39401.pdf" target="_blank" rel="noopener noreferrer"><small>2022 · Graduate survey paper · IJAR</small><strong>SoK: Is iPhone Actually Secure? ↗</strong></a></li>
+<!-- DATED ENTRIES: copy this line once per article, newest first, and fill in the month, title and link:
+          <li><a href="https://medium.com/@sanjeevkumarpaul25/ARTICLE-LINK" target="_blank" rel="noopener noreferrer"><small>Nov 2026 · Medium</small><strong>Article title ↗</strong></a></li>
+          -->
+        </ul>
+      </div>
+    </section>
+
     <!-- ================= LIFE ================= -->
     <span class="anchor" id="about" aria-hidden="true"></span>
     <span class="anchor" id="outside" aria-hidden="true"></span>
     <span class="anchor" id="hello" aria-hidden="true"></span>
-    <section class="chapter outside" id="life" data-chapter="08" data-chapter-name="Life" aria-labelledby="life-title">
+    <section class="chapter outside" id="life" data-chapter="09" data-chapter-name="Life" aria-labelledby="life-title">
       <div class="wrap">
-        <header class="chapter-head"><p class="label">08 / Away from the desk</p><h2 id="life-title">A different kind of <em>field.</em></h2></header>
+        <header class="chapter-head"><p class="label">09 / Away from the desk</p><h2 id="life-title">A different kind of <em>field.</em></h2></header>
         <div class="two-col">
           <div>
             <p class="lead">Cricket has been a constant. So have writing, learning things for no particular reason, and finding time for the people around me. I play whenever I can, and I built and still look after my club’s website.</p>
@@ -364,9 +387,9 @@
     </section>
 
     <!-- ================= ON THE FIELD ================= -->
-    <section class="chapter onfield" id="field" data-chapter="09" data-chapter-name="On the field" aria-labelledby="field-title">
+    <section class="chapter onfield" id="field" data-chapter="10" data-chapter-name="On the field" aria-labelledby="field-title">
       <div class="wrap">
-        <header class="chapter-head"><p class="label">09 / On the field</p><h2 id="field-title">A few good <em>seasons.</em></h2></header>
+        <header class="chapter-head"><p class="label">10 / On the field</p><h2 id="field-title">A few good <em>seasons.</em></h2></header>
         <p class="lead onfield-intro">The game has given me more than I have given it. Still, a few seasons went well, and these are the ones the scorebook remembers. Mostly cricket, with one soccer cup in the middle.</p>
       </div>
       <div class="reel" data-reel>
@@ -397,23 +420,6 @@
             <div><dt>Tournament MVP</dt><dd><span aria-hidden="true">⇄</span>A good individual day that only counts if the team gets the result.</dd></div>
           </dl>
         </div>
-      </div>
-    </section>
-
-    <!-- ================= WRITING ================= -->
-    <section class="chapter" id="writing" data-chapter="10" data-chapter-name="Writing" aria-labelledby="writing-title">
-      <div class="wrap">
-        <header class="works-head">
-          <div><p class="label">10 / Field notes</p><h2 id="writing-title">Thinking <i>out loud.</i></h2></div>
-          <a class="side-link" href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">All writing ↗</a>
-        </header>
-        <ul class="entries">
-          <li><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer"><small>Ongoing · Medium</small><strong>Notes on security, technology, and what I’m learning ↗</strong></a></li>
-          <li><a href="https://www.journalijar.com/uploads/2022/04/6276555b2375a_IJAR-39401.pdf" target="_blank" rel="noopener noreferrer"><small>2022 · Graduate survey paper · IJAR</small><strong>SoK: Is iPhone Actually Secure? ↗</strong></a></li>
-<!-- DATED ENTRIES: copy this line once per article, newest first, and fill in the month, title and link:
-          <li><a href="https://medium.com/@sanjeevkumarpaul25/ARTICLE-LINK" target="_blank" rel="noopener noreferrer"><small>Nov 2026 · Medium</small><strong>Article title ↗</strong></a></li>
-          -->
-        </ul>
       </div>
     </section>
 

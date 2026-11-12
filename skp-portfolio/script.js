@@ -64,12 +64,41 @@
         const el = entry.target;
         if (marker.num) marker.num.textContent = el.dataset.chapter;
         if (marker.name) marker.name.textContent = el.dataset.chapterName;
-        navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === `#${el.id}`));
+        const group = { forkcast: 'lab', fabric: 'lab', impact: 'work', field: 'life' }[el.id] || el.id; // sections without their own nav item light up their neighbour
+        navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === `#${group}`));
+        document.querySelectorAll('.jump-list a').forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === `#${el.id}`)));
       }), { rootMargin: '-45% 0px -50% 0px' });
       chapters.forEach(c => io.observe(c));
       const markerEl = document.querySelector('.chapter-marker');
       const heroEl = document.querySelector('.hero');
       if (markerEl && heroEl) new IntersectionObserver(([e]) => markerEl.classList.toggle('is-visible', !e.isIntersecting), { threshold: 0.05 }).observe(heroEl);
+    }
+
+    /* ---- Section menu: the marker in the corner opens a list of every section ---- */
+    const jumpButton = document.querySelector('.jump .chapter-marker');
+    const jumpList = document.getElementById('jump-list');
+    if (jumpButton && jumpList) {
+      chapters.forEach(c => {
+        const a = document.createElement('a');
+        a.href = `#${c.id}`;
+        a.innerHTML = `<span>${c.dataset.chapter}</span>${c.dataset.chapterName}`;
+        jumpList.appendChild(a);
+      });
+      const setOpen = open => { jumpList.hidden = !open; jumpButton.setAttribute('aria-expanded', String(open)); };
+      jumpButton.addEventListener('click', () => setOpen(jumpList.hidden));
+      jumpList.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+      document.addEventListener('click', e => { if (!e.target.closest('.jump')) setOpen(false); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !jumpList.hidden) { setOpen(false); jumpButton.focus(); } });
+    }
+
+    /* ---- Reading progress: a thin line under the top bar ---- */
+    const progress = document.querySelector('.progress span');
+    if (progress) {
+      let queued = false;
+      const paint = () => { queued = false; const max = document.documentElement.scrollHeight - window.innerHeight; progress.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`; };
+      window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(paint); } }, { passive: true });
+      window.addEventListener('resize', paint);
+      paint();
     }
 
     /* ---- Kinetic name: drifts sideways as the hero scrolls away ---- */
@@ -202,7 +231,7 @@
   if (!deck || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const track = deck.querySelector('.deck-track');
   const items = Array.from(deck.querySelectorAll('.proj'));
-  const GATHER = .25, STEP = .65; // in viewport heights; keep in step with .deck-track height in styles.css
+  const GATHER = .2, STEP = .45; // in viewport heights; keep in step with .deck-track height in styles.css
   const bar = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 0;
   let active = -1, mode = '', ticking = false;
   deck.classList.add('deck-on');
@@ -256,7 +285,7 @@
   const box = document.querySelector('[data-steps]');
   if (!box || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const track = box.querySelector('.s3-track'), parts = Array.from(box.querySelectorAll('[data-i]')), tabs = Array.from(box.querySelectorAll('.s3-tabs button'));
-  const count = box.querySelector('.s3-count b'), n = box.querySelectorAll('.s3-slide').length, STEP = .7; // keep in step with .s3-track height
+  const count = box.querySelector('.s3-count b'), n = box.querySelectorAll('.s3-slide').length, STEP = .45; // keep in step with .s3-track height
   const bar = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 0;
   let active = -1, ticking = false;
   box.classList.add('s3-on');
