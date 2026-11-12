@@ -5,6 +5,7 @@
     const root = document.documentElement;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let scene = null;
+    let labScene = null;
 
     /* ---- Colour scheme: dark (default) / light, remembered per browser ---- */
     const themeButtons = document.querySelectorAll('[data-theme-set]');
@@ -15,6 +16,7 @@
       if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f3f3ef' : '#0b0b0b');
       if (save) { try { localStorage.setItem('theme', theme); } catch { /* storage unavailable */ } }
       scene?.setTheme(theme);
+      labScene?.setTheme(theme);
     }
     applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
     themeButtons.forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.themeSet, true)));
@@ -112,6 +114,22 @@
         return (navigator.hardwareConcurrency || 4) > 2;
       } catch { return false; }
     };
+    /* ---- Crypto Lab Chip: its 3D scene loads only when the section comes near ---- */
+    const labCanvas = document.getElementById('lab-canvas');
+    if (labCanvas && 'IntersectionObserver' in window && !navigator.connection?.saveData && webglAvailable()) {
+      const io = new IntersectionObserver(entries => {
+        if (!entries.some(e => e.isIntersecting)) return;
+        io.disconnect();
+        import('./lab-chip.js')
+          .then(m => {
+            labScene = m.mount(labCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: root.getAttribute('data-theme') });
+            labCanvas.parentElement?.classList.add('has-3d');
+          })
+          .catch(() => { /* the still image stands in */ });
+      }, { rootMargin: '400px 0px' });
+      io.observe(labCanvas);
+    }
+
     if (heroCanvas && !navigator.connection?.saveData && webglAvailable()) {
       const load = () => import('./hero-scene.js')
         .then(m => {

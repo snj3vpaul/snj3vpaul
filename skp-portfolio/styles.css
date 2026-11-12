@@ -209,6 +209,47 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .viewer-arrow:hover { color: var(--fg); }
 .viewer.is-ready ~ .endnote .viewer-hint { display: inline; }
 
+/* ---------- on the record: numbers first, then where each module stands ---------- */
+#impact .stat-grid { margin-top: clamp(28px, 4vw, 48px); }
+.pipeline { margin-top: clamp(48px, 6vw, 80px); }
+.pipeline ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 14px; border-top: 1px solid var(--fg); }
+.pipeline li { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 16px 16px 0 0; }
+.pipeline li::before { content: ''; position: absolute; top: -4px; left: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--fg); }
+.pipeline li:last-child::after { content: '→'; position: absolute; top: -13px; right: 0; font-size: 14px; background: var(--bg); padding-left: 6px; }
+.pipeline span { font-size: 10px; color: var(--muted); }
+.pipeline b { font: 400 clamp(22px, 2.2vw, 30px)/1 var(--cond); text-transform: uppercase; margin-bottom: 6px; }
+.pipeline em { font-style: normal; font-size: 12px; }
+.pipeline em i { vertical-align: 0; }
+.creds-label { margin-top: 28px; }
+.creds-list { margin-top: 8px; border-top: 1px solid var(--line); }
+.creds-list li { display: grid; grid-template-columns: 110px 1fr; column-gap: 18px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.creds-list span { color: var(--muted); }
+.creds-list a { border-bottom: 1px solid var(--line); }
+.viewer-desc { font-size: 15px; line-height: 1.5; color: var(--fg); }
+
+/* ---------- Crypto Lab Chip ---------- */
+.lab { overflow: hidden; overflow: clip; }
+.lab-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.lab-copy h2 { margin-top: 14px; font: 300 clamp(42px, 6.2vw, 96px)/.94 var(--cond); text-transform: uppercase; }
+.lab-copy h2 i { font-style: normal; font-weight: 200; color: var(--muted); }
+.lab-copy .lead { margin-top: 22px; max-width: 44ch; }
+.lab-tools { margin-top: 30px; border-top: 1px solid var(--line); }
+.lab-tools li { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.lab-tools span { grid-row: span 2; font-size: 11px; color: var(--muted); padding-top: 5px; }
+.lab-tools h3 { font: 400 clamp(22px, 2.1vw, 28px)/1.05 var(--cond); text-transform: uppercase; }
+.lab-tools p { margin-top: 6px; font-size: 13px; color: var(--muted); max-width: 52ch; }
+.lab-facts { display: flex; flex-wrap: wrap; gap: 10px 36px; margin-top: 22px; font-size: 12px; }
+.lab-facts > div { display: flex; gap: 10px; }
+.lab-facts dt { color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-size: 11px; padding-top: 1px; }
+.lab-visual { position: relative; aspect-ratio: 1 / .92; }
+.lab-visual::before { content: ''; position: absolute; inset: 0; background: url(img/lab-chip-dark.webp) center / contain no-repeat; transition: opacity .8s var(--ease); }
+[data-theme="light"] .lab-visual::before { background-image: url(img/lab-chip-light.webp); }
+.lab-visual.has-3d::before { opacity: 0; }
+.lab-canvas { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s var(--ease); }
+.lab-canvas.is-ready { opacity: 1; }
+.lab-canvas canvas { width: 100% !important; height: 100% !important; display: block; }
+.lab-visual figcaption { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; }
+
 /* ---------- chapters ---------- */
 .chapter { padding: clamp(88px, 11vw, 150px) 0; border-top: 1px solid var(--line); }
 .chapter-head { margin-bottom: clamp(36px, 5vw, 64px); }
@@ -334,6 +375,9 @@ a.card-visual:hover .card-arrow { transform: rotate(45deg); }
   .topbar { gap: 12px; }
 }
 @media (max-width: 900px) {
+  .lab-grid { grid-template-columns: 1fr; }
+  .lab-visual { order: -1; max-width: 460px; width: 100%; margin-inline: auto; }
+  .lab-visual figcaption { display: none; }
   .viewer.is-ready { grid-template-columns: 1fr; }
   .viewer.is-ready .viewer-list { flex-direction: row; align-items: center; overflow-x: auto; max-height: none; gap: 4px; padding-bottom: 6px; }
   .viewer.is-ready .viewer-arrow { display: none; }
@@ -361,6 +405,9 @@ a.card-visual:hover .card-arrow { transform: rotate(45deg); }
   [data-theme="light"] .hero::before { background-image: url(img/hero-figure-light-m.webp); }
 }
 @media (max-width: 640px) {
+  .pipeline ol { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  .pipeline li:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .creds-list li { grid-template-columns: 1fr; }
   .timeline li { grid-template-columns: 1fr; }
   .timeline span { grid-row: auto; }
   .works-head .legend { white-space: normal; }
