@@ -116,6 +116,24 @@
       io.observe(labCanvas);
     }
 
+    /* ---- ForkCast and What-The-Fabric: their 3D scenes share one bundle, loaded when either comes near ---- */
+    const sideCanvases = document.querySelectorAll('.lab-canvas[data-scene]');
+    if (sideCanvases.length && 'IntersectionObserver' in window && !navigator.connection?.saveData && webglAvailable()) {
+      const sideIo = new IntersectionObserver(entries => {
+        entries.filter(e => e.isIntersecting).forEach(e => {
+          const el = e.target;
+          sideIo.unobserve(el);
+          import('./side-scenes.js')
+            .then(m => {
+              m.mount(el, { scene: el.dataset.scene, reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
+              el.parentElement?.classList.add('has-3d');
+            })
+            .catch(() => { /* the still image stands in */ });
+        });
+      }, { rootMargin: '400px 0px' });
+      sideCanvases.forEach(el => sideIo.observe(el));
+    }
+
     if (heroCanvas && !navigator.connection?.saveData && webglAvailable()) {
       const load = () => import('./hero-scene.js')
         .then(m => {
