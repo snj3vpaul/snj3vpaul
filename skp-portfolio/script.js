@@ -7,20 +7,6 @@
     let scene = null;
     let labScene = null;
 
-    /* ---- Colour scheme: dark (default) / light, remembered per browser ---- */
-    const themeButtons = document.querySelectorAll('[data-theme-set]');
-    const themeColor = document.querySelector('meta[name="theme-color"]');
-    function applyTheme(theme, save) {
-      root.setAttribute('data-theme', theme);
-      themeButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.themeSet === theme)));
-      if (themeColor) themeColor.setAttribute('content', theme === 'light' ? '#f3f3ef' : '#0b0b0b');
-      if (save) { try { localStorage.setItem('theme', theme); } catch { /* storage unavailable */ } }
-      scene?.setTheme(theme);
-      labScene?.setTheme(theme);
-    }
-    applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
-    themeButtons.forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.themeSet, true)));
-
     /* ---- Mobile menu ---- */
     const menuButton = document.querySelector('.menu-toggle');
     const mobileNav = document.getElementById('mobile-nav');
@@ -122,7 +108,7 @@
         io.disconnect();
         import('./lab-chip.js')
           .then(m => {
-            labScene = m.mount(labCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: root.getAttribute('data-theme') });
+            labScene = m.mount(labCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
             labCanvas.parentElement?.classList.add('has-3d');
           })
           .catch(() => { /* the still image stands in */ });
@@ -133,7 +119,7 @@
     if (heroCanvas && !navigator.connection?.saveData && webglAvailable()) {
       const load = () => import('./hero-scene.js')
         .then(m => {
-          scene = m.mount(heroCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: root.getAttribute('data-theme') });
+          scene = m.mount(heroCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
           heroCanvas.closest('.hero')?.classList.add('has-3d');
         })
         .catch(() => { /* the still image stands in */ });
@@ -181,6 +167,27 @@
       show(0);
     });
 
+    /* ---- Camera roll: frame counter follows the scroll position ---- */
+    document.querySelectorAll('[data-roll]').forEach(roll => {
+      const track = roll.querySelector('.roll-track');
+      const frames = Array.from(track?.children || []);
+      const current = roll.querySelector('[data-roll-current]');
+      const total = roll.querySelector('[data-roll-total]');
+      if (!track || !frames.length) return;
+      const pad = n => String(n).padStart(2, '0');
+      if (total) total.textContent = pad(frames.length);
+      let ticking = false;
+      const update = () => {
+        ticking = false;
+        const mid = track.scrollLeft + track.clientWidth / 2;
+        let best = 0, dist = Infinity;
+        frames.forEach((f, i) => { const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
+        if (current) current.textContent = pad(best + 1);
+      };
+      track.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      update();
+    });
+
     const year = document.getElementById('current-year');
     if (year) year.textContent = String(new Date().getFullYear());
 
@@ -208,4 +215,41 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
   else init();
+})();
+
+/* ---- Selected work: a row of cards that gathers into a deck as you scroll ---- */
+(() => {
+  const deck = document.querySelector('[data-deck]');
+  if (!deck || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const track = deck.querySelector('.deck-track');
+  const items = Array.from(deck.querySelectorAll('.proj'));
+  const GATHER = .25, STEP = .65; // in viewport heights; keep in step with .deck-track height in styles.css
+  const bar = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 0;
+  let active = -1, mode = '', ticking = false;
+  deck.classList.add('deck-on');
+  function render() {
+    ticking = false;
+    const vh = window.innerHeight;
+    const p = bar() - track.getBoundingClientRect().top;
+    const m = p > GATHER * vh ? 'deck' : 'row';
+    const i = Math.max(0, Math.min(items.length - 1, Math.floor((p - GATHER * vh) / (STEP * vh))));
+    if (m !== mode) { mode = m; deck.dataset.mode = m; }
+    if (i !== active) {
+      active = i;
+      items.forEach((el, k) => { el.dataset.pos = k === i ? 'active' : k === i - 1 ? 'prev' : k === i + 1 ? 'next' : k < i ? 'before' : 'after'; });
+    }
+  }
+  function goTo(i) {
+    const vh = window.innerHeight;
+    const y = window.scrollY + track.getBoundingClientRect().top - bar() + (GATHER + STEP * i + .2) * vh;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  items.forEach((el, i) => {
+    el.querySelector('.proj-card').addEventListener('click', () => { if (mode === 'row' || i !== active) goTo(i); });
+    el.addEventListener('focusin', () => { if (mode !== 'deck' || i !== active) goTo(i); });
+  });
+  render();
 })();

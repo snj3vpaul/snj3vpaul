@@ -23,6 +23,7 @@ function refsIn(file, text) {
   const found = [];
   const add = r => { if (isLocal(r)) found.push(clean(r)); };
   if (file.endsWith('.html')) {
+    text = text.replace(/<!--[\s\S]*?-->/g, ''); // commented-out markup is not published
     for (const m of text.matchAll(/\s(?:href|src)="([^"]+)"/g)) add(m[1]);
     for (const m of text.matchAll(/\ssrcset="([^"]+)"/g)) m[1].split(',').forEach(part => add(part.trim().split(/\s+/)[0]));
   }

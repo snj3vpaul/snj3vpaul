@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0b0b">
+  <meta name="theme-color" content="#eae5dc">
   <meta name="description" content="Sanjeev K Paul — Compliance Analyst at Fortinet, Ottawa. 4+ years delivering FIPS 140-3 cryptographic module validations and Common Criteria (NDcPP) certifications across engineering, QA and accredited labs.">
   <meta property="og:title" content="Sanjeev K Paul — Compliance Analyst, FIPS 140-3 &amp; Common Criteria">
   <meta property="og:description" content="Cryptographic validation and security certification at Fortinet, Ottawa. Experience, selected work, and contact.">
@@ -16,10 +16,6 @@
   <link rel="canonical" href="https://snj3vpaul.vercel.app/">
   <title>Sanjeev K Paul — Compliance Analyst, FIPS 140-3 &amp; Common Criteria · Ottawa</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <script>
-    /* Apply the saved colour scheme before first paint. */
-    (function () { try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {} })();
-  </script>
   <link rel="preload" href="fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/big-shoulders-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
@@ -49,10 +45,6 @@
     <a class="brand" href="#top">sanjeev<span aria-hidden="true">✳</span></a>
     <span class="brand-tag">Standards by trade. Curious by default.</span>
     <nav class="nav" aria-label="Primary navigation"><a href="#work">Work</a><a href="#approach">Approach</a><a href="#journey">Journey</a><a href="#life">Life</a><a href="#writing">Writing</a><a href="cv.pdf" target="_blank" rel="noopener" data-track="resume-nav">Résumé ↗</a><a class="nav-cta" href="#contact">Let’s talk</a></nav>
-    <div class="theme-switch" role="group" aria-label="Colour scheme">
-      <button type="button" data-theme-set="dark" aria-pressed="true">Dark</button>
-      <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
-    </div>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#work">Work</a><a href="#approach">Approach</a><a href="#journey">Journey</a><a href="#life">Life</a><a href="#writing">Writing</a><a href="cv.pdf" target="_blank" rel="noopener" data-track="resume-nav">Résumé ↗</a><a href="#contact">Let’s talk</a></nav>
   </header>
@@ -93,83 +85,89 @@
     <section class="chapter works" id="work" data-chapter="01" data-chapter-name="Work" aria-labelledby="work-title">
       <div class="wrap">
         <header class="works-head">
-          <div>
-            <p class="label">01 / Selected work</p>
-            <h2 id="work-title" tabindex="-1">Projects &amp; <i>certifications.</i></h2>
-          </div>
+          <p class="label">01 / Selected work</p>
           <p class="legend"><span class="mark mark-valid" aria-hidden="true"></span> Validated by NIST <span class="mark mark-pending" aria-hidden="true"></span> In review</p>
         </header>
-        <div class="viewer" data-viewer>
-          <nav class="viewer-list" aria-label="Projects">
-            <button type="button" class="viewer-arrow" data-step="-1" aria-label="Previous project">↑</button>
-            <p class="viewer-group">At Fortinet</p><button type="button" class="viewer-item" data-index="0" aria-controls="panel-w1" aria-pressed="true"><span>01</span>FortiClient Crypto Module</button><button type="button" class="viewer-item" data-index="1" aria-controls="panel-w2" aria-pressed="false"><span>02</span>FortiClient 7.0.2</button><button type="button" class="viewer-item" data-index="2" aria-controls="panel-w3" aria-pressed="false"><span>03</span>FortiProxy firmware & VM</button><p class="viewer-group">Built on my own time</p><button type="button" class="viewer-item" data-index="3" aria-controls="panel-p1" aria-pressed="false"><span>04</span>What-The-Fabric</button><button type="button" class="viewer-item" data-index="4" aria-controls="panel-p2" aria-pressed="false"><span>05</span>Canterbury Cricket Club</button>
-            <button type="button" class="viewer-arrow" data-step="1" aria-label="Next project">↓</button>
-          </nav>
-          <div class="viewer-panels">
-          <article class="viewer-panel" id="panel-w1" aria-labelledby="title-w1">
-            <div class="viewer-art" aria-hidden="true"><div class="viewer-tilt"><svg class="art" viewBox="0 0 200 180" aria-hidden="true"><path d="M82 170 V110 A18 18 0 0 1 118 110 V170"/><path d="M74 170 V110 A26 26 0 0 1 126 110 V170"/><path d="M66 170 V110 A34 34 0 0 1 134 110 V170"/><path d="M58 170 V110 A42 42 0 0 1 142 110 V170"/><path d="M50 170 V110 A50 50 0 0 1 150 110 V170"/><path d="M42 170 V110 A58 58 0 0 1 158 110 V170"/><path d="M34 170 V110 A66 66 0 0 1 166 110 V170"/><path d="M26 170 V110 A74 74 0 0 1 174 110 V170"/></svg></div><span class="cap">#5493 · public validation record</span></div>
-            <div class="viewer-card">
-              <p class="label">At Fortinet · FIPS 140-3</p>
-              <h3 id="title-w1">FortiClient Crypto Module v1.0</h3>
-              <p class="viewer-status"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST</p>
-              <p class="viewer-desc">Scoped the module boundary and built the evidence NIST validated.</p>
-              <p class="viewer-about">About the project</p>
-              <dl class="viewer-facts"><div><dt>Scope</dt><dd>Scoping · boundary · key-management flows · approved-mode checks</dd></div><div><dt>Certificate</dt><dd>NIST CMVP #5493</dd></div><div><dt>Level</dt><dd>Security Level 1, software</dd></div><div><dt>Validated</dt><dd>17 Aug 2026</dd></div></dl>
-              <a class="btn btn-solid" href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5493" target="_blank" rel="noopener noreferrer" data-track="record-5493">See the NIST record ↗</a>
-            </div>
-          </article>
-          <article class="viewer-panel" id="panel-w2" aria-labelledby="title-w2">
-            <div class="viewer-art" aria-hidden="true"><div class="viewer-tilt"><svg class="art" viewBox="0 0 200 180" aria-hidden="true"><rect x="22" y="132" width="9" height="18" class=""/><rect x="38" y="124" width="9" height="26" class=""/><rect x="54" y="128" width="9" height="22" class=""/><rect x="70" y="110" width="9" height="40" class="solid"/><rect x="86" y="116" width="9" height="34" class=""/><rect x="102" y="98" width="9" height="52" class=""/><rect x="118" y="102" width="9" height="48" class=""/><rect x="134" y="80" width="9" height="70" class="solid"/><rect x="150" y="86" width="9" height="64" class=""/><rect x="166" y="58" width="9" height="92" class="solid"/><path d="M18 150 H190"/></svg></div><span class="cap">First FIPS 140-3 VPN certification</span></div>
-            <div class="viewer-card">
-              <p class="label">At Fortinet · FIPS 140-3</p>
-              <h3 id="title-w2">FortiClient 7.0.2</h3>
-              <p class="viewer-status">Led the workstream</p>
-              <p class="viewer-desc">Led the workstream behind Fortinet’s first FIPS 140-3 VPN certification.</p>
-              <p class="viewer-about">About the project</p>
-              <dl class="viewer-facts"><div><dt>Scope</dt><dd>Boundaries · key management · approved mode · lab liaison</dd></div><div><dt>Outcome</dt><dd>Fortinet’s first FIPS 140-3 VPN certification</dd></div><div><dt>Testing</dt><dd>ACVP: AES, RSA, SHA, HMAC, ECDSA</dd></div><div><dt>Documents</dt><dd>Security Policy (NIST SP 800-140B)</dd></div></dl>
-              <!-- CONFIRM: if NIST CMVP #4931 (FortiClient Crypto Library 7.0.2) is this module, add it as the button link. -->
-            </div>
-          </article>
-          <article class="viewer-panel" id="panel-w3" aria-labelledby="title-w3">
-            <div class="viewer-art" aria-hidden="true"><div class="viewer-tilt"><svg class="art" viewBox="0 0 200 180" aria-hidden="true"><rect x="40" y="40" width="120" height="100" rx="6"/><rect x="70" y="65" width="60" height="50" rx="3"/><path d="M70 40 v-14 M70 140 v14 M40 70 h-14 M160 70 h14"/><path d="M82 40 v-14 M82 140 v14 M40 82 h-14 M160 82 h14"/><path d="M94 40 v-14 M94 140 v14 M40 94 h-14 M160 94 h14"/><path d="M106 40 v-14 M106 140 v14 M40 106 h-14 M160 106 h14"/><path d="M118 40 v-14 M118 140 v14 M40 118 h-14 M160 118 h14"/><path d="M130 40 v-14 M130 140 v14 M40 130 h-14 M160 130 h14"/><circle cx="52" cy="52" r="3" class="solid"/></svg></div><span class="cap">Two modules · Level 1 targets</span></div>
-            <div class="viewer-card">
-              <p class="label">At Fortinet · FIPS 140-3</p>
-              <h3 id="title-w3">FortiProxy firmware &amp; VM</h3>
-              <p class="viewer-status"><span class="mark mark-pending" aria-hidden="true"></span>In review</p>
-              <p class="viewer-desc">Coordinating two Level 1 validations, firmware and VM, through CMVP review.</p>
-              <p class="viewer-about">About the project</p>
-              <dl class="viewer-facts"><div><dt>Scope</dt><dd>Planning · evidence delivery · lab findings · KVM test environments</dd></div><div><dt>Modules</dt><dd>2 (firmware, virtual machine)</dd></div><div><dt>Level</dt><dd>Security Level 1 targets</dd></div><div><dt>Status</dt><dd>Submitted to NIST CMVP, in review</dd></div></dl>
-              
-            </div>
-          </article>
-          <article class="viewer-panel" id="panel-p1" aria-labelledby="title-p1">
-            <div class="viewer-art" aria-hidden="true"><div class="viewer-tilt"><svg class="art" viewBox="0 0 200 180" aria-hidden="true"><path d="M34 30 V150" class="thin"/><path d="M52 30 V150" class="thin"/><path d="M70 30 V150" class="thin"/><path d="M88 30 V150" class="thin"/><path d="M106 30 V150" class="thin"/><path d="M124 30 V150" class="thin"/><path d="M142 30 V150" class="thin"/><path d="M160 30 V150" class="thin"/><path d="M178 30 V150" class="thin"/><path d="M20 40 C60 28 80 52 110 40 S160 28 184 40"/><path d="M20 54 C60 42 80 66 110 54 S160 42 184 54"/><path d="M20 68 C60 56 80 80 110 68 S160 56 184 68"/><path d="M20 82 C60 70 80 94 110 82 S160 70 184 82"/><path d="M20 96 C60 84 80 108 110 96 S160 84 184 96"/><path d="M20 110 C60 98 80 122 110 110 S160 98 184 110"/><path d="M20 124 C60 112 80 136 110 124 S160 112 184 124"/><path d="M20 138 C60 126 80 150 110 138 S160 126 184 138"/></svg></div><span class="cap">For the “unknown humans” of the fabric world</span></div>
-            <div class="viewer-card">
-              <p class="label">Built on my own time</p>
-              <h3 id="title-p1">What-The-Fabric</h3>
-              <p class="viewer-status">Live</p>
-              <p class="viewer-desc">Decodes fabric names, compositions and care labels for people outside the trade.</p>
-              <p class="viewer-about">About the project</p>
-              <dl class="viewer-facts"><div><dt>Type</dt><dd>Web app</dd></div><div><dt>Built</dt><dd>Designed, built and shipped solo</dd></div></dl>
-              <a class="btn btn-solid" href="https://what-the-fabric.vercel.app" target="_blank" rel="noopener noreferrer" data-track="open-wtf">Try What-The-Fabric ↗</a><!-- ADD: stack, features, users if any (as more facts rows). -->
-            </div>
-          </article>
-          <article class="viewer-panel" id="panel-p2" aria-labelledby="title-p2">
-            <div class="viewer-art" aria-hidden="true"><div class="viewer-tilt"><svg class="art" viewBox="0 0 200 180" aria-hidden="true"><circle cx="78" cy="96" r="44"/><path d="M48 64 Q78 96 48 128 M108 64 Q78 96 108 128" stroke-dasharray="4 4"/><path d="M140 52 V150 M152 52 V150 M164 52 V150 M136 50 H168"/><path d="M20 158 H184"/></svg></div><span class="cap">Live community website</span></div>
-            <div class="viewer-card">
-              <p class="label">Built on my own time</p>
-              <h3 id="title-p2">Canterbury Cricket Club</h3>
-              <p class="viewer-status">Live</p>
-              <p class="viewer-desc">The club’s public website, built and maintained end to end.</p>
-              <p class="viewer-about">About the project</p>
-              <dl class="viewer-facts"><div><dt>Scope</dt><dd>Requirements · architecture · build · deployment · access control</dd></div><div><dt>Stack</dt><dd>React · Vercel</dd></div><div><dt>Users</dt><dd>Club members, every season</dd></div></dl>
-              <a class="btn btn-solid" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer" data-track="open-canterbury">Visit the site ↗</a>
-            </div>
-          </article>
+      </div>
+      <div class="deck" data-deck data-mode="row">
+        <div class="deck-track">
+          <div class="deck-stage">
+            <h2 class="deck-title" id="work-title" tabindex="-1"><span class="deck-word deck-word-a">Selected</span> <span class="deck-word deck-word-b">Work</span></h2>
+            <article class="proj" style="--i:0" data-pos="active" aria-labelledby="proj-1">
+              <div class="proj-card tone-1" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><path d="M82 170 V110 A18 18 0 0 1 118 110 V170"/><path d="M74 170 V110 A26 26 0 0 1 126 110 V170"/><path d="M66 170 V110 A34 34 0 0 1 134 110 V170"/><path d="M58 170 V110 A42 42 0 0 1 142 110 V170"/><path d="M50 170 V110 A50 50 0 0 1 150 110 V170"/><path d="M42 170 V110 A58 58 0 0 1 158 110 V170"/><path d="M34 170 V110 A66 66 0 0 1 166 110 V170"/><path d="M26 170 V110 A74 74 0 0 1 174 110 V170"/></svg><span class="proj-cap">#5493 · public validation record</span></div>
+              <div class="proj-info">
+                <div class="pi-left">
+                  <div class="pi-top"><p class="label">At Fortinet · FIPS 140-3</p><p class="pi-desc">Scoped the module boundary and built the evidence NIST validated.</p></div>
+                  <h3 id="proj-1"><span>01</span>FortiClient Crypto Module v1.0</h3>
+                </div>
+                <div class="pi-right">
+                  <p class="pi-status"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST</p>
+                  <p class="pi-count" aria-hidden="true">1<i>/</i>5</p>
+                  <a class="btn btn-solid pi-link" href="project-forticlient-crypto-module.html" data-track="explore-forticlient-crypto-module">Explore project →<span class="sr-only">: FortiClient Crypto Module v1.0</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="proj" style="--i:1" data-pos="after" aria-labelledby="proj-2">
+              <div class="proj-card tone-2" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><rect x="22" y="132" width="9" height="18" class=""/><rect x="38" y="124" width="9" height="26" class=""/><rect x="54" y="128" width="9" height="22" class=""/><rect x="70" y="110" width="9" height="40" class="solid"/><rect x="86" y="116" width="9" height="34" class=""/><rect x="102" y="98" width="9" height="52" class=""/><rect x="118" y="102" width="9" height="48" class=""/><rect x="134" y="80" width="9" height="70" class="solid"/><rect x="150" y="86" width="9" height="64" class=""/><rect x="166" y="58" width="9" height="92" class="solid"/><path d="M18 150 H190"/></svg><span class="proj-cap">First FIPS 140-3 VPN certification</span></div>
+              <div class="proj-info">
+                <div class="pi-left">
+                  <div class="pi-top"><p class="label">At Fortinet · FIPS 140-3</p><p class="pi-desc">Led the workstream behind Fortinet’s first FIPS 140-3 VPN certification.</p></div>
+                  <h3 id="proj-2"><span>02</span>FortiClient 7.0.2</h3>
+                </div>
+                <div class="pi-right">
+                  <p class="pi-status">Led the workstream</p>
+                  <p class="pi-count" aria-hidden="true">2<i>/</i>5</p>
+                  <a class="btn btn-solid pi-link" href="project-forticlient-7-0-2.html" data-track="explore-forticlient-7-0-2">Explore project →<span class="sr-only">: FortiClient 7.0.2</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="proj" style="--i:2" data-pos="after" aria-labelledby="proj-3">
+              <div class="proj-card tone-3" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><rect x="40" y="40" width="120" height="100" rx="6"/><rect x="70" y="65" width="60" height="50" rx="3"/><path d="M70 40 v-14 M70 140 v14 M40 70 h-14 M160 70 h14"/><path d="M82 40 v-14 M82 140 v14 M40 82 h-14 M160 82 h14"/><path d="M94 40 v-14 M94 140 v14 M40 94 h-14 M160 94 h14"/><path d="M106 40 v-14 M106 140 v14 M40 106 h-14 M160 106 h14"/><path d="M118 40 v-14 M118 140 v14 M40 118 h-14 M160 118 h14"/><path d="M130 40 v-14 M130 140 v14 M40 130 h-14 M160 130 h14"/><circle cx="52" cy="52" r="3" class="solid"/></svg><span class="proj-cap">Two modules · Level 1 targets</span></div>
+              <div class="proj-info">
+                <div class="pi-left">
+                  <div class="pi-top"><p class="label">At Fortinet · FIPS 140-3</p><p class="pi-desc">Coordinating two Level 1 validations, firmware and VM, through CMVP review.</p></div>
+                  <h3 id="proj-3"><span>03</span>FortiProxy firmware &amp; VM</h3>
+                </div>
+                <div class="pi-right">
+                  <p class="pi-status"><span class="mark mark-pending" aria-hidden="true"></span>In review</p>
+                  <p class="pi-count" aria-hidden="true">3<i>/</i>5</p>
+                  <a class="btn btn-solid pi-link" href="project-fortiproxy.html" data-track="explore-fortiproxy">Explore project →<span class="sr-only">: FortiProxy firmware &amp; VM</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="proj" style="--i:3" data-pos="after" aria-labelledby="proj-4">
+              <div class="proj-card tone-4" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><path d="M34 30 V150" class="thin"/><path d="M52 30 V150" class="thin"/><path d="M70 30 V150" class="thin"/><path d="M88 30 V150" class="thin"/><path d="M106 30 V150" class="thin"/><path d="M124 30 V150" class="thin"/><path d="M142 30 V150" class="thin"/><path d="M160 30 V150" class="thin"/><path d="M178 30 V150" class="thin"/><path d="M20 40 C60 28 80 52 110 40 S160 28 184 40"/><path d="M20 54 C60 42 80 66 110 54 S160 42 184 54"/><path d="M20 68 C60 56 80 80 110 68 S160 56 184 68"/><path d="M20 82 C60 70 80 94 110 82 S160 70 184 82"/><path d="M20 96 C60 84 80 108 110 96 S160 84 184 96"/><path d="M20 110 C60 98 80 122 110 110 S160 98 184 110"/><path d="M20 124 C60 112 80 136 110 124 S160 112 184 124"/><path d="M20 138 C60 126 80 150 110 138 S160 126 184 138"/></svg><span class="proj-cap">Live web app</span></div>
+              <div class="proj-info">
+                <div class="pi-left">
+                  <div class="pi-top"><p class="label">Built on my own time</p><p class="pi-desc">Decodes fabric names, compositions and care labels for people outside the trade.</p></div>
+                  <h3 id="proj-4"><span>04</span>What-The-Fabric</h3>
+                </div>
+                <div class="pi-right">
+                  <p class="pi-status">Live</p>
+                  <p class="pi-count" aria-hidden="true">4<i>/</i>5</p>
+                  <a class="btn btn-solid pi-link" href="project-what-the-fabric.html" data-track="explore-what-the-fabric">Explore project →<span class="sr-only">: What-The-Fabric</span></a>
+                </div>
+              </div>
+            </article>
+            <article class="proj" style="--i:4" data-pos="after" aria-labelledby="proj-5">
+              <div class="proj-card tone-5" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><circle cx="78" cy="96" r="44"/><path d="M48 64 Q78 96 48 128 M108 64 Q78 96 108 128" stroke-dasharray="4 4"/><path d="M140 52 V150 M152 52 V150 M164 52 V150 M136 50 H168"/><path d="M20 158 H184"/></svg><span class="proj-cap">Live community website</span></div>
+              <div class="proj-info">
+                <div class="pi-left">
+                  <div class="pi-top"><p class="label">Built on my own time</p><p class="pi-desc">The club’s public website, built and maintained end to end.</p></div>
+                  <h3 id="proj-5"><span>05</span>Canterbury Cricket Club</h3>
+                </div>
+                <div class="pi-right">
+                  <p class="pi-status">Live</p>
+                  <p class="pi-count" aria-hidden="true">5<i>/</i>5</p>
+                  <a class="btn btn-solid pi-link" href="project-canterbury-cricket-club.html" data-track="explore-canterbury-cricket-club">Explore project →<span class="sr-only">: Canterbury Cricket Club</span></a>
+                </div>
+              </div>
+            </article>
+            <p class="deck-hint" aria-hidden="true">Scroll · 5 projects</p>
           </div>
         </div>
-        <p class="endnote">Certificates are issued to modules, not people. Each project says what my part was. <span class="viewer-hint">Move the picture around to get the angle you like.</span></p>
       </div>
+      <div class="wrap"><p class="endnote">Certificates are issued to modules, not people. Each project says what my part was.</p></div>
     </section>
 
     <!-- ================= 02 CRYPTO LAB CHIP ================= -->
@@ -285,6 +283,19 @@
           </figure>
         </div>
       </div>
+      <!-- PHOTO STRIP: to switch it on, put your photos in img/roll/ (about 1200px wide, .webp or .jpg),
+           edit the file names and captions below, then delete this line and the closing line of this comment.
+           The scrolling interests ticker hides itself automatically once the strip is on.
+      <div class="roll" data-roll>
+        <div class="wrap roll-head"><p class="label">Camera roll</p><p class="roll-count" aria-hidden="true">Frame <span data-roll-current>01</span> / <span data-roll-total>04</span></p></div>
+        <ul class="roll-track" tabindex="0" aria-label="Photos">
+          <li><figure><img src="img/roll/01.webp" alt="Describe photo 1" loading="lazy" width="1200" height="800"><figcaption>01 · Caption one</figcaption></figure></li>
+          <li><figure><img src="img/roll/02.webp" alt="Describe photo 2" loading="lazy" width="1200" height="800"><figcaption>02 · Caption two</figcaption></figure></li>
+          <li><figure><img src="img/roll/03.webp" alt="Describe photo 3" loading="lazy" width="1200" height="800"><figcaption>03 · Caption three</figcaption></figure></li>
+          <li><figure><img src="img/roll/04.webp" alt="Describe photo 4" loading="lazy" width="1200" height="800"><figcaption>04 · Caption four</figcaption></figure></li>
+        </ul>
+      </div>
+      END PHOTO STRIP -->
       <div class="marquee">
         <p class="sr-only">Cricket · Writing · Football · Community · Travel · Cooking</p>
         <div class="marquee-track" aria-hidden="true">
@@ -294,23 +305,69 @@
       </div>
     </section>
 
+    <!-- ================= ON THE FIELD ================= -->
+    <section class="chapter onfield" id="field" data-chapter="07" data-chapter-name="On the field" aria-labelledby="field-title">
+      <div class="wrap">
+        <header class="chapter-head"><p class="label">07 / On the field</p><h2 id="field-title">A few good <em>seasons.</em></h2></header>
+        <p class="lead onfield-intro">The game has given me more than I have given it. Still, a few seasons went well, and these are the ones the scorebook remembers.</p>
+        <div class="stage">
+          <p class="stage-ghost" aria-hidden="true">On the field</p>
+          <span class="stage-mark stage-mark-a" aria-hidden="true">4</span><span class="stage-mark stage-mark-b" aria-hidden="true">6</span>
+          <ul class="cards">
+            <li>
+              <div class="card"><div class="card-face"><span class="card-tag" aria-hidden="true">MVP</span><p class="card-num">2023</p><span class="card-foot" aria-hidden="true">Ottawa Tuskers</span></div></div>
+              <h3>Ottawa Tuskers Tournament MVP</h3><p>1st ever · 2023</p>
+            </li>
+            <li>
+              <div class="card"><div class="card-face"><span class="card-tag" aria-hidden="true">MVP</span><p class="card-num">2025</p><span class="card-foot" aria-hidden="true">OVCC T20</span></div></div>
+              <h3>OVCC T20 MVP</h3><p>T20 · 2025</p>
+            </li>
+            <li>
+              <div class="card"><div class="card-face"><span class="card-tag" aria-hidden="true">Best batter</span><p class="card-num">2025</p><span class="card-foot" aria-hidden="true">OVCC T20</span></div></div>
+              <h3>OVCC T20 Best Batter</h3><p>T20 · 2025</p>
+            </li>
+            <li>
+              <div class="card"><div class="card-face"><span class="card-tag" aria-hidden="true">Runs</span><p class="card-num card-num-long">1,000+</p><span class="card-foot" aria-hidden="true">Avg 42</span></div></div>
+              <h3>The 2025 season</h3><p>1,000+ runs · Average 42</p>
+            </li>
+            <li>
+              <div class="card"><div class="card-face"><span class="card-tag" aria-hidden="true">Final</span><p class="card-num">2026</p><span class="card-foot" aria-hidden="true">Canterbury</span></div></div>
+              <h3>Canterbury, to the final</h3><p>Led across my full tenure · 4th in the T20 MVP race · To the final as vice-captain as well</p>
+            </li>
+          </ul>
+        </div>
+        <div class="carry">
+          <p class="label">What carries over</p>
+          <dl class="carry-list">
+            <div><dt>Captaincy</dt><dd><span aria-hidden="true">⇄</span>Getting engineers and reviewers to the same deadline, together.</dd></div>
+            <div><dt>Vice-captaincy, two finals reached</dt><dd><span aria-hidden="true">⇄</span>Stepping up, reliably, when the structure around me changes.</dd></div>
+            <div><dt>Chasing under pressure</dt><dd><span aria-hidden="true">⇄</span>Staying calm while triaging a production issue.</dd></div>
+            <div><dt>Averaging 42 across a season</dt><dd><span aria-hidden="true">⇄</span>Consistency and repeatability, which is what good validation evidence is made of.</dd></div>
+            <div><dt>Tournament MVP</dt><dd><span aria-hidden="true">⇄</span>A good individual day that only counts if the team gets the result.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= WRITING ================= -->
-    <section class="chapter" id="writing" data-chapter="07" data-chapter-name="Writing" aria-labelledby="writing-title">
+    <section class="chapter" id="writing" data-chapter="08" data-chapter-name="Writing" aria-labelledby="writing-title">
       <div class="wrap">
         <header class="works-head">
-          <div><p class="label">07 / Field notes</p><h2 id="writing-title">Thinking <i>out loud.</i></h2></div>
+          <div><p class="label">08 / Field notes</p><h2 id="writing-title">Thinking <i>out loud.</i></h2></div>
           <a class="side-link" href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">All writing ↗</a>
         </header>
         <ul class="entries">
           <li><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer"><small>Ongoing · Medium</small><strong>Notes on security, technology, and what I’m learning ↗</strong></a></li>
           <li><a href="https://www.journalijar.com/uploads/2022/04/6276555b2375a_IJAR-39401.pdf" target="_blank" rel="noopener noreferrer"><small>2022 · Graduate survey paper · IJAR</small><strong>SoK: Is iPhone Actually Secure? ↗</strong></a></li>
-          <!-- ADD: your latest Medium article titles here, with dates; they read much better than the profile link. -->
+<!-- DATED ENTRIES: copy this line once per article, newest first, and fill in the month, title and link:
+          <li><a href="https://medium.com/@sanjeevkumarpaul25/ARTICLE-LINK" target="_blank" rel="noopener noreferrer"><small>Nov 2026 · Medium</small><strong>Article title ↗</strong></a></li>
+          -->
         </ul>
       </div>
     </section>
 
     <!-- ================= CONTACT ================= -->
-    <section class="chapter contact" id="contact" data-chapter="08" data-chapter-name="Let’s talk" aria-labelledby="contact-title">
+    <section class="chapter contact band-dark" id="contact" data-chapter="09" data-chapter-name="Let’s talk" aria-labelledby="contact-title">
       <div class="wrap">
         <p class="label">Have something in mind?</p>
         <h2 id="contact-title">Let’s make it <em>provable.</em></h2>
@@ -326,7 +383,7 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer band-dark">
     <span>sanjeev.</span>
     <span>Compliance Analyst · Fortinet · Ottawa</span>
     <span class="footer-links"><a href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">Writing ↗</a></span>
