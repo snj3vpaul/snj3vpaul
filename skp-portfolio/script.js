@@ -128,45 +128,6 @@
       else window.addEventListener('load', () => idle(load), { once: true });
     }
 
-    /* ---- Project viewer: list on the left, one project at a time ---- */
-    document.querySelectorAll('[data-viewer]').forEach(viewer => {
-      const items = Array.from(viewer.querySelectorAll('.viewer-item'));
-      const panels = items.map(b => document.getElementById(b.getAttribute('aria-controls')));
-      if (!items.length || panels.some(p => !p)) return;
-      let index = 0;
-      const show = (next, focus) => {
-        index = (next + items.length) % items.length;
-        items.forEach((b, i) => b.setAttribute('aria-pressed', String(i === index)));
-        panels.forEach((p, i) => { p.hidden = i !== index; });
-        // keep the selected item visible inside the list without scrolling the page
-        const list = viewer.querySelector('.viewer-list');
-        const it = items[index];
-        if (it.offsetTop < list.scrollTop || it.offsetTop + it.offsetHeight > list.scrollTop + list.clientHeight) list.scrollTop = Math.max(0, it.offsetTop - list.clientHeight / 2);
-        if (it.offsetLeft < list.scrollLeft || it.offsetLeft + it.offsetWidth > list.scrollLeft + list.clientWidth) list.scrollLeft = Math.max(0, it.offsetLeft - 120);
-        if (focus) items[index].focus();
-      };
-      items.forEach((b, i) => b.addEventListener('click', () => show(i)));
-      viewer.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => show(index + Number(b.dataset.step))));
-      viewer.querySelector('.viewer-list').addEventListener('keydown', e => {
-        if (['ArrowDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); show(index + 1, true); }
-        if (['ArrowUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); show(index - 1, true); }
-      });
-      // Move the picture around: a gentle tilt that follows the pointer.
-      if (!reduceMotion) panels.forEach(p => {
-        const art = p.querySelector('.viewer-art');
-        const tilt = p.querySelector('.viewer-tilt');
-        if (!art || !tilt) return;
-        art.addEventListener('pointermove', e => {
-          const r = art.getBoundingClientRect();
-          tilt.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - 0.5) * 28}deg`);
-          tilt.style.setProperty('--rx', `${-((e.clientY - r.top) / r.height - 0.5) * 20}deg`);
-        });
-        art.addEventListener('pointerleave', () => { tilt.style.setProperty('--rx', '0deg'); tilt.style.setProperty('--ry', '0deg'); });
-      });
-      viewer.classList.add('is-ready');
-      show(0);
-    });
-
     /* ---- Camera roll: frame counter follows the scroll position ---- */
     document.querySelectorAll('[data-roll]').forEach(roll => {
       const track = roll.querySelector('.roll-track');
@@ -252,4 +213,117 @@
     el.addEventListener('focusin', () => { if (mode !== 'deck' || i !== active) goTo(i); });
   });
   render();
+})();
+
+/* ---- On the record: numbers count up the first time they are seen ---- */
+(() => {
+  const counts = document.querySelectorAll('.count[data-to]');
+  if (!counts.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const run = el => {
+    const to = Number(el.dataset.to), suffix = el.dataset.suffix || '', t0 = performance.now(), dur = 1400;
+    const tick = now => {
+      const k = Math.min(1, (now - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(to * eased) + suffix;
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    el.textContent = '0' + suffix;
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); run(e.target); } }), { threshold: .6 });
+  counts.forEach(c => io.observe(c));
+})();
+
+/* ---- The approach: three principles, pinned, one per scroll step ---- */
+(() => {
+  const box = document.querySelector('[data-steps]');
+  if (!box || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const track = box.querySelector('.s3-track'), parts = Array.from(box.querySelectorAll('[data-i]')), tabs = Array.from(box.querySelectorAll('.s3-tabs button'));
+  const count = box.querySelector('.s3-count b'), n = box.querySelectorAll('.s3-slide').length, STEP = .7; // keep in step with .s3-track height
+  const bar = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 0;
+  let active = -1, ticking = false;
+  box.classList.add('s3-on');
+  const render = () => {
+    ticking = false;
+    const i = Math.max(0, Math.min(n - 1, Math.floor((bar() - track.getBoundingClientRect().top) / (STEP * window.innerHeight))));
+    if (i === active) return;
+    active = i;
+    parts.forEach(el => { const on = Number(el.dataset.i) === i; if (el.tagName === 'BUTTON') el.setAttribute('aria-pressed', String(on)); else el.classList.toggle('is-active', on); });
+    if (count) count.textContent = String(i + 1).padStart(2, '0');
+  };
+  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  tabs.forEach(b => b.addEventListener('click', () => window.scrollTo({ top: window.scrollY + track.getBoundingClientRect().top - bar() + (STEP * Number(b.dataset.i) + .15) * window.innerHeight, behavior: 'smooth' })));
+  render();
+})();
+
+/* ---- Along the way: each step fills in as it reaches the middle of the screen ---- */
+(() => {
+  const path = document.querySelector('.path');
+  if (!path || !('IntersectionObserver' in window)) return;
+  path.classList.add('path-on');
+  const io = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('is-in', e.isIntersecting)), { rootMargin: '-28% 0px -28% 0px' });
+  path.querySelectorAll('li').forEach(li => io.observe(li));
+})();
+
+/* ---- On the field: a carousel that keeps rotating ---- */
+(() => {
+  document.querySelectorAll('[data-reel]').forEach(reel => {
+    const track = reel.querySelector('.reel-track'), cards = Array.from(track.children);
+    const current = reel.querySelector('[data-reel-current]'), buttons = Array.from(reel.querySelectorAll('[data-reel-step]'));
+    const toggle = reel.querySelector('[data-reel-toggle]');
+    const step = () => cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (still) { // no automatic movement: arrows, swipe and a counter only
+      if (toggle) toggle.hidden = true;
+      const update = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        const i = track.scrollLeft >= max - 2 ? cards.length - 1 : Math.round(track.scrollLeft / step());
+        if (current) { current.textContent = String(i + 1).padStart(2, '0'); current.parentElement.hidden = track.clientWidth > 2 * step(); }
+        buttons.forEach(b => { b.disabled = Number(b.dataset.reelStep) < 0 ? track.scrollLeft <= 2 : track.scrollLeft >= max - 2; });
+      };
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      buttons.forEach(b => b.addEventListener('click', () => track.scrollBy({ left: Number(b.dataset.reelStep) * step() })));
+      update();
+      return;
+    }
+
+    // Endless loop: two extra copies of the cards, hidden from screen readers, so the row never runs out.
+    for (let k = 0; k < 2; k++) cards.forEach(c => { const copy = c.cloneNode(true); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); });
+    reel.classList.add('reel-auto');
+    if (current) current.parentElement.hidden = true;
+    const SPEED = 42; // pixels per second
+    let dir = 1, pos = 0, boost = 0, last = 0, hover = false, held = false, visible = false, userPaused = false, raf = 0;
+    const setWidth = () => step() * cards.length;
+    const frame = now => {
+      raf = 0;
+      const dt = Math.min(.05, (now - last) / 1000); last = now;
+      const w = setWidth();
+      if (Math.abs(track.scrollLeft - pos) > 2) pos = track.scrollLeft; // the visitor swiped or dragged
+      let move = 0;
+      if (boost) { const b = Math.sign(boost) * Math.min(Math.abs(boost), 1100 * dt); boost -= b; move += b; }
+      else if (!hover && !held && !userPaused) move += dir * SPEED * dt;
+      pos += move;
+      if (pos >= w) pos -= w; else if (pos < 0) pos += w;
+      track.scrollLeft = pos;
+      if (visible) raf = requestAnimationFrame(frame);
+    };
+    const wake = () => { if (!raf && visible) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; wake(); }).observe(reel);
+    track.addEventListener('pointerenter', () => { hover = true; });
+    track.addEventListener('pointerleave', () => { hover = false; held = false; });
+    track.addEventListener('pointerdown', () => { held = true; });
+    window.addEventListener('pointerup', () => { held = false; });
+    track.addEventListener('focusin', () => { hover = true; });
+    track.addEventListener('focusout', () => { hover = false; });
+    buttons.forEach(b => b.addEventListener('click', () => { dir = Number(b.dataset.reelStep); boost += dir * step(); }));
+    if (toggle) toggle.addEventListener('click', () => {
+      userPaused = !userPaused;
+      toggle.setAttribute('aria-pressed', String(userPaused));
+      toggle.setAttribute('aria-label', userPaused ? 'Play the carousel' : 'Pause the carousel');
+      toggle.textContent = userPaused ? '▶' : 'Ⅱ';
+    });
+  });
 })();
