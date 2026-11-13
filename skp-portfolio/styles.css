@@ -414,7 +414,11 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 .deck:not(.deck-on) .pi-link { align-self: flex-start; margin-top: 14px; }
 
 .deck-on { --cw: min(30vw, 46vh, 430px); --rs: .32; --step: calc(var(--cw) * .32 + 16px); }
+<<<<<<< HEAD
 .deck-on .deck-track { height: calc(100svh - var(--bar) + 155vh); } /* 0.2 gather + 0.45 per extra card (3 cards) + tail */
+=======
+.deck-on .deck-track { height: calc(100svh - var(--bar) + 200vh); }
+>>>>>>> 55d25e0e6e3c485d73193e1c43c24226a44e2da6
 .deck-on .deck-stage { position: sticky; top: var(--bar); height: calc(100svh - var(--bar)); overflow: hidden; overflow: clip; }
 .deck-on .deck-title { position: absolute; inset: 0; width: auto; margin: 0; pointer-events: none; }
 .deck-on .deck-word { position: absolute; top: 50%; translate: 0 -50%; font-size: clamp(40px, 6.2vw, 112px); transition: opacity .5s var(--ease), translate .9s var(--ease); }
@@ -600,6 +604,7 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 }
 .menu-toggle span { left: 12px; right: 12px; }
 .menu-toggle span:first-child { top: 18px; } .menu-toggle span:last-child { top: 24px; }
+<<<<<<< HEAD
 
 /* Sports projects: two cards side by side, stacked on small screens */
 .sports-lead { max-width: 52ch; margin-bottom: clamp(36px, 5vw, 56px); }
@@ -613,3 +618,5 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 @media (max-width: 900px) { .sports-grid { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .sport { grid-template-columns: 1fr; } .sport .proj-card { max-width: 220px; } }
 .sport-copy .lab-actions .text-link { margin-top: 0; }
+=======
+>>>>>>> 55d25e0e6e3c485d73193e1c43c24226a44e2da6
