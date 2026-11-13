@@ -374,3 +374,38 @@
     });
   });
 })();
+
+/* ---- Projects: tabs switch between Crypto Lab Chip, ForkCast and What-The-Fabric ----
+   Each 3D scene loads the first time its tab is opened (its canvas only becomes visible then). */
+(() => {
+  const tabs = Array.from(document.querySelectorAll('.proj-tab'));
+  if (!tabs.length) return;
+  const section = document.getElementById('projects');
+  const select = (tab, focus) => {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (k) { e.preventDefault(); select(tabs[(i + k + tabs.length) % tabs.length], true); }
+      else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); select(tabs[e.key === 'Home' ? 0 : tabs.length - 1], true); }
+    });
+  });
+  /* Old links such as #lab, #forkcast or #fabric open the matching tab. */
+  const fromHash = () => {
+    const id = { 'what-the-fabric': 'fabric' }[location.hash.slice(1)] || location.hash.slice(1);
+    const tab = tabs.find(t => t.getAttribute('aria-controls') === id);
+    if (!tab) return;
+    select(tab);
+    requestAnimationFrame(() => section.scrollIntoView());
+  };
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
