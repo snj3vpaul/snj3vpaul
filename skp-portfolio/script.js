@@ -163,33 +163,19 @@
 
     /* ---- Hero figure: the module boundary and the halftone figure trade places in one frame ----
        The boundary is in the HTML. The figure arrives after load: the 3D scene on hardware WebGL,
-       otherwise its still, drawn to a canvas. Until one is ready the switch stays hidden. */
+       otherwise its still, drawn to a canvas. Once it is ready the two swap every 3 seconds,
+       holding while the pointer is over the frame; with reduced motion the boundary stays. */
     const figure = document.querySelector('.hero-figure');
     const guyPane = figure?.querySelector('.fig-pane--guy');
-    if (figure && guyPane) {
-      const buttons = Array.from(figure.querySelectorAll('.fig-switch button'));
-      let auto = !reduceMotion, hold = false, inView = true, timer = 0;
-      const show = view => {
-        figure.dataset.view = view;
-        buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
-      };
-      const cycle = delay => {
-        timer = setTimeout(() => {
-          if (!auto) return;
-          if (!hold && inView && !document.hidden) show(figure.dataset.view === 'guy' ? 'boundary' : 'guy');
-          cycle(6000);
-        }, delay);
-      };
+    if (figure && guyPane && !reduceMotion) {
+      let hold = false, inView = true;
       const ready = () => {
-        figure.querySelector('figcaption').hidden = true;
-        figure.querySelector('.fig-switch').hidden = false;
-        buttons.forEach(b => b.addEventListener('click', () => { auto = false; clearTimeout(timer); show(b.dataset.view); }));
         figure.addEventListener('pointerenter', () => { hold = true; });
         figure.addEventListener('pointerleave', () => { hold = false; });
-        figure.addEventListener('focusin', () => { hold = true; });
-        figure.addEventListener('focusout', () => { hold = false; });
         if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { inView = e.isIntersecting; }).observe(figure);
-        if (auto) cycle(2500);
+        setInterval(() => {
+          if (!hold && inView && !document.hidden) figure.dataset.view = figure.dataset.view === 'guy' ? 'boundary' : 'guy';
+        }, 3000);
       };
       const still = () => {
         const img = new Image();
@@ -210,7 +196,7 @@
         stage.className = 'fig-3d';
         guyPane.appendChild(stage);
         import('./hero-scene.js')
-          .then(m => { m.mount(stage, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' }); ready(); })
+          .then(m => { m.mount(stage, { compact: window.innerWidth < 760, theme: 'light' }); ready(); })
           .catch(() => { stage.remove(); still(); });
       };
       const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
