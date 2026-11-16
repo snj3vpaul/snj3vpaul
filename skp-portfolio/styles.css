@@ -129,10 +129,12 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .brand span { margin-left: 2px; }
 .brand-tag { margin-right: auto; color: var(--muted); font-size: 11px; }
 .brand { margin-right: 18px; }
-.nav-cta { padding: 5px 10px; border: 1px solid var(--fg); color: var(--fg) !important; }
+.nav-cta { padding: 5px 10px; border: 1px solid var(--fg); color: var(--fg) !important; white-space: nowrap; transition: background-color .25s var(--ease), color .25s var(--ease); }
+.nav-cta:hover { background: var(--fg); color: var(--bg) !important; }
 .headline em, .chapter-head h2 em, .contact h2 em { font-style: normal; color: var(--muted); }
 .headline em { font-weight: 300; }
-.hero-stage .btn { align-self: flex-start; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-outline { border-color: var(--fg); }
 .hero-stack { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .hero-metric { margin-top: -8px; font-size: 13px; font-weight: 600; }
 .principles { display: grid; gap: 10px; align-content: start; }
@@ -280,6 +282,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
   .nav { display: none; }
   .menu-toggle { display: block; }
   .topbar { gap: 12px; }
+  .topbar > .nav-cta { margin-left: auto; }
 }
 @media (max-width: 900px) {
   .lab-grid { grid-template-columns: 1fr; }
@@ -336,7 +339,6 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 .topbar { background: var(--bg); }
 .chapter-marker { padding: 4px 9px; background: var(--bg); border: 1px solid var(--line); }
-.menu-toggle { margin-left: auto; }
 
 /* ---------- camera roll (off until photos are added) ---------- */
 .roll { margin-top: clamp(56px, 8vw, 96px); }
