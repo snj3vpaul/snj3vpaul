@@ -127,8 +127,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 
 /* ---------- recruiter-first blocks ---------- */
 .hero-role { max-width: 46ch; font-size: clamp(13px, 1.05vw, 15px); line-height: 1.6; }
-.contact-email { margin-top: 26px; font: 800 clamp(18px, 3vw, 40px)/1.1 var(--wide); letter-spacing: -.02em; overflow-wrap: anywhere; }
-.contact-email a { border-bottom: 2px solid var(--fg); }
+.contact-email { margin-top: 26px; font: 800 clamp(18px, 3vw, 40px)/1.1 var(--wide); letter-spacing: -.02em; overflow-wrap: anywhere; user-select: all; }
 
 /* ---------- editorial pass (after sagardas.info): lead with work, tell the story, keep the CV for detail ---------- */
 .brand span { margin-left: 2px; }
@@ -275,6 +274,7 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .contact h2 { margin: 22px auto 0; max-width: 16ch; font: 900 clamp(38px, 6.6vw, 104px)/.95 var(--wide); text-transform: uppercase; letter-spacing: -.04em; }
 .contact .lead { margin: 26px auto 0; max-width: 54ch; color: var(--muted); }
 .contact-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin: 36px 0 22px; }
+#copy-email { min-width: 13ch; }
 .copy-feedback { font-size: 13px; color: var(--muted); }
 
 .site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding: 18px 24px 22px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
@@ -334,7 +334,6 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .btn-solid:hover { background: transparent; color: var(--fg); }
 .text-link, .side-link, .link-row a { color: var(--blue); border-color: currentColor; }
 .entries a:hover strong, .nav a:hover, .nav a.is-current { color: var(--blue); }
-.contact-email a { border-color: var(--blue); }
 .brand span, .marquee-track span::after { color: var(--brown); }
 .status-dot { background: var(--blue); }
 .mark { border-color: var(--brown); }

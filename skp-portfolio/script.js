@@ -202,7 +202,8 @@
 
     /* ---- Copy email ---- */
     document.getElementById('copy-email')?.addEventListener('click', async event => {
-      const email = event.currentTarget.dataset.email;
+      const button = event.currentTarget;
+      const email = button.dataset.email;
       const feedback = document.getElementById('copy-feedback');
       let copied = false;
       try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(email); copied = true; } } catch { /* fall through */ }
@@ -213,7 +214,15 @@
         try { copied = !!document.execCommand?.('copy'); } catch { /* unavailable */ }
         area.remove();
       }
-      if (feedback) feedback.textContent = copied ? 'Copied.' : 'Copy unavailable — use the link.';
+      if (feedback) {
+        feedback.textContent = copied ? 'Email address copied.' : 'Copy unavailable — select the address above.';
+        feedback.classList.toggle('sr-only', copied); // on success the button itself says "Copied"
+      }
+      if (!copied) return;
+      if (typeof window.va === 'function') window.va('event', { name: 'contact-copy-success' });
+      button.textContent = 'Copied';
+      clearTimeout(button.resetTimer);
+      button.resetTimer = setTimeout(() => { button.textContent = 'Copy email'; if (feedback) feedback.textContent = ''; }, 2400);
     });
 
     /* ---- Outcome measurement (Vercel Web Analytics custom events) ---- */
