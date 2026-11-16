@@ -610,12 +610,12 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 @media (max-width: 900px) { .sports-grid { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .sport { grid-template-columns: 1fr; } .sport .proj-card { max-width: 220px; } }
 .sport-copy .lab-actions .text-link { margin-top: 0; }
-/* The Journey: the current build, so it takes the full first row. Same card, same copy block, plus a note on why. */
-.sport--lead { grid-column: 1 / -1; grid-template-columns: minmax(0, 180px) minmax(0, 1fr) minmax(0, 1fr); padding-bottom: clamp(28px, 4vw, 48px); border-bottom: 1px solid var(--line); }
+/* The Journey: still in progress, so it comes last and takes the full final row. Same card, same copy block, plus a note on why. */
+.sport--wide { grid-column: 1 / -1; grid-template-columns: minmax(0, 180px) minmax(0, 1fr) minmax(0, 1fr); padding-top: clamp(28px, 4vw, 48px); border-top: 1px solid var(--line); }
 .sport-note { display: flex; flex-direction: column; gap: 12px; margin-left: clamp(8px, 2vw, 32px); padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
 .sport-note p:not(.label) { color: var(--muted); max-width: 46ch; }
-@media (max-width: 900px) { .sport--lead { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); } .sport-note { grid-column: 2; margin-left: 0; padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--line); } }
-@media (max-width: 520px) { .sport--lead { grid-template-columns: 1fr; } .sport-note { grid-column: auto; } }
+@media (max-width: 900px) { .sport--wide { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); } .sport-note { grid-column: 2; margin-left: 0; padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--line); } }
+@media (max-width: 520px) { .sport--wide { grid-template-columns: 1fr; } .sport-note { grid-column: auto; } }
 /* Its card: a dark globe, three places lit in the order a life reaches them. Still (all lit) unless motion is welcome. */
 .tone-night { background: linear-gradient(172deg, #10141d, #323c4f); }
 .globe-svg { --lit: #e6c39c; overflow: visible; }
