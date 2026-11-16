@@ -90,11 +90,15 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .hero::before { content: ''; position: absolute; inset: var(--bar) 0 0; z-index: -2; background: url(img/hero-figure-light.webp) center / cover no-repeat; transition: opacity .8s var(--ease); }
 .hero.has-3d::before { opacity: 0; }
 
-.infobar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
-.infobar > div { padding: 12px 24px; }
+.infobar { display: flex; align-items: center; margin-top: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.infobar-facts { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.infobar-facts > div { padding: 12px 24px; }
 .infobar dt { font-weight: 600; }
 .infobar dd { color: var(--muted); }
-.infobar-time { text-align: right; }
+.profile-links { display: flex; align-items: center; gap: 4px; padding: 0 16px; }
+.icon-link { display: grid; place-items: center; width: 40px; height: 40px; color: var(--fg); transition: color .25s; }
+.icon-link:hover { color: var(--blue); }
+.icon-link svg { fill: currentColor; }
 
 .hero-stage { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 18px; padding: 40px 24px 22px; max-width: 46%; }
 .status { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
@@ -291,8 +295,8 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
   .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; }
   .stat-grid > div:nth-child(3) { padding-left: 0; border-left: 0; }
   .brand-tag { display: none; }
-  .infobar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .infobar > div:nth-child(3) { display: none; }
+  .infobar-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .infobar-facts > div:nth-child(3) { display: none; }
   .hero-stage { max-width: none; padding-top: 46svh; }
   .status { margin-bottom: 0; }
   .two-col, .hello-grid { grid-template-columns: 1fr; }
@@ -309,9 +313,10 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
   .wrap { width: calc(100% - 36px); }
   .topbar { padding: 0 16px; }
   .brand { font-size: 11px; }
-  .infobar > div { padding: 10px 16px; }
   .hero-stage { padding: 46svh 16px 16px; gap: 16px; }
-  .infobar > div { padding: 10px 12px; }
+  .infobar-facts > div { padding: 10px 12px; }
+  .infobar-facts > div:first-child { padding-left: 16px; }
+  .profile-links { padding: 0 8px; }
   .hero-foot { padding: 12px 16px; }
   .hero-foot span { display: none; }
   .works-head { flex-direction: column; align-items: flex-start; }
@@ -486,7 +491,6 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
   .pp-grid { grid-template-columns: 1fr; }
   .pp-art { order: -1; } .pp-art .proj-card { width: min(62%, 300px); margin: 0; }
 }
-.infobar { background: transparent; }
 
 /* ---------- 03 / On the record: counting numbers ---------- */
 #impact .stat-grid { border-bottom: 1px solid var(--line); }

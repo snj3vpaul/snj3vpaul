@@ -29,6 +29,7 @@
       const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hour12: false });
       const tick = () => { timeNode.textContent = fmt.format(new Date()); };
       tick();
+      timeNode.parentElement.hidden = false;
       setInterval(tick, 20000);
     }
 
