@@ -80,8 +80,8 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
 .mobile-nav { position: absolute; top: var(--bar); left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 24px 16px; }
 .mobile-nav a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 
-.chapter-marker { opacity: 0; transition: opacity .4s var(--ease); position: fixed; right: 24px; bottom: 20px; z-index: 40; display: flex; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); mix-blend-mode: normal; pointer-events: none; }
-.chapter-marker.is-visible { opacity: 1; }
+.chapter-marker { opacity: 0; visibility: hidden; transition: opacity .4s var(--ease), visibility 0s .4s; position: fixed; right: 24px; bottom: 20px; z-index: 40; display: flex; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); mix-blend-mode: normal; pointer-events: none; }
+.chapter-marker.is-visible { opacity: 1; visibility: visible; transition-delay: 0s; }
 .chapter-marker #chapter-num { color: var(--fg); }
 
 /* ---------- hero ---------- */
@@ -589,7 +589,6 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
 .mobile-nav { max-height: calc(100svh - var(--bar)); overflow-y: auto; }
 .jump { position: fixed; right: 24px; bottom: 20px; z-index: 45; }
 .jump .chapter-marker { position: static; pointer-events: auto; cursor: pointer; font-family: var(--mono); align-items: center; min-height: 36px; padding: 6px 12px; }
-.jump .chapter-marker:not(.is-visible) { pointer-events: none; }
 .jump .chapter-marker:hover, .jump .chapter-marker[aria-expanded="true"] { color: var(--fg); border-color: var(--fg); }
 .jump-caret { font-size: 9px; transition: rotate .3s var(--ease); }
 .chapter-marker[aria-expanded="true"] .jump-caret { rotate: 180deg; }
