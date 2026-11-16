@@ -613,6 +613,29 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 @media (max-width: 900px) { .sports-grid { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .sport { grid-template-columns: 1fr; } .sport .proj-card { max-width: 220px; } }
 .sport-copy .lab-actions .text-link { margin-top: 0; }
+/* The Journey: the current build, so it takes the full first row. Same card, same copy block, plus a note on why. */
+.sport--lead { grid-column: 1 / -1; grid-template-columns: minmax(0, 180px) minmax(0, 1fr) minmax(0, 1fr); padding-bottom: clamp(28px, 4vw, 48px); border-bottom: 1px solid var(--line); }
+.sport-note { display: flex; flex-direction: column; gap: 12px; margin-left: clamp(8px, 2vw, 32px); padding-left: clamp(20px, 3vw, 40px); border-left: 1px solid var(--line); }
+.sport-note p:not(.label) { color: var(--muted); max-width: 46ch; }
+@media (max-width: 900px) { .sport--lead { grid-template-columns: minmax(0, 180px) minmax(0, 1fr); } .sport-note { grid-column: 2; margin-left: 0; padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--line); } }
+@media (max-width: 520px) { .sport--lead { grid-template-columns: 1fr; } .sport-note { grid-column: auto; } }
+/* Its card: a dark globe, three places lit in the order a life reaches them. Still (all lit) unless motion is welcome. */
+.tone-night { background: linear-gradient(172deg, #10141d, #323c4f); }
+.globe-svg { --lit: #e6c39c; overflow: visible; }
+.globe-svg .globe-glow { fill: rgba(157, 180, 255, .07); stroke: none; }
+.globe-svg .globe-arc { stroke: var(--lit); stroke-dasharray: 1; stroke-dashoffset: 0; opacity: .85; }
+.globe-svg .globe-pt { color: var(--lit); }
+.globe-svg .globe-pt .halo { fill: currentColor; stroke: none; opacity: .18; }
+@media (prefers-reduced-motion: no-preference) {
+  .globe-svg .globe-pt { animation: globe-lit 12s var(--ease) infinite both; }
+  .globe-svg .globe-arc { animation: globe-route 12s var(--ease) infinite both; }
+  .globe-svg .pt-2 { animation-delay: 1.6s; }
+  .globe-svg .arc-1 { animation-delay: .5s; }
+  .globe-svg .pt-3 { animation-delay: 3.2s; }
+  .globe-svg .arc-2 { animation-delay: 2.1s; }
+}
+@keyframes globe-lit { 0%, 4% { opacity: 0; } 12%, 80% { opacity: 1; } 92%, 100% { opacity: 0; } }
+@keyframes globe-route { 0%, 4% { stroke-dashoffset: 1; opacity: .85; } 16%, 80% { stroke-dashoffset: 0; opacity: .85; } 92% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 1; opacity: 0; } }
 
 /* Projects: Crypto Lab Chip, ForkCast and What-The-Fabric share one section, switched by tabs */
 .projects-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 40px; margin-bottom: clamp(32px, 4vw, 56px); }
