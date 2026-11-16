@@ -211,6 +211,15 @@
     });
 
     /* ---- Outcome measurement (Vercel Web Analytics custom events) ---- */
+    const contactSection = document.getElementById('contact');
+    if (contactSection && 'IntersectionObserver' in window) {
+      const seen = new IntersectionObserver(entries => {
+        if (!entries.some(e => e.isIntersecting)) return;
+        seen.disconnect();
+        if (typeof window.va === 'function') window.va('event', { name: 'contact-section-view' });
+      }, { threshold: .3 });
+      seen.observe(contactSection);
+    }
     document.addEventListener('click', event => {
       const target = event.target instanceof Element ? event.target.closest('[data-track]') : null;
       if (target && typeof window.va === 'function') window.va('event', { name: target.dataset.track });
