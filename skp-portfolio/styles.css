@@ -355,7 +355,7 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 .roll-track figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 .outside:has(.roll) .marquee { display: none; }
 
-/* ---------- 07 / On the field ---------- */
+/* ---------- 09 / On the field ---------- */
 .onfield { overflow: hidden; }
 .onfield-intro { max-width: 58ch; }
 .reel { --pad: max(24px, calc((100vw - var(--max)) / 2)); margin: clamp(40px, 5vw, 72px) 0 0; padding: clamp(36px, 4.4vw, 60px) 0 clamp(44px, 5vw, 72px); background: #2e1e16; color: #eae5dc; }
@@ -492,14 +492,14 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
   .pp-art { order: -1; } .pp-art .proj-card { width: min(62%, 300px); margin: 0; }
 }
 
-/* ---------- 03 / On the record: counting numbers ---------- */
+/* ---------- 04 / On the record: counting numbers ---------- */
 #impact .stat-grid { border-bottom: 1px solid var(--line); }
 #impact .stat-grid > div { flex-direction: row; align-items: center; gap: 18px; padding: 26px 22px 26px 0; }
 #impact .stat-grid > div + div { padding-left: 26px; }
 #impact .stat-grid dd { flex: none; font: 800 clamp(56px, 6.4vw, 96px)/.86 var(--cond); color: var(--brown); font-variant-numeric: tabular-nums; }
 #impact .stat-grid dt { margin: 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; max-width: 22ch; }
 
-/* ---------- 04 / The approach: three principles, one at a time ---------- */
+/* ---------- 05 / The approach: three principles, one at a time ---------- */
 .approach-lead { max-width: 62ch; }
 .approach .text-link { margin-top: clamp(28px, 4vw, 48px); }
 .s3 { margin-top: clamp(36px, 5vw, 64px); }
@@ -528,7 +528,7 @@ a:focus-visible, button:focus-visible { outline-color: var(--blue); }
 .s3-on .s3-hint, .s3-on .s3-count { display: block; position: absolute; right: clamp(18px, 2.4vw, 44px); margin: 0; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .s3-on .s3-hint { top: 24px; color: var(--brown); } .s3-on .s3-count { bottom: 26px; } .s3-count b { color: var(--blue); font-weight: 600; }
 
-/* ---------- 05 / Along the way: a path that is not a straight line ---------- */
+/* ---------- 06 / Along the way: a path that is not a straight line ---------- */
 .path-lead { max-width: 62ch; }
 .path { margin-top: clamp(40px, 6vw, 84px); display: grid; row-gap: clamp(36px, 5vw, 68px); }
 .path li { position: relative; padding-left: 20px; max-width: 100%; }
