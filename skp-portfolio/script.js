@@ -245,7 +245,7 @@
   function goTo(i) {
     const vh = window.innerHeight;
     const y = window.scrollY + track.getBoundingClientRect().top - bar() + (GATHER + STEP * i + .2) * vh;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+    window.scrollTo({ top: y }); // smoothness comes from the CSS scroll-behavior rule, which respects reduced motion
   }
   const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
   window.addEventListener('scroll', queue, { passive: true });
@@ -308,7 +308,7 @@
   const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
   window.addEventListener('scroll', queue, { passive: true });
   window.addEventListener('resize', queue);
-  tabs.forEach(b => b.addEventListener('click', () => window.scrollTo({ top: window.scrollY + track.getBoundingClientRect().top - bar() + (STEP * Number(b.dataset.i) + .15) * window.innerHeight, behavior: 'smooth' })));
+  tabs.forEach(b => b.addEventListener('click', () => window.scrollTo({ top: window.scrollY + track.getBoundingClientRect().top - bar() + (STEP * Number(b.dataset.i) + .15) * window.innerHeight })));
   render();
 })();
 

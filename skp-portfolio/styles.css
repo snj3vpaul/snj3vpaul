@@ -47,7 +47,10 @@
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--bar); background: var(--bg); }
+html { scroll-padding-top: var(--bar); background: var(--bg); }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.7 var(--mono); -webkit-font-smoothing: antialiased; transition: background-color .5s var(--ease), color .5s var(--ease); }
 h1, h2, h3, p, dl, dd, ol, ul, figure { margin: 0; }
 ol, ul { padding: 0; list-style: none; }
@@ -334,7 +337,6 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
   .works-head { flex-direction: column; align-items: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
   .marquee-track { animation: none; }
 }
