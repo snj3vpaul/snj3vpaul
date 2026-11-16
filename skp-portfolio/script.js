@@ -4,8 +4,6 @@
   function init() {
     const root = document.documentElement;
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let scene = null;
-    let labScene = null;
 
     /* ---- Mobile menu ---- */
     const menuButton = document.querySelector('.menu-toggle');
@@ -114,8 +112,7 @@
       window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     }
 
-    /* ---- Hero halftone sphere (Three.js / WebGL): after load, hardware WebGL only ---- */
-    const heroCanvas = document.getElementById('hero-canvas');
+    /* ---- Project 3D scenes (Three.js / WebGL): hardware WebGL only ---- */
     const forced = /[?&]3d=1\b/.test(window.location.search);
     const webglAvailable = () => {
       try {
@@ -138,7 +135,7 @@
         io.disconnect();
         import('./lab-chip.js')
           .then(m => {
-            labScene = m.mount(labCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
+            m.mount(labCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
             labCanvas.parentElement?.classList.add('has-3d');
           })
           .catch(() => { /* the still image stands in */ });
@@ -162,18 +159,6 @@
         });
       }, { rootMargin: '400px 0px' });
       sideCanvases.forEach(el => sideIo.observe(el));
-    }
-
-    if (heroCanvas && !navigator.connection?.saveData && webglAvailable()) {
-      const load = () => import('./hero-scene.js')
-        .then(m => {
-          scene = m.mount(heroCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
-          heroCanvas.closest('.hero')?.classList.add('has-3d');
-        })
-        .catch(() => { /* the still image stands in */ });
-      const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
-      if (document.readyState === 'complete') idle(load);
-      else window.addEventListener('load', () => idle(load), { once: true });
     }
 
     /* ---- Camera roll: frame counter follows the scroll position ---- */
@@ -269,6 +254,19 @@
     el.querySelector('.proj-card').addEventListener('click', () => { if (mode === 'row' || i !== active) goTo(i); });
     el.addEventListener('focusin', () => { if (mode !== 'deck' || i !== active) goTo(i); });
   });
+  /* Links to one card (the hero proof chips, or a #work-… address) bring that card to the front. */
+  const indexOf = hash => items.findIndex(el => el.id && `#${el.id}` === hash);
+  document.querySelectorAll('a[href^="#work-"]').forEach(link => {
+    const i = indexOf(link.getAttribute('href'));
+    if (i < 0) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      history.replaceState(null, '', link.getAttribute('href'));
+      goTo(i);
+      items[i].querySelector('.pi-link')?.focus({ preventScroll: true });
+    });
+  });
+  if (indexOf(location.hash) >= 0) requestAnimationFrame(() => goTo(indexOf(location.hash)));
   render();
 })();
 

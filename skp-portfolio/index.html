@@ -59,7 +59,6 @@
   <main id="main">
     <!-- ================= HERO ================= -->
     <section class="hero" id="home" aria-labelledby="hero-title">
-      <div class="hero-canvas" id="hero-canvas" aria-hidden="true"></div>
       <div class="infobar">
         <dl class="infobar-facts">
           <div><dt>Sanjeev K Paul</dt><dd>Compliance Analyst</dd></div>
@@ -69,10 +68,11 @@
         <ul class="profile-links">
           <li><a class="icon-link" href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer" aria-label="Sanjeev K Paul on LinkedIn" data-track="linkedin-header"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
           <li><a class="icon-link" href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer" aria-label="Sanjeev K Paul on GitHub" data-track="github-header"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></li>
-          <li><a class="profile-resume" href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-header">Résumé<span aria-hidden="true"> ↗</span></a></li>
+          <li><a class="profile-resume" href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-header">Résumé<span aria-hidden="true">↗</span></a></li>
         </ul>
       </div>
       <div class="hero-stage">
+        <div class="hero-copy">
         <p class="status"><span class="status-dot" aria-hidden="true"></span>Compliance Analyst · Cryptographic validation</p>
         <h1 class="headline" id="hero-title">
           <span class="line"><span>I help security</span></span>
@@ -80,9 +80,42 @@
           <span class="line"><span>what they claim.</span></span>
         </h1>
         <p class="hero-role">I turn security standards into questions engineers can answer, and their answers into evidence a lab can certify.</p>
-        <p class="hero-cta"><a class="btn btn-solid" href="#work" data-track="hero-cta-work">See the work ↓</a><a class="btn btn-outline" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev" data-track="contact-hero">Get in touch</a></p>
+        <p class="hero-cta"><a class="btn btn-solid" href="#work" data-track="hero-cta-work">View validated work ↓</a><a class="btn btn-outline" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev" data-track="contact-hero">Get in touch</a></p>
         <p class="hero-stack">FIPS 140-3 · CMVP · ACVP · Common Criteria / NDcPP · TLS · SSH · KVM</p>
-        <p class="hero-metric">2 NIST-validated modules · Fortinet’s first FIPS 140-3 VPN certification</p>
+        <ul class="proof" aria-label="On the record">
+          <li><a class="chip" href="#work-forticlient-crypto-module" data-track="proof-validated-modules">2 NIST-validated modules<span aria-hidden="true">↓</span></a></li>
+          <li><a class="chip" href="#work-forticlient-7-0-2" data-track="proof-first-vpn-certification">Fortinet’s first FIPS 140-3 VPN certification<span aria-hidden="true">↓</span></a></li>
+        </ul>
+        </div>
+        <figure class="hero-figure">
+          <svg viewBox="0 0 460 440" width="460" height="440" role="img" aria-labelledby="hero-fig-title">
+            <title id="hero-fig-title">Schematic of a cryptographic module. A dashed boundary encloses five ACVP-tested algorithm families: AES, SHA, HMAC, RSA and ECDSA. Data input and control input cross the boundary on one side; data output and status output leave on the other.</title>
+            <g aria-hidden="true">
+              <text class="fig-label" x="96" y="30">Cryptographic boundary</text>
+              <rect class="fig-boundary" x="96" y="42" width="268" height="356" rx="2"/>
+              <text class="fig-label" x="124" y="80">Algorithms · ACVP-tested</text>
+              <g class="fig-rows">
+                <rect x="124" y="94" width="212" height="40"/><text x="140" y="119">AES</text><path d="M306 114l6 6 11-13"/>
+                <rect x="124" y="146" width="212" height="40"/><text x="140" y="171">SHA</text><path d="M306 166l6 6 11-13"/>
+                <rect x="124" y="198" width="212" height="40"/><text x="140" y="223">HMAC</text><path d="M306 218l6 6 11-13"/>
+                <rect x="124" y="250" width="212" height="40"/><text x="140" y="275">RSA</text><path d="M306 270l6 6 11-13"/>
+                <rect x="124" y="302" width="212" height="40"/><text x="140" y="327">ECDSA</text><path d="M306 322l6 6 11-13"/>
+              </g>
+              <text class="fig-label" x="124" y="376">Module</text>
+              <g class="fig-ports">
+                <path d="M8 166h108M108 160l8 6-8 6"/><circle cx="96" cy="166" r="4"/>
+                <path d="M8 270h108M108 264l8 6-8 6"/><circle cx="96" cy="270" r="4"/>
+                <path d="M344 166h108M444 160l8 6-8 6"/><circle cx="364" cy="166" r="4"/>
+                <path d="M344 270h108M444 264l8 6-8 6"/><circle cx="364" cy="270" r="4"/>
+              </g>
+              <text class="fig-label" x="8" y="154">Data in</text>
+              <text class="fig-label" x="8" y="258">Control in</text>
+              <text class="fig-label" x="452" y="154" text-anchor="end">Data out</text>
+              <text class="fig-label" x="452" y="258" text-anchor="end">Status out</text>
+            </g>
+          </svg>
+          <figcaption class="label">Fig. 1 · A cryptographic module boundary, in outline</figcaption>
+        </figure>
       </div>
       <p class="giant" aria-hidden="true"><span class="giant-word" data-parallax>Sanjeev</span><span class="giant-side">Kumar Paul</span></p>
       <p class="hero-foot">Standards by trade. Curious by default.</p>
@@ -102,7 +135,7 @@
         <div class="deck-track">
           <div class="deck-stage">
             <h2 class="deck-title" id="work-title" tabindex="-1"><span class="deck-word deck-word-a">Selected</span> <span class="deck-word deck-word-b">Work</span></h2>
-            <article class="proj" style="--i:0" data-pos="active" aria-labelledby="proj-1">
+            <article class="proj" id="work-forticlient-crypto-module" style="--i:0" data-pos="active" aria-labelledby="proj-1">
               <div class="proj-card tone-1" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><path d="M82 170 V110 A18 18 0 0 1 118 110 V170"/><path d="M74 170 V110 A26 26 0 0 1 126 110 V170"/><path d="M66 170 V110 A34 34 0 0 1 134 110 V170"/><path d="M58 170 V110 A42 42 0 0 1 142 110 V170"/><path d="M50 170 V110 A50 50 0 0 1 150 110 V170"/><path d="M42 170 V110 A58 58 0 0 1 158 110 V170"/><path d="M34 170 V110 A66 66 0 0 1 166 110 V170"/><path d="M26 170 V110 A74 74 0 0 1 174 110 V170"/></svg><span class="proj-cap">#5493 · public validation record</span></div>
               <div class="proj-info">
                 <div class="pi-left">
@@ -116,7 +149,7 @@
                 </div>
               </div>
             </article>
-            <article class="proj" style="--i:1" data-pos="after" aria-labelledby="proj-2">
+            <article class="proj" id="work-forticlient-7-0-2" style="--i:1" data-pos="after" aria-labelledby="proj-2">
               <div class="proj-card tone-2" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><rect x="22" y="132" width="9" height="18" class=""/><rect x="38" y="124" width="9" height="26" class=""/><rect x="54" y="128" width="9" height="22" class=""/><rect x="70" y="110" width="9" height="40" class="solid"/><rect x="86" y="116" width="9" height="34" class=""/><rect x="102" y="98" width="9" height="52" class=""/><rect x="118" y="102" width="9" height="48" class=""/><rect x="134" y="80" width="9" height="70" class="solid"/><rect x="150" y="86" width="9" height="64" class=""/><rect x="166" y="58" width="9" height="92" class="solid"/><path d="M18 150 H190"/></svg><span class="proj-cap">First FIPS 140-3 VPN certification</span></div>
               <div class="proj-info">
                 <div class="pi-left">
@@ -130,7 +163,7 @@
                 </div>
               </div>
             </article>
-            <article class="proj" style="--i:2" data-pos="after" aria-labelledby="proj-3">
+            <article class="proj" id="work-fortiproxy" style="--i:2" data-pos="after" aria-labelledby="proj-3">
               <div class="proj-card tone-3" aria-hidden="true"><svg class="proj-svg" viewBox="0 0 200 180" aria-hidden="true"><rect x="40" y="40" width="120" height="100" rx="6"/><rect x="70" y="65" width="60" height="50" rx="3"/><path d="M70 40 v-14 M70 140 v14 M40 70 h-14 M160 70 h14"/><path d="M82 40 v-14 M82 140 v14 M40 82 h-14 M160 82 h14"/><path d="M94 40 v-14 M94 140 v14 M40 94 h-14 M160 94 h14"/><path d="M106 40 v-14 M106 140 v14 M40 106 h-14 M160 106 h14"/><path d="M118 40 v-14 M118 140 v14 M40 118 h-14 M160 118 h14"/><path d="M130 40 v-14 M130 140 v14 M40 130 h-14 M160 130 h14"/><circle cx="52" cy="52" r="3" class="solid"/></svg><span class="proj-cap">Two modules · Level 1 targets</span></div>
               <div class="proj-info">
                 <div class="pi-left">

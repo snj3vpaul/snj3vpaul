@@ -1,9 +1,9 @@
 /*
  * Sanjeev K Paul — portfolio.
- * Monochrome, two schemes (dark default, light on request). Halftone WebGL
- * sphere, condensed headlines, one very wide display word, monospace for the rest.
- * The page walks through the person first (hello, path, off hours, practice),
- * then the work. Every fact stays >= 4.5:1 in both schemes.
+ * Warm monochrome with charcoal bands. Condensed headlines, one very wide
+ * display word, monospace for the rest. The hero is type on the left and a
+ * line-drawn module boundary on the right; the work follows straight after.
+ * Every fact stays >= 4.5:1 on both the stone and the charcoal grounds.
  */
 @font-face { font-family: 'Unbounded'; font-style: normal; font-weight: 200 900; font-display: swap; src: url(fonts/unbounded-latin-wght-normal.woff2) format('woff2-variations'), url(fonts/unbounded-latin-wght-normal.woff2) format('woff2'); }
 @font-face { font-family: 'Big Shoulders Display'; font-style: normal; font-weight: 100 900; font-display: swap; src: url(fonts/big-shoulders-display-latin-wght-normal.woff2) format('woff2-variations'), url(fonts/big-shoulders-display-latin-wght-normal.woff2) format('woff2'); }
@@ -84,11 +84,6 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 /* ---------- hero ---------- */
 .hero { position: relative; min-height: max(720px, 100svh); padding-top: var(--bar); display: flex; flex-direction: column; overflow: hidden; overflow: clip; isolation: isolate;
   background-image: radial-gradient(var(--dot) 1px, transparent 1.4px); background-size: 22px 22px; }
-.hero-canvas { position: absolute; inset: var(--bar) 0 0; z-index: -1; opacity: 0; transition: opacity 1.4s var(--ease); }
-.hero-canvas canvas { width: 100% !important; height: 100% !important; display: block; }
-.hero-canvas.is-ready { opacity: 1; } /* class is added by hero-scene.js once the scene has drawn */
-.hero::before { content: ''; position: absolute; inset: var(--bar) 0 0; z-index: -2; background: url(img/hero-figure-light.webp) center / cover no-repeat; transition: opacity .8s var(--ease); }
-.hero.has-3d::before { opacity: 0; }
 
 .infobar { display: flex; align-items: center; margin-top: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
 .infobar-facts { flex: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -99,10 +94,21 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .icon-link { display: grid; place-items: center; width: 40px; height: 40px; color: var(--fg); transition: color .25s; }
 .icon-link:hover { color: var(--blue); }
 .icon-link svg { fill: currentColor; }
-.profile-resume { display: flex; align-items: center; min-height: 40px; margin-left: 8px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; white-space: nowrap; transition: color .25s; }
+.profile-resume { display: flex; align-items: center; gap: 6px; min-height: 40px; margin-left: 8px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; white-space: nowrap; transition: color .25s; }
 .profile-resume:hover { color: var(--blue); }
 
-.hero-stage { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 18px; padding: 40px 24px 22px; max-width: 46%; }
+/* 60 / 40: type on the left, the evidence figure on the right */
+.hero-stage { flex: 1; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: end; gap: clamp(24px, 4vw, 64px); padding: 40px 24px 22px; }
+.hero-copy { display: flex; flex-direction: column; gap: 18px; }
+.hero-figure { justify-self: end; width: 100%; max-width: 440px; color: var(--fg); }
+.hero-figure svg { display: block; width: 100%; height: auto; aspect-ratio: 460 / 440; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.hero-figure text { fill: currentColor; stroke: none; font: 500 15px var(--mono); letter-spacing: .08em; }
+.hero-figure .fig-label { fill: var(--brown); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.hero-figure .fig-boundary { stroke-dasharray: 7 7; }
+.hero-figure .fig-rows rect { stroke-width: .8; opacity: .55; }
+.hero-figure .fig-rows path { stroke: var(--blue); stroke-width: 1.6; }
+.hero-figure .fig-ports circle { fill: var(--blue); stroke: none; }
+.hero-figure figcaption { margin-top: 12px; text-align: center; }
 .status { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fg); animation: blink 2.4s steps(2, jump-none) infinite; }
 @keyframes blink { 50% { opacity: .2; } }
@@ -140,7 +146,10 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
 .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn-outline { border-color: var(--fg); }
 .hero-stack { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.hero-metric { margin-top: -8px; font-size: 13px; font-weight: 600; }
+.proof { display: flex; flex-wrap: wrap; gap: 8px; margin-top: -4px; }
+.chip { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--muted); font-size: 12px; font-weight: 600; line-height: 1.4; transition: color .25s var(--ease), border-color .25s var(--ease); }
+.chip span { color: var(--blue); }
+.chip:hover { color: var(--blue); border-color: var(--blue); }
 .principles { display: grid; gap: 10px; align-content: start; }
 .principles span { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font: 300 clamp(22px, 2.2vw, 30px)/1.1 var(--cond); text-transform: uppercase; }
 .principles span:first-child { border-top: 1px solid var(--line); }
@@ -298,11 +307,11 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
   .brand-tag { display: none; }
   .infobar-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .infobar-facts > div:nth-child(3) { display: none; }
-  .hero-stage { max-width: none; padding-top: 46svh; }
+  .hero-stage { grid-template-columns: minmax(0, 1fr); padding-top: 28px; }
+  .hero-figure { justify-self: start; max-width: 380px; }
   .status { margin-bottom: 0; }
   .two-col, .hello-grid { grid-template-columns: 1fr; }
   .chapter-marker { display: none; }
-  .hero::before { background-image: url(img/hero-figure-light-m.webp); background-position: center top; background-size: 100% auto; }
 }
 @media (max-width: 640px) {
   .pipeline ol { grid-template-columns: 1fr 1fr; row-gap: 28px; }
@@ -314,10 +323,13 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--fg); outline-of
   .wrap { width: calc(100% - 36px); }
   .topbar { padding: 0 16px; }
   .brand { font-size: 11px; }
-  .hero-stage { padding: 46svh 16px 16px; gap: 16px; }
-  .infobar-facts > div { padding: 10px 12px; }
-  .infobar-facts > div:first-child { padding-left: 16px; }
-  .profile-links { padding: 0 8px; }
+  .hero-stage { padding: 24px 16px 16px; }
+  .hero-copy { gap: 16px; }
+  .infobar { flex-wrap: wrap; }
+  .infobar-facts { flex-basis: 100%; }
+  .infobar-facts > div { padding: 10px 16px; }
+  .profile-links { flex-basis: 100%; padding: 0 6px; border-top: 1px solid var(--line); }
+  .hero-cta .btn { flex: 1 1 auto; }
   .hero-foot { padding: 12px 16px; }
   .works-head { flex-direction: column; align-items: flex-start; }
 }
