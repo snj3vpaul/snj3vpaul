@@ -87,8 +87,9 @@
           <li><a class="chip" href="#work-forticlient-7-0-2" data-track="proof-first-vpn-certification">Fortinet’s first FIPS 140-3 VPN certification<span aria-hidden="true">↓</span></a></li>
         </ul>
         </div>
-        <figure class="hero-figure">
-          <svg viewBox="0 0 460 440" width="460" height="440" role="img" aria-labelledby="hero-fig-title">
+        <figure class="hero-figure" data-view="boundary">
+          <div class="fig-stack">
+          <svg class="fig-pane fig-pane--boundary" viewBox="0 0 460 440" width="460" height="440" role="img" aria-labelledby="hero-fig-title">
             <title id="hero-fig-title">Schematic of a cryptographic module. A dashed boundary encloses five ACVP-tested algorithm families: AES, SHA, HMAC, RSA and ECDSA. Data input and control input cross the boundary on one side; data output and status output leave on the other.</title>
             <g aria-hidden="true">
               <text class="fig-label" x="96" y="30">Cryptographic boundary</text>
@@ -114,7 +115,12 @@
               <text class="fig-label" x="452" y="258" text-anchor="end">Status out</text>
             </g>
           </svg>
-          <figcaption class="label">Fig. 1 · A cryptographic module boundary, in outline</figcaption>
+          <div class="fig-pane fig-pane--guy" data-still="img/hero-figure-light.webp" aria-hidden="true"></div>
+          </div>
+          <div class="fig-foot">
+            <figcaption class="label">Fig. 1 · A cryptographic module boundary, in outline</figcaption>
+            <div class="fig-switch" role="group" aria-label="Hero figure" hidden><button type="button" data-view="boundary" aria-pressed="true"><span>Fig. 1</span>Module boundary</button><button type="button" data-view="guy" aria-pressed="false"><span>Fig. 2</span>Sanjeev</button></div>
+          </div>
         </figure>
       </div>
       <p class="giant" aria-hidden="true"><span class="giant-word" data-parallax>Sanjeev</span><span class="giant-side">Kumar Paul</span></p>

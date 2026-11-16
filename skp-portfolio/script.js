@@ -161,6 +161,63 @@
       sideCanvases.forEach(el => sideIo.observe(el));
     }
 
+    /* ---- Hero figure: the module boundary and the halftone figure trade places in one frame ----
+       The boundary is in the HTML. The figure arrives after load: the 3D scene on hardware WebGL,
+       otherwise its still, drawn to a canvas. Until one is ready the switch stays hidden. */
+    const figure = document.querySelector('.hero-figure');
+    const guyPane = figure?.querySelector('.fig-pane--guy');
+    if (figure && guyPane) {
+      const buttons = Array.from(figure.querySelectorAll('.fig-switch button'));
+      let auto = !reduceMotion, hold = false, inView = true, timer = 0;
+      const show = view => {
+        figure.dataset.view = view;
+        buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === view)));
+      };
+      const cycle = delay => {
+        timer = setTimeout(() => {
+          if (!auto) return;
+          if (!hold && inView && !document.hidden) show(figure.dataset.view === 'guy' ? 'boundary' : 'guy');
+          cycle(6000);
+        }, delay);
+      };
+      const ready = () => {
+        figure.querySelector('figcaption').hidden = true;
+        figure.querySelector('.fig-switch').hidden = false;
+        buttons.forEach(b => b.addEventListener('click', () => { auto = false; clearTimeout(timer); show(b.dataset.view); }));
+        figure.addEventListener('pointerenter', () => { hold = true; });
+        figure.addEventListener('pointerleave', () => { hold = false; });
+        figure.addEventListener('focusin', () => { hold = true; });
+        figure.addEventListener('focusout', () => { hold = false; });
+        if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { inView = e.isIntersecting; }).observe(figure);
+        if (auto) cycle(2500);
+      };
+      const still = () => {
+        const img = new Image();
+        img.onload = () => {
+          const crop = { x: 800, y: 120, w: 500, h: 500 }; // where the figure stands in the 1440 x 848 still
+          const canvas = document.createElement('canvas');
+          canvas.className = 'fig-still';
+          canvas.width = crop.w; canvas.height = crop.h;
+          canvas.getContext('2d').drawImage(img, crop.x, crop.y, crop.w, crop.h, 0, 0, crop.w, crop.h);
+          guyPane.replaceChildren(canvas);
+          ready();
+        };
+        img.src = guyPane.dataset.still;
+      };
+      const load = () => {
+        if (navigator.connection?.saveData || !webglAvailable()) { still(); return; }
+        const stage = document.createElement('div');
+        stage.className = 'fig-3d';
+        guyPane.appendChild(stage);
+        import('./hero-scene.js')
+          .then(m => { m.mount(stage, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' }); ready(); })
+          .catch(() => { stage.remove(); still(); });
+      };
+      const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
+      if (document.readyState === 'complete') idle(load);
+      else window.addEventListener('load', () => idle(load), { once: true });
+    }
+
     /* ---- Camera roll: frame counter follows the scroll position ---- */
     document.querySelectorAll('[data-roll]').forEach(roll => {
       const track = roll.querySelector('.roll-track');

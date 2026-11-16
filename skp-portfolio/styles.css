@@ -1,8 +1,9 @@
 /*
  * Sanjeev K Paul — portfolio.
  * Warm monochrome with charcoal bands. Condensed headlines, one very wide
- * display word, monospace for the rest. The hero is type on the left and a
- * line-drawn module boundary on the right; the work follows straight after.
+ * display word, monospace for the rest. The hero is type on the left and, on
+ * the right, a line-drawn module boundary that trades places with the halftone
+ * figure; the work follows straight after.
  * Every fact stays >= 4.5:1 on both the stone and the charcoal grounds.
  */
 @font-face { font-family: 'Unbounded'; font-style: normal; font-weight: 200 900; font-display: swap; src: url(fonts/unbounded-latin-wght-normal.woff2) format('woff2-variations'), url(fonts/unbounded-latin-wght-normal.woff2) format('woff2'); }
@@ -104,6 +105,24 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
 .hero-stage { flex: 1; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: end; gap: clamp(24px, 4vw, 64px); padding: 40px 24px 22px; }
 .hero-copy { display: flex; flex-direction: column; gap: 18px; }
 .hero-figure { justify-self: end; width: 100%; max-width: 440px; color: var(--fg); }
+/* Two figures share the frame: the module boundary (in the HTML) and the halftone figure (drawn by script once it is ready). */
+.fig-stack { display: grid; }
+.fig-pane { grid-area: 1 / 1; min-width: 0; transition: opacity .32s var(--ease), transform .32s var(--ease), visibility 0s; }
+.hero-figure[data-view="guy"] .fig-pane--boundary, .hero-figure[data-view="boundary"] .fig-pane--guy { opacity: 0; visibility: hidden; transition-delay: 0s, 0s, .32s; }
+.hero-figure[data-view="guy"] .fig-pane--boundary { transform: scale(.96); }
+.hero-figure[data-view="boundary"] .fig-pane--guy { transform: scale(1.04); }
+.fig-pane--guy { position: relative; pointer-events: none; }
+/* The 3D scene keeps its figure in the upper half of a tall canvas, so the canvas is larger than the frame and offset to land him inside it. */
+.fig-3d { position: absolute; left: -25%; top: -3%; width: 150%; aspect-ratio: 5 / 6; }
+.fig-3d canvas { display: block; width: 100% !important; height: 100% !important; }
+.fig-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.fig-foot { display: grid; place-items: center; min-height: 44px; margin-top: 12px; }
+.fig-switch { display: flex; border: 1px solid var(--line); }
+.fig-switch button { min-height: 44px; padding: 0 14px; border: 0; background: transparent; color: var(--muted); font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: background-color .25s var(--ease), color .25s var(--ease); }
+.fig-switch button + button { border-left: 1px solid var(--line); }
+.fig-switch button span { margin-right: 8px; font-weight: 400; }
+.fig-switch button:hover { color: var(--fg); }
+.fig-switch button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
 .hero-figure svg { display: block; width: 100%; height: auto; aspect-ratio: 460 / 440; fill: none; stroke: currentColor; stroke-width: 1.2; }
 .hero-figure text { fill: currentColor; stroke: none; font: 500 15px var(--mono); letter-spacing: .08em; }
 .hero-figure .fig-label { fill: var(--brown); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
@@ -111,7 +130,7 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
 .hero-figure .fig-rows rect { stroke-width: .8; opacity: .55; }
 .hero-figure .fig-rows path { stroke: var(--blue); stroke-width: 1.6; }
 .hero-figure .fig-ports circle { fill: var(--blue); stroke: none; }
-.hero-figure figcaption { margin-top: 12px; text-align: center; }
+.hero-figure figcaption { text-align: center; }
 .status { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fg); }
 @keyframes blink { 50% { opacity: .2; } }
@@ -331,6 +350,7 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
   .infobar-facts > div { padding: 10px 16px; }
   .profile-links { flex-basis: 100%; padding: 0 6px; border-top: 1px solid var(--line); }
   .hero-cta .btn { flex: 1 1 auto; }
+  .fig-switch button { padding: 0 10px; letter-spacing: .06em; }
   .hero-foot { padding: 12px 16px; }
   .works-head { flex-direction: column; align-items: flex-start; }
 }
