@@ -298,10 +298,28 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
 #copy-email { min-width: 13ch; }
 .copy-feedback { font-size: 13px; color: var(--muted); }
 
-.site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding: 18px 24px 22px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.site-footer > span:first-child { color: var(--fg); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 14px; }
-.footer-links { display: flex; gap: 18px; }
-.footer-links a:hover { color: var(--fg); }
+/* ---------- Footer: four columns on dashed guides, and the street I grew up on along the bottom ---------- */
+.site-footer { --art-h: clamp(240px, 27.8vw, 400px); position: relative; overflow: hidden; background: var(--bg); color: var(--muted); }
+/* the dashed guides run the full height, so the houses stand in front of them */
+.foot-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); border-top: 1px dashed var(--line); }
+.foot-grid > * { padding: 40px 24px calc(var(--art-h) * .62 + 32px); border-left: 1px dashed var(--line); }
+.foot-grid > :first-child { border-left: 0; }
+.foot-mark { color: var(--fg); font: 800 26px/1 var(--wide); letter-spacing: -.03em; }
+.foot-tag { margin-top: 10px; color: var(--fg); font-size: 13px; }
+.foot-meta { margin-top: 6px; font-size: 12px; }
+.foot-meta:nth-of-type(3) { margin-top: 22px; }
+.foot-h { margin: 0 0 14px; color: var(--fg); font: 600 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.foot-col ul { display: grid; gap: 4px; }
+.foot-col a { display: inline-flex; align-items: center; min-height: 28px; font-size: 13px; transition: color .25s var(--ease); }
+.foot-col a:hover { color: var(--fg); }
+.foot-art { position: absolute; left: 0; right: 0; bottom: 0; height: var(--art-h); pointer-events: none; }
+.foot-art img, .foot-art svg { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left bottom; }
+@media (max-width: 760px) {
+  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-bottom: calc(var(--art-h) * .78); }
+  .foot-grid > * { padding: 28px 16px 22px; border-top: 1px dashed var(--line); }
+  .foot-brand { grid-column: 1 / -1; border-top: 0; }
+  .foot-grid > :nth-child(2), .foot-grid > :nth-child(4) { border-left: 0; }
+}
 
 /* ---------- responsive ---------- */
 @media (max-width: 1180px) {

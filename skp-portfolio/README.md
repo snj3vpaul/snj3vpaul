@@ -19,6 +19,7 @@ Open `index.html` in a browser. The website consists of this HTML, `styles.css`,
 - Work, dates, credentials, and links were adapted from your public `snj3vpaul/snj3vpaul` portfolio source. FortiProxy entries are explicitly marked as **submitted for review**, not validated.
 - The hero and cricket section now use original code-drawn visuals rather than photographs. No user portrait or cricket photograph is required for those sections. The entire hero uses one uninterrupted warm-ivory backdrop on desktop and mobile, with a typographic cryptography illustration integrated directly into the page.
 - The typography uses Instrument Serif and DM Sans through Google Fonts, with system fallbacks. You may self-host licensed font assets if desired.
+- The footer drawing (`img/footer-village.svg`), the flat-roofed village houses Sanjeev grew up among, is drawn in code by `tools/draw-footer-village.py`. It is seeded, so it redraws identically; change `SEED` for a different street, then run `python3 tools/draw-footer-village.py` from this folder.
 - Email, LinkedIn, GitHub, Medium, public research, and NIST references are real links. Contact opens the visitor's email application; there is no fake contact form or server.
 
 ## Customization
