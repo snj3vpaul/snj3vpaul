@@ -225,69 +225,6 @@
       update();
     });
 
-    /* ---- Footer drawing: a light sketch that inks in where the pointer passes ----
-       The page carries the finished drawing as an image, which is what touch screens, reduced
-       motion and no-JS visitors keep. With a mouse, the drawing is brought inline: its outlines
-       stay as a faint sketch, and a mask of soft brush marks reveals the full ink under the pointer. */
-    const footArt = document.querySelector('.foot-art');
-    const footImg = footArt?.querySelector('img');
-    if (footImg && !reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches && 'IntersectionObserver' in window) {
-      const ns = 'http://www.w3.org/2000/svg';
-      const make = (name, attrs) => {
-        const node = document.createElementNS(ns, name);
-        Object.entries(attrs).forEach(([k, v]) => node.setAttribute(k, v));
-        return node;
-      };
-      const inkIn = text => {
-        const svg = document.importNode(new DOMParser().parseFromString(text, 'image/svg+xml').documentElement, true);
-        const street = svg.querySelector('#fv-street');
-        if (!street) return;
-        const [vx, vy, vw, vh] = svg.getAttribute('viewBox').split(' ').map(Number);
-        const sketch = street.cloneNode(true);
-        sketch.removeAttribute('id');
-        sketch.querySelectorAll('.s').forEach(node => node.remove());
-        sketch.setAttribute('opacity', '.55');
-        const brush = make('radialGradient', { id: 'fv-brush' });
-        brush.append(make('stop', { offset: '0', 'stop-color': '#fff' }), make('stop', { offset: '.5', 'stop-color': '#fff', 'stop-opacity': '.85' }), make('stop', { offset: '1', 'stop-color': '#fff', 'stop-opacity': '0' }));
-        const mask = make('mask', { id: 'fv-ink', maskUnits: 'userSpaceOnUse', x: vx, y: vy, width: vw, height: vh });
-        mask.append(make('rect', { x: vx, y: vy, width: vw, height: vh, fill: '#000' }));
-        const defs = make('defs', {});
-        defs.append(brush, mask);
-        street.setAttribute('mask', 'url(#fv-ink)');
-        svg.prepend(defs);
-        street.before(sketch);
-        svg.removeAttribute('width');
-        svg.removeAttribute('height');
-        svg.setAttribute('role', 'img');
-        svg.setAttribute('aria-label', footImg.alt);
-        footImg.replaceWith(svg);
-
-        const footer = footArt.closest('.site-footer');
-        let last = null, queued = null;
-        const paint = () => {
-          const ctm = svg.getScreenCTM();
-          if (ctm) {
-            const p = new DOMPoint(queued.x, queued.y).matrixTransform(ctm.inverse());
-            if (!last || Math.hypot(p.x - last.x, p.y - last.y) > 14) {
-              mask.append(make('circle', { cx: p.x.toFixed(1), cy: p.y.toFixed(1), r: 70, fill: 'url(#fv-brush)' }));
-              last = p;
-            }
-          }
-          queued = null;
-        };
-        footer.addEventListener('pointermove', e => {
-          if (!queued) requestAnimationFrame(paint);
-          queued = { x: e.clientX, y: e.clientY };
-        }, { passive: true });
-      };
-      const near = new IntersectionObserver(entries => {
-        if (!entries.some(e => e.isIntersecting)) return;
-        near.disconnect();
-        fetch(footImg.currentSrc || footImg.src).then(r => (r.ok ? r.text() : Promise.reject())).then(inkIn).catch(() => { /* the finished drawing stays */ });
-      }, { rootMargin: '600px 0px' });
-      near.observe(footArt);
-    }
-
     const year = document.getElementById('current-year');
     if (year) year.textContent = String(new Date().getFullYear());
 
