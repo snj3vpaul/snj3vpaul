@@ -13,7 +13,8 @@ import random
 from pathlib import Path
 
 SEED = 2026
-W, H, G = 1440, 400, 372          # canvas and ground line
+W, H, G = 1440, 400, 372          # drawing space and ground line
+TOP = 80                           # the drawing is cropped to y >= TOP: above that is empty sky
 INK, PAPER = '#1f1d1b', '#eae5dc'  # --fg and --bg in styles.css
 R = random.Random(SEED)
 
@@ -349,7 +350,7 @@ def main():
 
     groups.append(f'<g class="ground"><path class="o" d="{ground_o.d()}"/><path class="s" d="{ground_s.d()}{flecks.d()}"/></g>')
 
-    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 {TOP} {W} {H - TOP}" width="{W}" height="{H - TOP}" '
            f'preserveAspectRatio="xMinYMax slice" fill="none" stroke="{INK}" stroke-linecap="round" stroke-linejoin="round">'
            f'<style>.o{{stroke-width:1.2}}.s{{stroke-width:.6}}.b{{stroke-opacity:.55}}</style>'
            f'<g id="fv-street">{"".join(groups)}</g>'

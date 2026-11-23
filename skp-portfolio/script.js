@@ -242,15 +242,15 @@
         const svg = document.importNode(new DOMParser().parseFromString(text, 'image/svg+xml').documentElement, true);
         const street = svg.querySelector('#fv-street');
         if (!street) return;
-        const [, , vw, vh] = svg.getAttribute('viewBox').split(' ').map(Number);
+        const [vx, vy, vw, vh] = svg.getAttribute('viewBox').split(' ').map(Number);
         const sketch = street.cloneNode(true);
         sketch.removeAttribute('id');
         sketch.querySelectorAll('.s').forEach(node => node.remove());
         sketch.setAttribute('opacity', '.55');
         const brush = make('radialGradient', { id: 'fv-brush' });
         brush.append(make('stop', { offset: '0', 'stop-color': '#fff' }), make('stop', { offset: '.5', 'stop-color': '#fff', 'stop-opacity': '.85' }), make('stop', { offset: '1', 'stop-color': '#fff', 'stop-opacity': '0' }));
-        const mask = make('mask', { id: 'fv-ink', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: vw, height: vh });
-        mask.append(make('rect', { width: vw, height: vh, fill: '#000' }));
+        const mask = make('mask', { id: 'fv-ink', maskUnits: 'userSpaceOnUse', x: vx, y: vy, width: vw, height: vh });
+        mask.append(make('rect', { x: vx, y: vy, width: vw, height: vh, fill: '#000' }));
         const defs = make('defs', {});
         defs.append(brush, mask);
         street.setAttribute('mask', 'url(#fv-ink)');
