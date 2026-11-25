@@ -95,7 +95,7 @@
   if (stage) {
     const ring = $('.orbit', stage), cards = $$('.card', ring);
     const base = cards.map(c => parseFloat(getComputedStyle(c).getPropertyValue('--a')) || 0);
-    const DEG_PER_S = 5.5;                       // one turn a little over a minute: calm, never busy
+    const DEG_PER_S = 3.6;                       // one turn every 100 s: calm, never busy
     let spin = 0, last = 0, raf = 0, seen = true, tx = -9, ty = 0, px = 0, py = 0;
     const depth = () => cards.forEach((c, i) => {
       const z = Math.cos((base[i] + spin) * Math.PI / 180);   // 1 = nearest the viewer, -1 = behind the figure
