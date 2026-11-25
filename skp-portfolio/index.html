@@ -57,7 +57,7 @@
   </div>
 
   <main id="main">
-    <!-- ================= HERO: frosted proof ================= -->
+    <!-- ================= HERO: frosted proof, in orbit ================= -->
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="intro">
         <dl class="who">
@@ -70,7 +70,6 @@
         <h1 id="hero-title">I help security products <em>prove</em> what they claim.</h1>
         <p class="role">I turn security standards into questions engineers can answer, and their answers into evidence a lab can certify.</p>
         <div class="actions">
-          <a class="pill pill-solid" href="#work" data-track="hero-cta-work">View validated work ↓</a>
           <a class="pill pill-line" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev" data-track="contact-hero">Get in touch</a>
           <ul class="profile-links">
             <li><a class="icon-link" href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer" aria-label="Sanjeev K Paul on LinkedIn" data-track="linkedin-header"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
@@ -82,10 +81,38 @@
         <p class="tagline">Standards by trade. Curious by default.</p>
       </div>
 
-      <figure class="hero-figure glass arrive" data-view="guy">
-        <div class="fig-stack">
-          <video class="fig-pane fig-pane--guy loop" muted playsinline loop preload="metadata" poster="img/loops/hero-poster.webp" aria-hidden="true" data-loop><source src="img/loops/hero.mp4" type="video/mp4"></video>
-              <svg class="fig-pane fig-pane--boundary" viewBox="0 0 460 440" width="460" height="440" role="img" aria-labelledby="hero-fig-title">
+
+      <!-- The protected figure at the centre; evidence orbits it. Every card is real: maths, or a fact on record. -->
+      <div class="orbit-stage" data-orbit>
+        <div class="orbit">
+          <video class="guy loop" muted playsinline loop autoplay preload="metadata" poster="img/loops/hero-poster.webp" aria-hidden="true" data-loop><source src="img/loops/hero.mp4" type="video/mp4"></video>
+          <figure class="card c-fact" style="--a:20deg;--y:-190px" aria-hidden="true">
+            <p class="card-k">Validated by NIST</p><p class="card-big">2<small>modules</small></p><p class="card-s">Public record #5493</p>
+          </figure>
+          <figure class="card c-graph" style="--a:72deg;--y:30px" aria-hidden="true">
+            <p class="card-k">Hyperbola <span>xy = k</span></p>
+            <svg viewBox="0 0 200 120"><path class="ax" d="M0 60H200M100 0V120"/><path class="cv" d="M109.0 2.4 L110.8 12.0 L112.6 18.9 L114.4 24.0 L116.2 28.0 L118.9 32.6 L121.6 36.0 L125.2 39.4 L129.7 42.5 L135.1 45.2 L141.4 47.5 L149.5 49.5 L159.4 51.3 L172.0 52.8 L186.4 54.0 L198.1 54.7"/><path class="cv" d="M91.0 117.6 L89.2 108.0 L87.4 101.1 L85.6 96.0 L83.8 92.0 L81.1 87.4 L78.4 84.0 L74.8 80.6 L70.3 77.5 L64.9 74.8 L58.6 72.5 L50.5 70.5 L40.6 68.7 L28.0 67.2 L13.6 66.0 L1.9 65.3"/></svg>
+          </figure>
+          <figure class="card c-graph" style="--a:124deg;--y:-170px" aria-hidden="true">
+            <p class="card-k">ECDSA’s ground <span>y² = x³ − 3x + b</span></p>
+            <svg viewBox="0 0 200 120"><path class="ax" d="M0 60H200M92 0V120"/><path class="cv" d="M129.5 114.3 L128.7 112.6 L127.9 110.9 L127.1 109.3 L126.3 107.7 L125.5 106.1 L124.7 104.6 L123.9 103.1 L123.1 101.7 L122.3 100.3 L121.5 98.9 L120.7 97.6 L119.9 96.4 L119.1 95.2 L118.3 94.0 L117.6 93.0 L116.8 92.0 L116.0 91.0 L115.2 90.2 L114.4 89.4 L113.6 88.7 L112.8 88.1 L112.0 87.5 L111.2 87.1 L110.4 86.7 L109.6 86.4 L108.8 86.2 L108.0 86.0 L107.2 86.0 L106.4 86.0 L105.6 86.1 L104.8 86.2 L104.0 86.5 L103.2 86.7 L102.4 87.0 L101.6 87.4 L100.8 87.8 L100.0 88.3 L99.2 88.7 L98.4 89.2 L97.6 89.7 L96.8 90.2 L96.0 90.8 L95.3 91.3 L94.5 91.9 L93.7 92.4 L92.9 93.0 L92.1 93.5 L91.3 94.0 L90.5 94.5 L89.7 95.1 L88.9 95.5 L88.1 96.0 L87.3 96.5 L86.5 96.9 L85.7 97.3 L84.9 97.7 L84.1 98.0 L83.3 98.4 L82.5 98.7 L81.7 98.9 L80.9 99.2 L80.1 99.3 L79.3 99.5 L78.5 99.6 L77.7 99.7 L76.9 99.7 L76.1 99.7 L75.3 99.6 L74.5 99.4 L73.7 99.3 L72.9 99.0 L72.2 98.7 L71.4 98.3 L70.6 97.9 L69.8 97.3 L69.0 96.7 L68.2 96.0 L67.4 95.2 L66.6 94.3 L65.8 93.2 L65.0 92.0 L64.2 90.7 L63.4 89.2 L62.6 87.4 L61.8 85.4 L61.0 83.1 L60.2 80.3 L59.4 76.8 L58.6 72.1 L57.8 60.2 L57.8 59.8 L58.6 47.9 L59.4 43.2 L60.2 39.7 L61.0 36.9 L61.8 34.6 L62.6 32.6 L63.4 30.8 L64.2 29.3 L65.0 28.0 L65.8 26.8 L66.6 25.7 L67.4 24.8 L68.2 24.0 L69.0 23.3 L69.8 22.7 L70.6 22.1 L71.4 21.7 L72.2 21.3 L72.9 21.0 L73.7 20.7 L74.5 20.6 L75.3 20.4 L76.1 20.3 L76.9 20.3 L77.7 20.3 L78.5 20.4 L79.3 20.5 L80.1 20.7 L80.9 20.8 L81.7 21.1 L82.5 21.3 L83.3 21.6 L84.1 22.0 L84.9 22.3 L85.7 22.7 L86.5 23.1 L87.3 23.5 L88.1 24.0 L88.9 24.5 L89.7 24.9 L90.5 25.5 L91.3 26.0 L92.1 26.5 L92.9 27.0 L93.7 27.6 L94.5 28.1 L95.3 28.7 L96.0 29.2 L96.8 29.8 L97.6 30.3 L98.4 30.8 L99.2 31.3 L100.0 31.7 L100.8 32.2 L101.6 32.6 L102.4 33.0 L103.2 33.3 L104.0 33.5 L104.8 33.8 L105.6 33.9 L106.4 34.0 L107.2 34.0 L108.0 34.0 L108.8 33.8 L109.6 33.6 L110.4 33.3 L111.2 32.9 L112.0 32.5 L112.8 31.9 L113.6 31.3 L114.4 30.6 L115.2 29.8 L116.0 29.0 L116.8 28.0 L117.6 27.0 L118.3 26.0 L119.1 24.8 L119.9 23.6 L120.7 22.4 L121.5 21.1 L122.3 19.7 L123.1 18.3 L123.9 16.9 L124.7 15.4 L125.5 13.9 L126.3 12.3 L127.1 10.7 L127.9 9.1 L128.7 7.4 L129.5 5.7"/><path class="ch" d="M50 37 L135 15.6"/><path class="ch dash" d="M123 18.7V101.3"/><circle cx="62" cy="34" r="3"/><circle cx="92" cy="26.5" r="3"/><circle class="hot" cx="123" cy="101.3" r="3.5"/></svg>
+            <p class="card-s">P + Q = R, the operation every signature rests on</p>
+          </figure>
+          <figure class="card c-stages" style="--a:176deg;--y:110px" aria-hidden="true">
+            <p class="card-k">Where each module stands</p>
+            <ol><li><b>Scoped</b></li><li><b>Tested</b></li><li class="on-half"><b>Submitted</b><i></i><i></i></li><li class="on"><b>Validated</b><i></i><i></i></li></ol>
+          </figure>
+          <figure class="card c-algos" style="--a:228deg;--y:-140px" aria-hidden="true">
+            <p class="card-k">ACVP-tested</p><p class="card-big">5<small>algorithm families</small></p>
+            <p class="chips"><span>AES</span><span>RSA</span><span>SHA</span><span>HMAC</span><span>ECDSA</span></p>
+          </figure>
+          <figure class="card c-span" style="--a:280deg;--y:40px" aria-hidden="true">
+            <p class="card-k">Along the way <span>2020 — now</span></p>
+            <div class="span"><i style="--a:0;--b:2"></i><i style="--a:2;--b:3"></i><i style="--a:3;--b:5"></i><i class="now" style="--a:5;--b:6"></i></div>
+            <p class="card-s">Concordia → Fortinet, three roles</p>
+          </figure>
+          <figure class="card c-boundary" style="--a:332deg;--y:90px">
+              <svg class="boundary" viewBox="0 0 460 440" width="460" height="440" role="img" aria-labelledby="hero-fig-title">
                 <title id="hero-fig-title">Schematic of a cryptographic module. A dashed boundary encloses five ACVP-tested algorithm families: AES, SHA, HMAC, RSA and ECDSA. Data input and control input cross the boundary on one side; data output and status output leave on the other.</title>
                 <g aria-hidden="true">
                   <text class="fig-label" x="96" y="30">Cryptographic boundary</text>
@@ -111,10 +138,18 @@
                   <text class="fig-label" x="452" y="258" text-anchor="end">Status out</text>
                 </g>
               </svg>
+          </figure>
         </div>
-        <figcaption class="fig-foot"><span class="hero-name">Sanjeev Kumar Paul</span><span class="fig-switch" role="group" aria-label="Figure"><button type="button" data-fig="guy" aria-pressed="true">Figure</button><button type="button" data-fig="boundary" aria-pressed="false">Module boundary</button></span></figcaption>
-      </figure>
+      </div>
 
+      <div class="hero-base">
+        <p class="giant" aria-hidden="true">Sanjeev</p>
+        <a class="launch" href="#work" data-track="hero-cta-work"><span>View validated work</span><i aria-hidden="true">↓</i></a>
+        <p class="hero-name">Sanjeev Kumar Paul</p>
+      </div>
+    </section>
+
+    <section class="proof-strip" aria-label="On the record">
       <div class="proof-panels">
         <article class="ppanel glass is-proof arrive" aria-labelledby="pp1">
           <h2 id="pp1"><span class="state" aria-hidden="true"></span>Validated by NIST</h2>

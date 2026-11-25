@@ -89,6 +89,39 @@
   }
   document.addEventListener('visibilitychange', () => { doc.classList.toggle('is-hidden-tab', document.hidden); playLoops(); });
 
+
+  /* ---------- the orbit: evidence turning slowly around the figure ---------- */
+  const stage = $('[data-orbit]');
+  if (stage) {
+    const ring = $('.orbit', stage), cards = $$('.card', ring);
+    const base = cards.map(c => parseFloat(getComputedStyle(c).getPropertyValue('--a')) || 0);
+    const DEG_PER_S = 5.5;                       // one turn a little over a minute: calm, never busy
+    let spin = 0, last = 0, raf = 0, seen = true, tx = -9, ty = 0, px = 0, py = 0;
+    const depth = () => cards.forEach((c, i) => {
+      const z = Math.cos((base[i] + spin) * Math.PI / 180);   // 1 = nearest the viewer, -1 = behind the figure
+      c.style.opacity = (.86 + .14 * (z + 1) / 2).toFixed(3);
+    });
+    const frame = now => {
+      raf = 0;
+      const dt = last ? Math.min(64, now - last) / 1000 : 0; last = now;
+      spin = (spin + dt * DEG_PER_S) % 360;
+      tx += ((-9 + py * 5) - tx) * .06; ty += ((px * 7) - ty) * .06;
+      ring.style.setProperty('--spin', `${spin.toFixed(2)}deg`);
+      ring.style.setProperty('--tx', `${tx.toFixed(2)}deg`);
+      ring.style.setProperty('--ty', `${ty.toFixed(2)}deg`);
+      depth();
+      if (seen && !document.hidden) raf = requestAnimationFrame(frame);
+    };
+    const start = () => { if (!raf && seen && !document.hidden && !reduceMotion) { last = 0; raf = requestAnimationFrame(frame); } };
+    depth();
+    if (!reduceMotion) {
+      new IntersectionObserver(es => { seen = es[0].isIntersecting; start(); }).observe(stage);
+      document.addEventListener('visibilitychange', start);
+      $('#home').addEventListener('pointermove', e => { px = e.clientX / innerWidth - .5; py = e.clientY / innerHeight - .5; }, { passive: true });
+      start();
+    }
+  }
+
   /* ---------- project tabs ---------- */
   const tabs = $$('.proj-tab');
   const select = (tab, focus) => {
