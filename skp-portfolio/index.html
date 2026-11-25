@@ -18,7 +18,6 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/big-shoulders-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <script>/* Intro: once per visit, and only when scripts run. */(function(){try{if(sessionStorage.getItem('skp-intro'))return}catch(e){}document.documentElement.classList.add('is-intro')})();</script>
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {
@@ -40,27 +39,6 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- ================= INTRO =================
-       A live 3D scene (intro.js) shown once per visit while the page loads, then it hands over to the page.
-       Without JavaScript it never appears. -->
-  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title" aria-describedby="intro-sub">
-    <canvas class="intro-canvas" aria-hidden="true"></canvas>
-    <div class="intro-top" aria-hidden="true">
-      <span class="intro-mark">Sanjeev K Paul<i>✳</i></span>
-      <span class="intro-meta"><span class="intro-dot"></span><span class="intro-status">Loading</span></span>
-    </div>
-    <div class="intro-copy">
-      <h2 class="intro-title" id="intro-title" aria-label="One job title. Many innings.">
-        <span class="intro-line" data-split="0">One job title.</span>
-        <span class="intro-line" data-split="14">Many innings.</span>
-      </h2>
-      <p class="intro-sub" id="intro-sub">Cryptographic validation by day. Cricket, writing and curious side projects the rest of the time.</p>
-      <button class="intro-go" type="button"><span class="intro-go-label">Step inside</span><span class="intro-go-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-    </div>
-    <span class="intro-bar" aria-hidden="true"></span>
-  </div>
-  <script src="intro.js"></script>
-
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="topbar" id="top">
