@@ -1,471 +1,192 @@
-/* Small, dependency-free interactions. The page reads fully without JS. */
+/* Home page behaviour. Everything here is enhancement: the page reads complete without it. */
 (() => {
-  'use strict';
-  function init() {
-    const root = document.documentElement;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const doc = document.documentElement;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const track = name => { if (typeof window.va === 'function') window.va('event', { name }); };
 
-    /* ---- Mobile menu ---- */
-    const menuButton = document.querySelector('.menu-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    const header = document.querySelector('.topbar');
-    function setMenu(open) {
-      if (!menuButton || !mobileNav) return;
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-      menuButton.classList.toggle('is-open', open);
-      mobileNav.hidden = !open;
-    }
-    menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
-    mobileNav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
-    document.addEventListener('click', e => { if (header && !header.contains(e.target)) setMenu(false); });
+  /* ---------- year and the live Ottawa clock ---------- */
+  const year = $('#current-year'); if (year) year.textContent = String(new Date().getFullYear());
+  const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hour12: false });
+  const clocks = [...$$('[data-clock]'), $('#local-time')].filter(Boolean);
+  const footTime = $('.footer-time'); if (footTime) footTime.hidden = false;
+  const tick = () => { const t = fmt.format(new Date()); clocks.forEach(c => { c.textContent = t; }); };
+  tick(); setInterval(tick, 15000);
 
-    /* ---- Ottawa local time ---- */
-    const timeNode = document.getElementById('local-time');
-    if (timeNode) {
-      const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hour12: false });
-      const tick = () => { timeNode.textContent = fmt.format(new Date()); };
-      tick();
-      timeNode.parentElement.hidden = false;
-      setInterval(tick, 20000);
-    }
-
-    /* ---- Hello in several languages, with its UTF-8 bytes ---- */
-    const helloWord = document.getElementById('hello-word');
-    const helloOrigin = document.getElementById('hello-origin');
-    const cipherCode = document.getElementById('cipher-code');
-    const greetings = [['Hello', 'English'], ['Bonjour', 'French'], ['नमस्ते', 'Hindi'], ['ਸਤ ਸ੍ਰੀ ਅਕਾਲ', 'Punjabi'], ['নমস্কার', 'Bengali']];
-    if (helloWord && helloOrigin && cipherCode && !reduceMotion) {
-      const encoder = new TextEncoder();
-      let i = 0;
-      setInterval(() => {
-        if (document.hidden) return;
-        helloWord.classList.add('is-fading');
-        setTimeout(() => {
-          i = (i + 1) % greetings.length;
-          const [word, language] = greetings[i];
-          helloWord.textContent = word;
-          helloOrigin.textContent = language;
-          cipherCode.textContent = Array.from(encoder.encode(word), b => b.toString(16).padStart(2, '0')).join(' ');
-          helloWord.classList.remove('is-fading');
-        }, 300);
-      }, 2800);
-    }
-
-    /* ---- Chapter marker and current nav item ---- */
-    const marker = { num: document.getElementById('chapter-num'), name: document.getElementById('chapter-name') };
-    const navLinks = document.querySelectorAll('.nav a');
-    const chapters = document.querySelectorAll('[data-chapter]');
-    if ('IntersectionObserver' in window && chapters.length) {
-      const io = new IntersectionObserver(entries => entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        if (marker.num) marker.num.textContent = el.dataset.chapter;
-        if (marker.name) marker.name.textContent = el.dataset.chapterName;
-        const group = { forkcast: 'lab', fabric: 'lab', impact: 'work', field: 'life' }[el.id] || el.id; // sections without their own nav item light up their neighbour
-        navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === `#${group}`));
-        document.querySelectorAll('.jump-list a').forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === `#${el.id}`)));
-      }), { rootMargin: '-45% 0px -50% 0px' });
-      chapters.forEach(c => io.observe(c));
-      const markerEl = document.querySelector('.chapter-marker');
-      const heroEl = document.querySelector('.hero');
-      if (markerEl && heroEl) new IntersectionObserver(([e]) => markerEl.classList.toggle('is-visible', !e.isIntersecting), { threshold: 0.05 }).observe(heroEl);
-    }
-
-    /* ---- Section menu: the marker in the corner opens a list of every section ---- */
-    const jumpButton = document.querySelector('.jump .chapter-marker');
-    const jumpList = document.getElementById('jump-list');
-    if (jumpButton && jumpList) {
-      chapters.forEach(c => {
-        const a = document.createElement('a');
-        a.href = `#${c.id}`;
-        a.innerHTML = `<span>${c.dataset.chapter}</span>${c.dataset.chapterName}`;
-        jumpList.appendChild(a);
-      });
-      const setOpen = open => { jumpList.hidden = !open; jumpButton.setAttribute('aria-expanded', String(open)); };
-      jumpButton.addEventListener('click', () => setOpen(jumpList.hidden));
-      jumpList.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
-      document.addEventListener('click', e => { if (!e.target.closest('.jump')) setOpen(false); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !jumpList.hidden) { setOpen(false); jumpButton.focus(); } });
-    }
-
-    /* ---- Reading progress: a thin line under the top bar ---- */
-    const progress = document.querySelector('.progress span');
-    if (progress) {
-      let queued = false;
-      const paint = () => { queued = false; const max = document.documentElement.scrollHeight - window.innerHeight; progress.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`; };
-      window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(paint); } }, { passive: true });
-      window.addEventListener('resize', paint);
-      paint();
-    }
-
-    /* ---- Kinetic name: drifts sideways as the hero scrolls away ---- */
-    const giant = document.querySelector('[data-parallax]');
-    if (giant && !reduceMotion) {
-      let ticking = false;
-      const update = () => {
-        const y = Math.min(window.scrollY, window.innerHeight);
-        giant.style.transform = `translateX(${-y * 0.18}px)`;
-        ticking = false;
-      };
-      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    }
-
-    /* ---- Project 3D scenes (Three.js / WebGL): hardware WebGL only ---- */
-    const forced = /[?&]3d=1\b/.test(window.location.search);
-    const webglAvailable = () => {
-      try {
-        const c = document.createElement('canvas');
-        const gl = c.getContext('webgl2') || c.getContext('webgl');
-        if (!gl) return false;
-        const info = gl.getExtension('WEBGL_debug_renderer_info');
-        const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
-        gl.getExtension('WEBGL_lose_context')?.loseContext();
-        if (forced) return true;
-        if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)) return false;
-        return (navigator.hardwareConcurrency || 4) > 2;
-      } catch { return false; }
-    };
-    /* ---- Crypto Lab Chip: its 3D scene loads only when the section comes near ---- */
-    const labCanvas = document.getElementById('lab-canvas');
-    if (labCanvas && 'IntersectionObserver' in window && !navigator.connection?.saveData && webglAvailable()) {
-      const io = new IntersectionObserver(entries => {
-        if (!entries.some(e => e.isIntersecting)) return;
-        io.disconnect();
-        import('./lab-chip.js')
-          .then(m => {
-            m.mount(labCanvas, { reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
-            labCanvas.parentElement?.classList.add('has-3d');
-          })
-          .catch(() => { /* the still image stands in */ });
-      }, { rootMargin: '400px 0px' });
-      io.observe(labCanvas);
-    }
-
-    /* ---- ForkCast and What-The-Fabric: their 3D scenes share one bundle, loaded when either comes near ---- */
-    const sideCanvases = document.querySelectorAll('.lab-canvas[data-scene]');
-    if (sideCanvases.length && 'IntersectionObserver' in window && !navigator.connection?.saveData && webglAvailable()) {
-      const sideIo = new IntersectionObserver(entries => {
-        entries.filter(e => e.isIntersecting).forEach(e => {
-          const el = e.target;
-          sideIo.unobserve(el);
-          import('./side-scenes.js')
-            .then(m => {
-              m.mount(el, { scene: el.dataset.scene, reducedMotion: reduceMotion, compact: window.innerWidth < 760, theme: 'light' });
-              el.parentElement?.classList.add('has-3d');
-            })
-            .catch(() => { /* the still image stands in */ });
-        });
-      }, { rootMargin: '400px 0px' });
-      sideCanvases.forEach(el => sideIo.observe(el));
-    }
-
-    /* ---- Hero figure: the module boundary and the halftone figure trade places in one frame ----
-       The boundary is in the HTML. The figure arrives after load: the 3D scene on hardware WebGL,
-       otherwise its still, drawn to a canvas. Once it is ready the two swap every 3 seconds,
-       holding while the pointer is over the frame; with reduced motion the boundary stays. */
-    const figure = document.querySelector('.hero-figure');
-    const guyPane = figure?.querySelector('.fig-pane--guy');
-    if (figure && guyPane && !reduceMotion) {
-      let hold = false, inView = true;
-      const ready = () => {
-        figure.addEventListener('pointerenter', () => { hold = true; });
-        figure.addEventListener('pointerleave', () => { hold = false; });
-        if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { inView = e.isIntersecting; }).observe(figure);
-        setInterval(() => {
-          if (!hold && inView && !document.hidden) figure.dataset.view = figure.dataset.view === 'guy' ? 'boundary' : 'guy';
-        }, 3000);
-      };
-      const still = () => {
-        const img = new Image();
-        img.onload = () => {
-          const crop = { x: 800, y: 120, w: 500, h: 500 }; // where the figure stands in the 1440 x 848 still
-          const canvas = document.createElement('canvas');
-          canvas.className = 'fig-still';
-          canvas.width = crop.w; canvas.height = crop.h;
-          canvas.getContext('2d').drawImage(img, crop.x, crop.y, crop.w, crop.h, 0, 0, crop.w, crop.h);
-          guyPane.replaceChildren(canvas);
-          ready();
-        };
-        img.src = guyPane.dataset.still;
-      };
-      const load = () => {
-        if (navigator.connection?.saveData || !webglAvailable()) { still(); return; }
-        const stage = document.createElement('div');
-        stage.className = 'fig-3d';
-        guyPane.appendChild(stage);
-        import('./hero-scene.js')
-          .then(m => { m.mount(stage, { compact: window.innerWidth < 760, theme: 'light' }); ready(); })
-          .catch(() => { stage.remove(); still(); });
-      };
-      const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
-      if (document.readyState === 'complete') idle(load);
-      else window.addEventListener('load', () => idle(load), { once: true });
-    }
-
-    /* ---- Camera roll: frame counter follows the scroll position ---- */
-    document.querySelectorAll('[data-roll]').forEach(roll => {
-      const track = roll.querySelector('.roll-track');
-      const frames = Array.from(track?.children || []);
-      const current = roll.querySelector('[data-roll-current]');
-      const total = roll.querySelector('[data-roll-total]');
-      if (!track || !frames.length) return;
-      const pad = n => String(n).padStart(2, '0');
-      if (total) total.textContent = pad(frames.length);
-      let ticking = false;
-      const update = () => {
-        ticking = false;
-        const mid = track.scrollLeft + track.clientWidth / 2;
-        let best = 0, dist = Infinity;
-        frames.forEach((f, i) => { const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
-        if (current) current.textContent = pad(best + 1);
-      };
-      track.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-      update();
-    });
-
-    const year = document.getElementById('current-year');
-    if (year) year.textContent = String(new Date().getFullYear());
-
-    /* ---- Copy email ---- */
-    document.getElementById('copy-email')?.addEventListener('click', async event => {
-      const button = event.currentTarget;
-      const email = button.dataset.email;
-      const feedback = document.getElementById('copy-feedback');
-      let copied = false;
-      try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(email); copied = true; } } catch { /* fall through */ }
-      if (!copied) {
-        const area = document.createElement('textarea');
-        area.value = email; area.style.cssText = 'position:fixed;left:-9999px;top:0';
-        document.body.appendChild(area); area.select();
-        try { copied = !!document.execCommand?.('copy'); } catch { /* unavailable */ }
-        area.remove();
-      }
-      if (feedback) {
-        feedback.textContent = copied ? 'Email address copied.' : 'Copy unavailable — select the address above.';
-        feedback.classList.toggle('sr-only', copied); // on success the button itself says "Copied"
-      }
-      if (!copied) return;
-      if (typeof window.va === 'function') window.va('event', { name: 'contact-copy-success' });
-      button.textContent = 'Copied';
-      clearTimeout(button.resetTimer);
-      button.resetTimer = setTimeout(() => { button.textContent = 'Copy email'; if (feedback) feedback.textContent = ''; }, 2400);
-    });
-
-    /* ---- Outcome measurement (Vercel Web Analytics custom events) ---- */
-    const contactSection = document.getElementById('contact');
-    if (contactSection && 'IntersectionObserver' in window) {
-      const seen = new IntersectionObserver(entries => {
-        if (!entries.some(e => e.isIntersecting)) return;
-        seen.disconnect();
-        if (typeof window.va === 'function') window.va('event', { name: 'contact-section-view' });
-      }, { threshold: .3 });
-      seen.observe(contactSection);
-    }
-    document.addEventListener('click', event => {
-      const target = event.target instanceof Element ? event.target.closest('[data-track]') : null;
-      if (target && typeof window.va === 'function') window.va('event', { name: target.dataset.track });
-    });
+  /* ---------- mobile menu ---------- */
+  const menuBtn = $('.menu-toggle'), mobileNav = $('#mobile-nav');
+  if (menuBtn && mobileNav) {
+    const set = open => { menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.classList.toggle('is-open', open); menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation'); mobileNav.hidden = !open; };
+    menuBtn.addEventListener('click', () => set(mobileNav.hidden));
+    mobileNav.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !mobileNav.hidden) { set(false); menuBtn.focus(); } });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
-  else init();
-})();
 
-/* ---- Selected work: a row of cards that gathers into a deck as you scroll ---- */
-(() => {
-  const deck = document.querySelector('[data-deck]');
-  if (!deck || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const track = deck.querySelector('.deck-track');
-  const items = Array.from(deck.querySelectorAll('.proj'));
-  const GATHER = .2, STEP = .45; // in viewport heights; keep in step with .deck-track height in styles.css
-  const bar = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 0;
-  let active = -1, mode = '', ticking = false;
-  deck.classList.add('deck-on');
-  function render() {
+  /* ---------- progress, jump menu, current section ---------- */
+  const bar = $('.progress span');
+  const chapters = $$('[data-chapter-name]');
+  const jump = $('.jump'), jumpBtn = $('.jump-btn'), jumpList = $('#jump-list'), chapterName = $('#chapter-name');
+  if (jumpList) chapters.forEach(s => { const a = document.createElement('a'); a.href = `#${s.id}`; a.textContent = s.dataset.chapterName; jumpList.appendChild(a); });
+  const setJump = open => { if (!jumpBtn) return; jumpBtn.setAttribute('aria-expanded', String(open)); jumpList.hidden = !open; };
+  jumpBtn?.addEventListener('click', () => setJump(jumpList.hidden));
+  jumpList?.addEventListener('click', e => { if (e.target.closest('a')) setJump(false); });
+  document.addEventListener('click', e => { if (jump && !jump.contains(e.target)) setJump(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && jumpList && !jumpList.hidden) { setJump(false); jumpBtn.focus(); } });
+  const navLinks = $$('.nav a[href^="#"], .jump-list a');
+  let ticking = false;
+  const onScroll = () => {
     ticking = false;
-    const vh = window.innerHeight;
-    const p = bar() - track.getBoundingClientRect().top;
-    const m = p > GATHER * vh ? 'deck' : 'row';
-    const i = Math.max(0, Math.min(items.length - 1, Math.floor((p - GATHER * vh) / (STEP * vh))));
-    if (m !== mode) { mode = m; deck.dataset.mode = m; }
-    if (i !== active) {
-      active = i;
-      items.forEach((el, k) => { el.dataset.pos = k === i ? 'active' : k === i - 1 ? 'prev' : k === i + 1 ? 'next' : k < i ? 'before' : 'after'; });
-    }
-  }
-  function goTo(i) {
-    const vh = window.innerHeight;
-    const y = window.scrollY + track.getBoundingClientRect().top - bar() + (GATHER + STEP * i + .2) * vh;
-    window.scrollTo({ top: y }); // smoothness comes from the CSS scroll-behavior rule, which respects reduced motion
-  }
-  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
-  window.addEventListener('scroll', queue, { passive: true });
-  window.addEventListener('resize', queue);
-  items.forEach((el, i) => {
-    el.querySelector('.proj-card').addEventListener('click', () => { if (mode === 'row' || i !== active) goTo(i); });
-    el.addEventListener('focusin', () => { if (mode !== 'deck' || i !== active) goTo(i); });
-  });
-  /* Links to one card (the hero proof chips, or a #work-… address) bring that card to the front. */
-  const indexOf = hash => items.findIndex(el => el.id && `#${el.id}` === hash);
-  document.querySelectorAll('a[href^="#work-"]').forEach(link => {
-    const i = indexOf(link.getAttribute('href'));
-    if (i < 0) return;
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      history.replaceState(null, '', link.getAttribute('href'));
-      goTo(i);
-      items[i].querySelector('.pi-link')?.focus({ preventScroll: true });
-    });
-  });
-  if (indexOf(location.hash) >= 0) requestAnimationFrame(() => goTo(indexOf(location.hash)));
-  render();
-})();
-
-/* ---- On the record: numbers count up the first time they are seen ---- */
-(() => {
-  const counts = document.querySelectorAll('.count[data-to]');
-  if (!counts.length || matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const run = el => {
-    const to = Number(el.dataset.to), suffix = el.dataset.suffix || '', t0 = performance.now(), dur = 1400;
-    const tick = now => {
-      const k = Math.min(1, (now - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
-      el.textContent = Math.round(to * eased) + suffix;
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    el.textContent = '0' + suffix;
-    requestAnimationFrame(tick);
+    const max = doc.scrollHeight - innerHeight;
+    if (bar) bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    const ledger = doc.classList.contains('view-ledger');
+    jump?.classList.toggle('is-on', !ledger && scrollY > innerHeight * .8);
+    let current = null;
+    for (const s of chapters) { if (s.offsetParent !== null && s.getBoundingClientRect().top < innerHeight * .4) current = s; }
+    if (current && chapterName) chapterName.textContent = current.dataset.chapterName;
+    navLinks.forEach(a => a.setAttribute('aria-current', String(!!current && a.getAttribute('href') === `#${current.id}`)));
   };
-  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); run(e.target); } }), { threshold: .6 });
-  counts.forEach(c => io.observe(c));
-})();
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener('resize', onScroll); onScroll();
 
-/* ---- The approach: three principles, pinned, one per scroll step ---- */
-(() => {
-  const box = document.querySelector('[data-steps]');
-  if (!box || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const track = box.querySelector('.s3-track'), parts = Array.from(box.querySelectorAll('[data-i]')), tabs = Array.from(box.querySelectorAll('.s3-tabs button'));
-  const count = box.querySelector('.s3-count b'), n = box.querySelectorAll('.s3-slide').length, STEP = .45; // keep in step with .s3-track height
-  const bar = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 0;
-  let active = -1, ticking = false;
-  box.classList.add('s3-on');
-  const render = () => {
-    ticking = false;
-    const i = Math.max(0, Math.min(n - 1, Math.floor((bar() - track.getBoundingClientRect().top) / (STEP * window.innerHeight))));
-    if (i === active) return;
-    active = i;
-    parts.forEach(el => { const on = Number(el.dataset.i) === i; if (el.tagName === 'BUTTON') el.setAttribute('aria-pressed', String(on)); else el.classList.toggle('is-active', on); });
-    if (count) count.textContent = String(i + 1).padStart(2, '0');
-  };
-  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(render); } };
-  window.addEventListener('scroll', queue, { passive: true });
-  window.addEventListener('resize', queue);
-  tabs.forEach(b => b.addEventListener('click', () => window.scrollTo({ top: window.scrollY + track.getBoundingClientRect().top - bar() + (STEP * Number(b.dataset.i) + .15) * window.innerHeight })));
-  render();
-})();
+  /* ---------- hero figure: the protected figure, or the module boundary ---------- */
+  const fig = $('.hero-figure');
+  $$('.fig-switch button').forEach(b => b.addEventListener('click', () => {
+    fig.dataset.view = b.dataset.fig;
+    $$('.fig-switch button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    playLoops();
+  }));
 
-/* ---- Along the way: each step fills in as it reaches the middle of the screen ---- */
-(() => {
-  const path = document.querySelector('.path');
-  if (!path || !('IntersectionObserver' in window)) return;
-  path.classList.add('path-on');
-  const io = new IntersectionObserver(entries => entries.forEach(e => e.target.classList.toggle('is-in', e.isIntersecting)), { rootMargin: '-28% 0px -28% 0px' });
-  path.querySelectorAll('li').forEach(li => io.observe(li));
-})();
-
-/* ---- On the field: a carousel that keeps rotating ---- */
-(() => {
-  document.querySelectorAll('[data-reel]').forEach(reel => {
-    const track = reel.querySelector('.reel-track'), cards = Array.from(track.children);
-    const current = reel.querySelector('[data-reel-current]'), buttons = Array.from(reel.querySelectorAll('[data-reel-step]'));
-    const toggle = reel.querySelector('[data-reel-toggle]');
-    const step = () => cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : track.clientWidth;
-    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (still) { // no automatic movement: arrows, swipe and a counter only
-      if (toggle) toggle.hidden = true;
-      const update = () => {
-        const max = track.scrollWidth - track.clientWidth;
-        const i = track.scrollLeft >= max - 2 ? cards.length - 1 : Math.round(track.scrollLeft / step());
-        if (current) { current.textContent = String(i + 1).padStart(2, '0'); current.parentElement.hidden = track.clientWidth > 2 * step(); }
-        buttons.forEach(b => { b.disabled = Number(b.dataset.reelStep) < 0 ? track.scrollLeft <= 2 : track.scrollLeft >= max - 2; });
-      };
-      track.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      buttons.forEach(b => b.addEventListener('click', () => track.scrollBy({ left: Number(b.dataset.reelStep) * step() })));
-      update();
-      return;
-    }
-
-    // Endless loop: two extra copies of the cards, hidden from screen readers, so the row never runs out.
-    for (let k = 0; k < 2; k++) cards.forEach(c => { const copy = c.cloneNode(true); copy.setAttribute('aria-hidden', 'true'); track.appendChild(copy); });
-    reel.classList.add('reel-auto');
-    if (current) current.parentElement.hidden = true;
-    const SPEED = 42; // pixels per second
-    let dir = 1, pos = 0, boost = 0, last = 0, hover = false, held = false, visible = false, userPaused = false, raf = 0;
-    const setWidth = () => step() * cards.length;
-    const frame = now => {
-      raf = 0;
-      const dt = Math.min(.05, (now - last) / 1000); last = now;
-      const w = setWidth();
-      if (Math.abs(track.scrollLeft - pos) > 2) pos = track.scrollLeft; // the visitor swiped or dragged
-      let move = 0;
-      if (boost) { const b = Math.sign(boost) * Math.min(Math.abs(boost), 1100 * dt); boost -= b; move += b; }
-      else if (!hover && !held && !userPaused) move += dir * SPEED * dt;
-      pos += move;
-      if (pos >= w) pos -= w; else if (pos < 0) pos += w;
-      track.scrollLeft = pos;
-      if (visible) raf = requestAnimationFrame(frame);
-    };
-    const wake = () => { if (!raf && visible) { last = performance.now(); raf = requestAnimationFrame(frame); } };
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; wake(); }).observe(reel);
-    track.addEventListener('pointerenter', () => { hover = true; });
-    track.addEventListener('pointerleave', () => { hover = false; held = false; });
-    track.addEventListener('pointerdown', () => { held = true; });
-    window.addEventListener('pointerup', () => { held = false; });
-    track.addEventListener('focusin', () => { hover = true; });
-    track.addEventListener('focusout', () => { hover = false; });
-    buttons.forEach(b => b.addEventListener('click', () => { dir = Number(b.dataset.reelStep); boost += dir * step(); }));
-    if (toggle) toggle.addEventListener('click', () => {
-      userPaused = !userPaused;
-      toggle.setAttribute('aria-pressed', String(userPaused));
-      toggle.setAttribute('aria-label', userPaused ? 'Play the carousel' : 'Pause the carousel');
-      toggle.textContent = userPaused ? '▶' : 'Ⅱ';
-    });
+  /* ---------- looping recordings: play only while seen; reduced motion keeps the poster ---------- */
+  const loops = $$('video[data-loop]');
+  const seen = new Set();
+  const playLoops = () => loops.forEach(v => {
+    const shown = seen.has(v) && v.offsetParent !== null && !(v.classList.contains('fig-pane--guy') && fig?.dataset.view === 'boundary');
+    if (shown && !reduceMotion && !document.hidden) { v.play().catch(() => {}); } else { v.pause(); }
   });
-})();
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { es.forEach(e => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target))); playLoops(); }, { rootMargin: '120px' });
+    loops.forEach(v => io.observe(v));
+  }
+  document.addEventListener('visibilitychange', playLoops);
 
-/* ---- Projects: tabs switch between Crypto Lab Chip, ForkCast and What-The-Fabric ----
-   Each 3D scene loads the first time its tab is opened (its canvas only becomes visible then). */
-(() => {
-  const tabs = Array.from(document.querySelectorAll('.proj-tab'));
-  if (!tabs.length) return;
-  const section = document.getElementById('projects');
+  /* ---------- project tabs ---------- */
+  const tabs = $$('.proj-tab');
   const select = (tab, focus) => {
-    tabs.forEach(t => {
-      const on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-    });
+    tabs.forEach(t => { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; $(`#${t.getAttribute('aria-controls')}`).hidden = !on; });
     if (focus) tab.focus();
+    playLoops();
   };
   tabs.forEach((t, i) => {
     t.addEventListener('click', () => select(t));
     t.addEventListener('keydown', e => {
-      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-      if (k) { e.preventDefault(); select(tabs[(i + k + tabs.length) % tabs.length], true); }
-      else if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); select(tabs[e.key === 'Home' ? 0 : tabs.length - 1], true); }
+      const k = { ArrowRight: 1, ArrowLeft: -1, Home: -i, End: tabs.length - 1 - i }[e.key];
+      if (k === undefined) return;
+      e.preventDefault(); select(tabs[(i + k + tabs.length) % tabs.length], true);
     });
   });
-  /* Old links such as #lab, #forkcast or #fabric open the matching tab. */
-  const fromHash = () => {
-    const id = { 'what-the-fabric': 'fabric' }[location.hash.slice(1)] || location.hash.slice(1);
-    const tab = tabs.find(t => t.getAttribute('aria-controls') === id);
-    if (!tab) return;
-    select(tab);
-    requestAnimationFrame(() => section.scrollIntoView());
+  /* a link straight to #forkcast, #fabric or #lab opens that tab */
+  const openTabFor = id => { const t = tabs.find(x => x.getAttribute('aria-controls') === id); if (t) select(t); };
+
+  /* ---------- the scorebook: moved by the visitor, never on its own ---------- */
+  $$('[data-reel]').forEach(reel => {
+    const rail = $('.reel-track', reel), cards = Array.from(rail.children), current = $('[data-reel-current]', reel), buttons = $$('[data-reel-step]', reel);
+    const step = () => (cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : rail.clientWidth);
+    const update = () => {
+      const max = rail.scrollWidth - rail.clientWidth;
+      const i = rail.scrollLeft >= max - 2 ? cards.length - 1 : Math.round(rail.scrollLeft / step());
+      if (current) current.textContent = String(i + 1);
+      buttons.forEach(b => { b.disabled = Number(b.dataset.reelStep) < 0 ? rail.scrollLeft <= 2 : rail.scrollLeft >= max - 2; });
+    };
+    rail.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    addEventListener('resize', update);
+    buttons.forEach(b => b.addEventListener('click', () => rail.scrollBy({ left: Number(b.dataset.reelStep) * step(), behavior: reduceMotion ? 'auto' : 'smooth' })));
+    rail.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); rail.scrollBy({ left: d * step() }); } });
+    update();
+  });
+
+  /* ---------- hello, in a few languages ---------- */
+  const helloWord = $('#hello-word'), helloOrigin = $('#hello-origin'), cipher = $('#cipher-code');
+  const greetings = [['Hello', 'English'], ['Bonjour', 'French'], ['नमस्ते', 'Hindi'], ['ਸਤ ਸ੍ਰੀ ਅਕਾਲ', 'Punjabi'], ['নমস্কার', 'Bengali']];
+  if (helloWord && helloOrigin && cipher && !reduceMotion) {
+    const enc = new TextEncoder(); let i = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      helloWord.classList.add('is-fading');
+      setTimeout(() => {
+        i = (i + 1) % greetings.length;
+        const [word, lang] = greetings[i];
+        helloWord.textContent = word; helloOrigin.textContent = lang;
+        cipher.textContent = Array.from(enc.encode(word), b => b.toString(16).padStart(2, '0')).join(' ');
+        helloWord.classList.remove('is-fading');
+      }, 260);
+    }, 2800);
+  }
+
+  /* ---------- copy email ---------- */
+  const copyBtn = $('#copy-email'), feedback = $('#copy-feedback');
+  copyBtn?.addEventListener('click', async () => {
+    const email = copyBtn.dataset.email;
+    try { await navigator.clipboard.writeText(email); feedback.textContent = 'Email copied to your clipboard.'; track('contact-copy-success'); }
+    catch { feedback.textContent = `Copy didn't work here. The address is ${email}.`; }
+    setTimeout(() => { feedback.textContent = ''; }, 4000);
+  });
+
+  /* ---------- analytics ---------- */
+  document.addEventListener('click', e => { const t = e.target instanceof Element ? e.target.closest('[data-track]') : null; if (t) track(t.dataset.track); });
+  const contact = $('#contact');
+  if (contact && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { track('contact-section-view'); io.disconnect(); } }, { threshold: .4 });
+    io.observe(contact);
+  }
+
+  /* ---------- ledger view: same facts, read as a status board. State lives in the URL. ---------- */
+  const toggle = $('.ledger-toggle');
+  const setView = (ledger, push) => {
+    doc.classList.toggle('view-ledger', ledger);
+    toggle?.setAttribute('aria-pressed', String(ledger));
+    if (push) {
+      const url = new URL(location.href);
+      if (ledger) url.searchParams.set('view', 'ledger'); else url.searchParams.delete('view');
+      url.hash = '';
+      history.replaceState(null, '', url);
+    }
+    playLoops(); onScroll();
   };
-  window.addEventListener('hashchange', fromHash);
-  fromHash();
+  setView(doc.classList.contains('view-ledger'), false);
+  toggle?.addEventListener('click', () => {
+    const ledger = !doc.classList.contains('view-ledger');
+    setView(ledger, true);
+    const target = ledger ? $('#ledger') : $('#home');
+    if (ledger) target?.scrollIntoView({ block: 'start', behavior: 'auto' });
+  });
+  $$('[data-ledger-exit]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); setView(false, true); scrollTo({ top: 0 }); toggle?.focus(); }));
+
+  /* every anchor resolves in both views: in the ledger, a section id lands on the panel that holds it */
+  const resolve = id => {
+    if (!id) return null;
+    const el = document.getElementById(id);
+    if (!doc.classList.contains('view-ledger')) { openTabFor(id); return el; }
+    if (el && el.offsetParent !== null && !el.closest('.editorial')) return el;
+    return $$('.panel[data-for]').find(p => p.dataset.for.split(' ').includes(id)) || $('#ledger');
+  };
+  const go = (id, smooth) => { const el = resolve(id); if (el) el.scrollIntoView({ block: 'start', behavior: smooth && !reduceMotion ? 'smooth' : 'auto' }); };
+  document.addEventListener('click', e => {
+    const a = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
+    if (!a || a.hasAttribute('data-ledger-exit')) return;
+    const id = decodeURIComponent(a.getAttribute('href').slice(1));
+    if (!id) return;
+    e.preventDefault();
+    history.pushState(null, '', `${location.search}#${id}`);
+    go(id, true);
+  });
+  addEventListener('hashchange', () => go(decodeURIComponent(location.hash.slice(1)), false));
+  if (location.hash) requestAnimationFrame(() => go(decodeURIComponent(location.hash.slice(1)), false));
+
+  /* ---------- the fracture: one authored moment ---------- */
+  const headline = $('#hero-title');
+  if (headline && !reduceMotion) {
+    const start = () => import('./fracture.js').then(m => m.mount(headline)).catch(() => {});
+    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1200 }); else setTimeout(start, 300);
+  }
 })();
