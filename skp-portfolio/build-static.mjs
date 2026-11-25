@@ -2,8 +2,8 @@
  * Production static build for Vercel (`npm run build` -> dist/).
  *
  * Copies exactly the files the site uses, found by reading the page itself:
- * every local href/src/poster (and data-still) in the HTML, every url() in the CSS, and every
- * import('./...'), static import ... from './...' or new URL('./...', import.meta.url) in the JS, plus the files they in turn import.
+ * every local href/src (and data-still, the hero figure's still) in index.html, every url() in styles.css, and every
+ * import('./...') in script.js, plus the files they in turn import.
  * If anything referenced is missing, the build fails instead of shipping a
  * page with broken fonts or a missing 3D scene. Files nobody references
  * (old portraits, experiments) are never published.
@@ -16,7 +16,7 @@ const root = dirname(fileURLToPath(import.meta.url));
 const output = join(root, 'dist');
 const always = ['index.html', 'favicon.svg', 'og.png', 'cv.pdf'];
 
-const isLocal = ref => ref && !/^(?:[a-z]+:|\/\/|#|%23|\?|data:)/i.test(ref) && !ref.startsWith('/_vercel/');
+const isLocal = ref => ref && !/^(?:[a-z]+:|\/\/|#|data:)/i.test(ref) && !ref.startsWith('/_vercel/');
 const clean = ref => normalize(ref.split(/[?#]/)[0].replace(/^\.?\//, ''));
 
 function refsIn(file, text) {
@@ -24,15 +24,11 @@ function refsIn(file, text) {
   const add = r => { if (isLocal(r)) found.push(clean(r)); };
   if (file.endsWith('.html')) {
     text = text.replace(/<!--[\s\S]*?-->/g, ''); // commented-out markup is not published
-    for (const m of text.matchAll(/\s(?:href|src|data-still|poster)="([^"]+)"/g)) add(m[1]);
+    for (const m of text.matchAll(/\s(?:href|src|data-still)="([^"]+)"/g)) add(m[1]);
     for (const m of text.matchAll(/\ssrcset="([^"]+)"/g)) m[1].split(',').forEach(part => add(part.trim().split(/\s+/)[0]));
   }
   if (file.endsWith('.css')) for (const m of text.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) add(m[1]);
-  if (file.endsWith('.js')) {
-    for (const m of text.matchAll(/import\(\s*['"]([^'"]+)['"]\s*\)/g)) add(m[1]);
-    for (const m of text.matchAll(/^\s*import\s[^'"]*?from\s*['"]([^'"]+)['"]/gm)) add(m[1]);
-    for (const m of text.matchAll(/new URL\(\s*['"]([^'"]+)['"]\s*,\s*import\.meta\.url\s*\)/g)) add(m[1]);
-  }
+  if (file.endsWith('.js')) for (const m of text.matchAll(/import\(\s*['"]([^'"]+)['"]\s*\)/g)) add(m[1]);
   return found;
 }
 
