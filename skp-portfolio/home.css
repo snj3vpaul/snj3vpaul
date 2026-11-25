@@ -400,6 +400,30 @@ html:not(.js) .light { display: none; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 .footer-links a:hover { color: var(--ink); }
 
+/* ---------- SNJV loader: the monogram is drawn as one blue outline, fills with ink, then the frost clears ----------
+   Pure CSS, ~2.7 s, once per visit (set in the head), skipped under reduced motion and without JavaScript.
+   It ends hidden on its own, so nothing can leave it stuck on screen. */
+.loader { display: none; }
+html.loading .loader { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; align-content: center; gap: 22px; pointer-events: none;
+  background: rgba(234, 241, 250, .74); -webkit-backdrop-filter: blur(28px) saturate(1.4); backdrop-filter: blur(28px) saturate(1.4);
+  animation: loader-clear .65s var(--ease) 2.05s forwards; }
+.snjv { width: min(440px, 72vw); height: auto; overflow: visible; }
+.snjv text { font: 400 200px/1 var(--serif); fill: var(--ink); fill-opacity: 0; stroke: var(--blue); stroke-width: 1.4; stroke-linejoin: round;
+  stroke-dasharray: 900; stroke-dashoffset: 900; animation: snjv-draw 1.15s cubic-bezier(.55, .1, .25, 1) forwards, snjv-fill .45s var(--ease) 1.2s forwards; }
+.snjv text:nth-child(2) { animation-delay: .12s, 1.25s; }
+.snjv text:nth-child(3) { animation-delay: .24s, 1.3s; }
+.snjv text:nth-child(4) { animation-delay: .36s, 1.35s; }
+.loader-line { width: min(440px, 72vw); height: 1.5px; border-radius: 1px; background: linear-gradient(90deg, var(--blue), #9fc0f5); transform-origin: left; transform: scaleX(0); animation: loader-line 1.6s cubic-bezier(.6, 0, .2, 1) forwards; }
+@keyframes snjv-draw { to { stroke-dashoffset: 0; } }
+@keyframes snjv-fill { to { fill-opacity: 1; stroke-opacity: .25; } }
+@keyframes loader-line { to { transform: scaleX(1); } }
+@keyframes loader-clear { to { opacity: 0; visibility: hidden; -webkit-backdrop-filter: blur(0) saturate(1); backdrop-filter: blur(0) saturate(1); } }
+/* the first screen's own arrival waits for the frost to clear */
+html.loading .card, html.loading .giant, html.loading .launch, html.loading .ppanel { animation-delay: 2.2s; }
+html.loading .card:nth-of-type(2) { animation-delay: 2.28s; } html.loading .card:nth-of-type(3) { animation-delay: 2.36s; }
+html.loading .card:nth-of-type(4) { animation-delay: 2.44s; } html.loading .card:nth-of-type(5) { animation-delay: 2.52s; }
+html.loading .card:nth-of-type(6) { animation-delay: 2.6s; } html.loading .card:nth-of-type(7) { animation-delay: 2.68s; }
+
 /* ---------- without JavaScript: the controls that need it stay out of the way ---------- */
 html:not(.js) .fig-switch, html:not(.js) .reel-ctrl button, html:not(.js) .proj-tabs { display: none; }
 html:not(.js) .proj-panel[hidden] { display: block !important; }

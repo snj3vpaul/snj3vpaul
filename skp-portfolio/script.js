@@ -6,6 +6,9 @@
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const track = name => { if (typeof window.va === 'function') window.va('event', { name }); };
 
+  /* ---------- the SNJV loader removes itself once the frost has cleared ---------- */
+  if (doc.classList.contains('loading')) setTimeout(() => doc.classList.remove('loading'), 3200);
+
   /* ---------- year and the live Ottawa clock ---------- */
   const year = $('#current-year'); if (year) year.textContent = String(new Date().getFullYear());
   const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', hour: '2-digit', minute: '2-digit', hour12: false });
