@@ -63,7 +63,7 @@
         const el = entry.target;
         if (marker.num) marker.num.textContent = el.dataset.chapter;
         if (marker.name) marker.name.textContent = el.dataset.chapterName;
-        const group = { forkcast: 'lab', fabric: 'lab', impact: 'work', field: 'life' }[el.id] || el.id; // sections without their own nav item light up their neighbour
+        const group = { sports: 'projects', impact: 'work', journey: 'approach', writing: 'approach', field: 'life' }[el.id] || el.id; // sections without their own nav item light up their neighbour
         navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === `#${group}`));
         document.querySelectorAll('.jump-list a').forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === `#${el.id}`)));
       }), { rootMargin: '-45% 0px -50% 0px' });
@@ -100,34 +100,49 @@
       paint();
     }
 
-    /* ---- Hero valley: the ranges part a little as the page scrolls and follow the pointer;
-       the top bar stays clear while it sits over the sky ---- */
-    const hero = document.querySelector('.hero');
-    const topbar = document.querySelector('.topbar');
-    if (hero && topbar) {
-      const setBar = () => topbar.classList.toggle('is-over-hero', window.scrollY < 24);
-      window.addEventListener('scroll', setBar, { passive: true });
-      setBar();
-    }
-    const layers = [...document.querySelectorAll('.valley-layer, .valley-mist')];
-    if (hero && layers.length && !reduceMotion) {
-      const depth = { far: .38, crag: .3, mid: .24, hills: .12, meadow: 0 };
-      const rate = el => depth[(el.className.match(/valley-layer--(\w+)/) || [])[1]] ?? .2;
-      const sway = el => (1 - rate(el) / .38) * 14 + 4; // nearer ranges move further with the pointer
-      let px = 0, ticking = false, visible = true;
-      const paint = () => {
-        ticking = false;
-        if (!visible) return;
-        const y = Math.min(window.scrollY, hero.offsetHeight);
-        layers.forEach(el => { el.style.transform = `translate3d(${(-px * sway(el)).toFixed(1)}px, ${(y * rate(el)).toFixed(1)}px, 0)`; });
+    /* ---- Hero trace: point at any node to light its whole chain, from requirement to certificate.
+       Nothing moves on its own: the graph draws in once (CSS), settles on one chain, then waits. ---- */
+    const net = document.querySelector('.net-svg');
+    if (net) {
+      const edges = [...net.querySelectorAll('.net-edge')];
+      const nodes = new Map([...net.querySelectorAll('.net-node')].map(n => [n.dataset.node, n]));
+      const traceText = document.querySelector('.net-trace-v');
+      const walk = (start, key, next) => {
+        const seen = new Set([start]), stack = [start];
+        while (stack.length) {
+          const id = stack.pop();
+          edges.forEach(e => { if (e.dataset[key] === id && !seen.has(e.dataset[next])) { seen.add(e.dataset[next]); stack.push(e.dataset[next]); } });
+        }
+        return seen;
       };
-      const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
-      window.addEventListener('scroll', queue, { passive: true });
-      if (window.matchMedia('(pointer: fine)').matches) {
-        hero.addEventListener('pointermove', e => { px = e.clientX / window.innerWidth - .5; queue(); });
-        hero.addEventListener('pointerleave', () => { px = 0; queue(); });
-      }
-      if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) queue(); }).observe(hero);
+      const order = id => [...nodes.keys()].indexOf(id);
+      const label = id => nodes.get(id).dataset.label;
+      const trace = id => {
+        const up = walk(id, 'to', 'from'), down = walk(id, 'from', 'to');
+        const lit = new Set([...up, ...down]);
+        net.classList.add('is-tracing');
+        nodes.forEach((n, k) => n.classList.toggle('is-lit', lit.has(k)));
+        edges.forEach(e => e.classList.toggle('is-lit', (up.has(e.dataset.to) && up.has(e.dataset.from)) || (down.has(e.dataset.from) && down.has(e.dataset.to))));
+        if (traceText) {
+          // one readable path through the chain: the first parent above, the first child below
+          const path = [id];
+          for (let cur = id, e; (e = edges.find(x => x.dataset.to === cur)); cur = e.dataset.from) path.unshift(e.dataset.from);
+          for (let cur = id, e; (e = edges.find(x => x.dataset.from === cur)); cur = e.dataset.to) path.push(e.dataset.to);
+          traceText.textContent = path.sort((x, y) => order(x) - order(y)).map(label).join(' → ');
+        }
+      };
+      const resting = 'aes';
+      nodes.forEach((n, id) => {
+        n.addEventListener('pointerenter', () => trace(id));
+        n.addEventListener('pointerdown', () => trace(id));
+      });
+      net.addEventListener('pointerleave', () => trace(resting));
+      setTimeout(() => trace(resting), reduceMotion ? 0 : 1900);
+      // on narrow screens the row labels go and the graph crops to its nodes, so its type stays legible
+      const narrow = window.matchMedia('(max-width: 640px)');
+      const crop = () => net.setAttribute('viewBox', narrow.matches ? '92 28 372 520' : '0 0 460 560');
+      narrow.addEventListener?.('change', crop);
+      crop();
     }
 
     /* ---- Project 3D scenes (Three.js / WebGL): hardware WebGL only ---- */
