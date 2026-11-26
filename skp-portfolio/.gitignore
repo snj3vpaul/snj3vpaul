@@ -34,3 +34,8 @@ dist-ssr
 *-implementation/
 technical-minimal-portfolio/
 
+
+# Next.js
+.next/
+out/
+next-env.d.ts

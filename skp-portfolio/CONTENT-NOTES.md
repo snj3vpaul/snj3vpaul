@@ -1,6 +1,6 @@
 # Content notes (not published)
 
-`build-static.mjs` only copies files the page references, so this file never ships. It holds the owner-facing notes and snippets that used to live as HTML comments in `index.html`.
+This file is outside `public/`, so it never ships. It holds the owner-facing notes and snippets that used to live as HTML comments in the page. In v2, edit content in `lib/content.ts`.
 
 ## Copy waiting on the owner's confirmation
 

@@ -1,30 +1,27 @@
-# Sanjeev K Paul — Personal Portfolio (Editorial Edition)
+# Sanjeev K Paul — portfolio (v2)
 
-A standalone, dependency-free, one-page website. Designed to look and sound like an individual with a real career and real interests, rather than a generic generated technology template.
+Next.js 16 + React 19, exported as static files. Motion for React for transitions; one hand-written WebGL2 shader in the hero. The architecture and its trade-offs are in [ARCHITECTURE.md](ARCHITECTURE.md).
 
-## Preview
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # static export → out/ → dist/ (what Vercel serves)
+npm run typecheck
+```
 
-Open `index.html` in a browser. The website consists of this HTML, `styles.css`, `script.js`, and `favicon.svg`.
+## Where things are
 
-## Deploy to Vercel
+| Path | What it holds |
+| --- | --- |
+| `lib/content.ts` | Every public fact on the home page. Edit words here. |
+| `app/page.tsx` | The page, section by section (server-rendered). |
+| `app/globals.css` | Tokens (palette, type, motion) and all styles. |
+| `components/CipherField.tsx` | Hero WebGL2 cipher field. |
+| `components/Pipeline.tsx` | The Assurance Pipeline (scroll story on wide screens, list elsewhere). |
+| `components/WorkRail.tsx` | Professional work rail and case-study sheet. |
+| `components/ProjectTabs.tsx`, `CipherWheel.tsx`, `PersonalBand.tsx` | Personal projects. |
+| `components/SiteChrome.tsx`, `Enhancements.tsx` | Header, menu, progress, jump list; reveals, clock, deep links, analytics. |
+| `public/` | Fonts, videos, CV, OG image, favicon, and the project pages (unchanged static HTML). |
+| `archive/` | The previous static site and the older Vite app. Not built. |
 
-1. Upload the directory as a static website, or add the files to a dedicated project repository.
-2. In Vercel, choose **Other** for the framework preset; leave the build command blank and set the output directory to `.`.
-3. Deploy, then connect your domain.
-
-**Do not overwrite your existing React/Vite portfolio repository blindly.** This is a standalone redesign, and the current production site was not changed.
-
-## Content / assets
-
-- Work, dates, credentials, and links were adapted from your public `snj3vpaul/snj3vpaul` portfolio source. FortiProxy entries are explicitly marked as **submitted for review**, not validated.
-- The hero and cricket section now use original code-drawn visuals rather than photographs. No user portrait or cricket photograph is required for those sections. The entire hero uses one uninterrupted warm-ivory backdrop on desktop and mobile, with a typographic cryptography illustration integrated directly into the page.
-- The typography uses Instrument Serif and DM Sans through Google Fonts, with system fallbacks. You may self-host licensed font assets if desired.
-- Email, LinkedIn, GitHub, Medium, public research, and NIST references are real links. Contact opens the visitor's email application; there is no fake contact form or server.
-
-## Customization
-
-Edit words and links in `index.html`, tokens and styles in `styles.css`, and only lightweight interaction logic in `script.js`. No dependencies or build step are required.
-
-## Editorial approach
-
-No generic cybersecurity stock photos, fictitious dashboards, artificial counters, or unnecessary animations. The site uses real certification records, typographic asymmetry, a code-drawn cricket illustration, and a restrained cryptography motif only where it communicates something.
+Owner notes and content still to confirm are in `CONTENT-NOTES.md` (not published).
