@@ -2,7 +2,7 @@
  * Production static build for Vercel (`npm run build` -> dist/).
  *
  * Copies exactly the files the site uses, found by reading the page itself:
- * every local href/src/poster (and data-still) in the HTML, every url() in the CSS, and every
+ * every local href/src/poster (and data-still, data-src, data-src-m) in the HTML, every url() in the CSS, and every
  * import('./...'), static import ... from './...' or new URL('./...', import.meta.url) in the JS, plus the files they in turn import.
  * If anything referenced is missing, the build fails instead of shipping a
  * page with broken fonts or a missing 3D scene. Files nobody references
@@ -24,7 +24,7 @@ function refsIn(file, text) {
   const add = r => { if (isLocal(r)) found.push(clean(r)); };
   if (file.endsWith('.html')) {
     text = text.replace(/<!--[\s\S]*?-->/g, ''); // commented-out markup is not published
-    for (const m of text.matchAll(/\s(?:href|src|data-still|poster)="([^"]+)"/g)) add(m[1]);
+    for (const m of text.matchAll(/\s(?:href|src|data-still|data-src|data-src-m|poster)="([^"]+)"/g)) add(m[1]);
     for (const m of text.matchAll(/\ssrcset="([^"]+)"/g)) m[1].split(',').forEach(part => add(part.trim().split(/\s+/)[0]));
   }
   if (file.endsWith('.css')) for (const m of text.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) add(m[1]);

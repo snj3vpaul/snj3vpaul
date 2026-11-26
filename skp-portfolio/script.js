@@ -2,12 +2,13 @@
 (() => {
   const doc = document.documentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const track = name => { if (typeof window.va === 'function') window.va('event', { name }); };
 
-  /* ---------- the SNJV loader removes itself once the frost has cleared ---------- */
-  if (doc.classList.contains('loading')) setTimeout(() => doc.classList.remove('loading'), 3200);
+  /* ---------- the SNJV loader removes itself once the paper has lifted ---------- */
+  if (doc.classList.contains('loading')) setTimeout(() => doc.classList.remove('loading'), 3000);
 
   /* ---------- year and the live Ottawa clock ---------- */
   const year = $('#current-year'); if (year) year.textContent = String(new Date().getFullYear());
@@ -37,16 +38,20 @@
   };
   tick(); setInterval(tick, 15000);
 
-  /* ---------- mobile menu ---------- */
+  /* ---------- mobile menu: a full page of large links ---------- */
   const menuBtn = $('.menu-toggle'), mobileNav = $('#mobile-nav');
   if (menuBtn && mobileNav) {
-    const set = open => { menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.classList.toggle('is-open', open); menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation'); mobileNav.hidden = !open; };
+    const set = open => {
+      menuBtn.setAttribute('aria-expanded', String(open)); menuBtn.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation'); mobileNav.hidden = !open; doc.classList.toggle('menu-open', open);
+    };
     menuBtn.addEventListener('click', () => set(mobileNav.hidden));
     mobileNav.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !mobileNav.hidden) { set(false); menuBtn.focus(); } });
+    matchMedia('(min-width: 1021px)').addEventListener('change', e => { if (e.matches) set(false); });
   }
 
-  /* ---------- progress, jump menu, current section ---------- */
+  /* ---------- progress, glass bar, jump menu, current section ---------- */
   const bar = $('.progress span');
   const chapters = $$('[data-chapter-name]');
   const jump = $('.jump'), jumpBtn = $('.jump-btn'), jumpList = $('#jump-list'), chapterName = $('#chapter-name');
@@ -57,33 +62,49 @@
   document.addEventListener('click', e => { if (jump && !jump.contains(e.target)) setJump(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && jumpList && !jumpList.hidden) { setJump(false); jumpBtn.focus(); } });
   const navLinks = $$('.nav a[href^="#"], .jump-list a');
+
+  /* ---------- parallax: a few layers drift against the scroll, only while on screen ---------- */
+  const layers = reduceMotion ? [] : $$('[data-parallax]').map(el => ({ el, f: parseFloat(el.dataset.parallax) || 0, box: el.parentElement }));
+  const parallax = () => layers.forEach(({ el, f, box }) => {
+    const r = box.getBoundingClientRect();
+    if (r.bottom < -200 || r.top > innerHeight + 200) return;
+    const lim = el.offsetHeight * .1, y = Math.max(-lim, Math.min(lim, (r.top + r.height / 2 - innerHeight / 2) * f));
+    el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+  });
+
   let ticking = false;
   const onScroll = () => {
     ticking = false;
     const max = doc.scrollHeight - innerHeight;
     if (bar) bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    doc.classList.toggle('scrolled', scrollY > 40);
     jump?.classList.toggle('is-on', scrollY > innerHeight * .8);
     let current = null;
     for (const s of chapters) { if (s.offsetParent !== null && s.getBoundingClientRect().top < innerHeight * .4) current = s; }
     if (current && chapterName) chapterName.textContent = current.dataset.chapterName;
     navLinks.forEach(a => a.setAttribute('aria-current', String(!!current && a.getAttribute('href') === `#${current.id}`)));
+    parallax();
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   addEventListener('resize', onScroll); onScroll();
 
-  /* ---------- hero figure: the protected figure, or the module boundary ---------- */
-  const fig = $('.hero-figure');
-  $$('.fig-switch button').forEach(b => b.addEventListener('click', () => {
-    fig.dataset.view = b.dataset.fig;
-    $$('.fig-switch button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
-    playLoops();
-  }));
+  /* ---------- section entrances: each block rises once as it arrives ---------- */
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const items = $$('[data-reveal]');
+    items.forEach(el => { const sibs = $$(':scope > [data-reveal]', el.parentElement); el.style.setProperty('--d', `${Math.min(sibs.indexOf(el), 5) * .08}s`); });
+    const show = el => { el.classList.add('is-in'); io.unobserve(el); };
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(e.target); }), { rootMargin: '0px 0px -10% 0px', threshold: .05 });
+    items.forEach(el => io.observe(el));
+    doc.classList.add('reveal');
+    document.addEventListener('focusin', e => { const p = e.target instanceof Element ? e.target.closest('[data-reveal]') : null; if (p) { p.style.transitionDuration = '0s'; show(p); } });
+    addEventListener('beforeprint', () => items.forEach(show));
+  }
 
   /* ---------- looping recordings: play only while seen; reduced motion keeps the poster ---------- */
   const loops = $$('video[data-loop]');
   const seen = new Set();
   const playLoops = () => loops.forEach(v => {
-    const shown = seen.has(v) && v.offsetParent !== null && !(v.classList.contains('fig-pane--guy') && fig?.dataset.view === 'boundary');
+    const shown = seen.has(v) && v.offsetParent !== null;
     if (shown && !reduceMotion && !document.hidden) { v.play().catch(() => {}); } else { v.pause(); }
   });
   if ('IntersectionObserver' in window) {
@@ -92,37 +113,134 @@
   }
   document.addEventListener('visibilitychange', () => { doc.classList.toggle('is-hidden-tab', document.hidden); playLoops(); });
 
-
-  /* ---------- the orbit: evidence turning slowly around the figure ---------- */
-  const stage = $('[data-orbit]');
-  if (stage) {
-    const ring = $('.orbit', stage), cards = $$('.card', ring);
-    const base = cards.map(c => parseFloat(getComputedStyle(c).getPropertyValue('--a')) || 0);
-    const DEG_PER_S = 3.6;                       // one turn every 100 s: calm, never busy
-    let spin = 0, last = 0, raf = 0, seen = true, tx = -9, ty = 0, px = 0, py = 0;
-    const depth = () => cards.forEach((c, i) => {
-      const z = Math.cos((base[i] + spin) * Math.PI / 180);   // 1 = nearest the viewer, -1 = behind the figure
-      c.style.opacity = (.86 + .14 * (z + 1) / 2).toFixed(3);
+  /* ---------- the restoration card ----------
+     It downloads a real file (the hero portrait, or the résumé on request) and reports the bytes received,
+     the speed and the time, as measured here. A cache hit is reported as a cache hit. */
+  const card = $('.restore');
+  if (card && 'fetch' in window) {
+    const photo = $('[data-restore]'), img = $('.hero-img', photo);
+    const ring = $('[data-ring]', card), pctEl = $('[data-restore-pct]', card);
+    const sizeEl = $('[data-restore-size]', card), speedEl = $('[data-restore-speed]', card), timeEl = $('[data-restore-time]', card);
+    const statusEl = $('[data-restore-status]', card), labelEl = $('[data-restore-label]', card), fileEl = $('[data-restore-file]', card);
+    const againBtn = $('[data-restore-again]', card), cvLink = $('[data-restore-cv]', card);
+    const N = 48, NS = 'http://www.w3.org/2000/svg';
+    const dots = Array.from({ length: N }, (_, i) => {
+      const a = (i / N) * Math.PI * 2 - Math.PI / 2, c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', (60 + 52 * Math.cos(a)).toFixed(2)); c.setAttribute('cy', (60 + 52 * Math.sin(a)).toFixed(2)); c.setAttribute('r', '2.3');
+      ring.appendChild(c); return c;
     });
-    const frame = now => {
-      raf = 0;
-      const dt = last ? Math.min(64, now - last) / 1000 : 0; last = now;
-      spin = (spin + dt * DEG_PER_S) % 360;
-      tx += ((-9 + py * 5) - tx) * .06; ty += ((px * 7) - ty) * .06;
-      ring.style.setProperty('--spin', `${spin.toFixed(2)}deg`);
-      ring.style.setProperty('--tx', `${tx.toFixed(2)}deg`);
-      ring.style.setProperty('--ty', `${ty.toFixed(2)}deg`);
-      depth();
-      if (seen && !document.hidden) raf = requestAnimationFrame(frame);
+    const kb = b => (b < 1024 ? `${b} B` : b < 1048576 ? `${(b / 1024).toFixed(b < 102400 ? 1 : 0)} KB` : `${(b / 1048576).toFixed(2)} MB`);
+    const rate = bps => (bps >= 1048576 ? `${(bps / 1048576).toFixed(1)} MB/s` : `${Math.max(0, bps / 1024).toFixed(0)} KB/s`);
+    const secs = ms => (ms < 1000 ? `${(ms / 1000).toFixed(ms < 10 ? 3 : 2)} s` : `${(ms / 1000).toFixed(1)} s`);
+    const draw = (loaded, total, ms) => {
+      const p = total ? Math.min(1, loaded / total) : 0, on = Math.round(p * N);
+      dots.forEach((d, i) => d.classList.toggle('on', i < on));
+      pctEl.textContent = `${Math.round(p * 100)}%`;
+      sizeEl.textContent = total ? `${kb(loaded)} / ${kb(total)}` : kb(loaded);
+      speedEl.textContent = ms > 0 ? rate(loaded / (ms / 1000)) : '—';
+      timeEl.textContent = secs(ms);
     };
-    const start = () => { if (!raf && seen && !document.hidden && !reduceMotion) { last = 0; raf = requestAnimationFrame(frame); } };
-    depth();
-    if (!reduceMotion) {
-      new IntersectionObserver(es => { seen = es[0].isIntersecting; start(); }).observe(stage);
-      document.addEventListener('visibilitychange', start);
-      $('#home').addEventListener('pointermove', e => { px = e.clientX / innerWidth - .5; py = e.clientY / innerHeight - .5; }, { passive: true });
-      start();
-    }
+    let busy = false;
+    const fetchWithProgress = async (url, hint, reload) => {
+      const t0 = performance.now();
+      const res = await fetch(url, { cache: reload ? 'reload' : 'default' });
+      if (!res.ok) throw new Error(res.status);
+      const total = Number(res.headers.get('content-length')) || hint || 0;
+      const chunks = []; let loaded = 0, frame = 0;
+      if (res.body && res.body.getReader) {
+        const reader = res.body.getReader();
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value); loaded += value.length;
+          if (!frame) frame = requestAnimationFrame(() => { frame = 0; draw(loaded, total, performance.now() - t0); });
+        }
+      } else { const b = new Uint8Array(await res.arrayBuffer()); chunks.push(b); loaded = b.length; }
+      cancelAnimationFrame(frame);
+      const ms = performance.now() - t0;
+      const entry = performance.getEntriesByName(new URL(url, location.href).href).pop();
+      const cached = !!entry && entry.transferSize === 0 && entry.decodedBodySize > 0;
+      draw(loaded, loaded, ms);
+      return { blob: new Blob(chunks, { type: res.headers.get('content-type') || '' }), loaded, ms, cached };
+    };
+    const run = async ({ url, hint, label, file, reload, done }) => {
+      if (busy) return; busy = true;
+      card.dataset.state = 'loading'; labelEl.textContent = label; fileEl.textContent = file;
+      againBtn.disabled = true; draw(0, hint, 0); statusEl.textContent = '';
+      try {
+        const r = await fetchWithProgress(url, hint, reload);
+        await done(r);
+        card.dataset.state = 'done';
+      } catch (err) {
+        card.dataset.state = 'error';
+        statusEl.textContent = 'The download didn’t finish here, so the page is showing its clean version instead.';
+        photo?.classList.add('is-clean');
+      }
+      busy = false; againBtn.disabled = false;
+    };
+    const small = matchMedia('(max-width: 640px)').matches;
+    const portrait = { url: photo.dataset[small ? 'srcM' : 'src'], hint: Number(photo.dataset[small ? 'bytesM' : 'bytes']) };
+    const restorePhoto = reload => run({
+      ...portrait, reload, label: 'Restoring portrait', file: portrait.url.split('/').pop(),
+      done: async r => {
+        const u = URL.createObjectURL(r.blob);
+        img.src = u; try { await img.decode(); } catch (e) { /* drawn on load */ }
+        img.classList.add('is-restored'); photo.classList.remove('is-clean');
+        statusEl.textContent = r.cached
+          ? `Restored from your browser’s cache in ${secs(r.ms)}. Nothing new to download.`
+          : `Restored: ${kb(r.loaded)} arrived in ${secs(r.ms)}.`;
+      },
+    });
+    againBtn.addEventListener('click', () => { img.classList.remove('is-restored'); setTimeout(() => restorePhoto(true), reduceMotion ? 0 : 450); track('restore-again'); });
+    cvLink?.addEventListener('click', e => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      run({
+        url: cvLink.getAttribute('href'), hint: Number(cvLink.dataset.bytes), label: 'Downloading résumé', file: cvLink.getAttribute('download'),
+        done: async r => {
+          const a = document.createElement('a'); a.href = URL.createObjectURL(r.blob); a.download = cvLink.getAttribute('download');
+          document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+          statusEl.textContent = `Résumé saved: ${kb(r.loaded)} in ${secs(r.ms)}${r.cached ? ', from your browser’s cache' : ''}.`;
+        },
+      });
+    });
+    img.addEventListener('error', () => { if (img.src.startsWith('blob:')) photo.classList.add('is-clean'); });
+    restorePhoto(false);
+  } else if (card) {
+    const img = $('.hero-img'); img.src = $('[data-restore]').dataset.src; img.classList.add('is-restored');
+  }
+
+  /* ---------- cursor, magnetic controls and the work-index preview (fine pointers, motion allowed) ---------- */
+  if (finePointer && !reduceMotion) {
+    doc.classList.add('has-cursor');
+    const cur = $('.cursor'), preview = $('.preview'), pin = $('.preview-inner');
+    let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my, px = mx, py = my, raf = 0;
+    const loop = () => {
+      cx += (mx - cx) * .2; cy += (my - cy) * .2; px += (mx - px) * .12; py += (my - py) * .12;
+      cur.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+      preview.style.left = `${px}px`; preview.style.top = `${py}px`;
+      raf = Math.abs(mx - cx) + Math.abs(my - cy) + Math.abs(mx - px) + Math.abs(my - py) > .3 ? requestAnimationFrame(loop) : 0;
+    };
+    addEventListener('pointermove', e => {
+      mx = e.clientX; my = e.clientY; cur.classList.remove('is-hidden');
+      const t = e.target instanceof Element ? e.target : null;
+      cur.classList.toggle('is-view', !!t?.closest('[data-preview]'));
+      cur.classList.toggle('is-link', !!t?.closest('a, button, [role="tab"], .reel-track'));
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => cur.classList.add('is-hidden'));
+    $$('[data-preview]').forEach(row => {
+      row.addEventListener('pointerenter', () => { pin.innerHTML = $('.case-art', row).innerHTML; preview.classList.add('is-on'); });
+      row.addEventListener('pointerleave', () => preview.classList.remove('is-on'));
+    });
+    addEventListener('scroll', () => preview.classList.remove('is-on'), { passive: true });
+    $$('[data-magnetic]').forEach(el => {
+      el.addEventListener('pointermove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * .28).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * .38).toFixed(1)}px)`;
+      });
+      el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+    });
   }
 
   /* ---------- project tabs ---------- */
@@ -195,22 +313,9 @@
     io.observe(contact);
   }
 
-  /* ---------- develop: panels sharpen as they enter, like a print in the tray ----------
-     Content is complete without this; it only runs with motion allowed and IntersectionObserver present.
-     Panels already on screen at load, or reached by keyboard focus, develop at once. */
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    const panels = $$('.case, .sport, .sheet, .pipeline, .principles li, .path, .creds, .entries, .field-card, .hello-mini, .carry, .reel, .contact-card');
-    const show = (el, instant) => { if (!el.classList.contains('is-developed')) { el.classList.add('is-developed'); if (instant) el.classList.add('is-instant'); dev.unobserve(el); } };
-    const dev = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(e.target); }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
-    panels.forEach(el => { el.setAttribute('data-develop', ''); dev.observe(el); });
-    doc.classList.add('develop');
-    document.addEventListener('focusin', e => { const p = e.target instanceof Element ? e.target.closest('[data-develop]') : null; if (p) show(p, true); });
-    addEventListener('beforeprint', () => panels.forEach(el => show(el, true)));
-  }
-
   /* a link to #forkcast, #fabric or #lab opens that tab before scrolling to it */
   const resolve = id => { if (!id) return null; openTabFor(id); return document.getElementById(id); };
-  const go = (id, smooth) => { const el = resolve(id); if (el) el.scrollIntoView({ block: 'start', behavior: smooth && !reduceMotion ? 'smooth' : 'auto' }); };
+  const go = (id, smooth) => { if (id === 'top') { scrollTo({ top: 0, behavior: smooth && !reduceMotion ? 'smooth' : 'auto' }); return; } const el = resolve(id); if (el) el.scrollIntoView({ block: 'start', behavior: smooth && !reduceMotion ? 'smooth' : 'auto' }); };
   document.addEventListener('click', e => {
     const a = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
     if (!a) return;
@@ -222,5 +327,4 @@
   });
   addEventListener('hashchange', () => go(decodeURIComponent(location.hash.slice(1)), false));
   if (location.hash) requestAnimationFrame(() => go(decodeURIComponent(location.hash.slice(1)), false));
-
 })();
