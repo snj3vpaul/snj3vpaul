@@ -550,3 +550,71 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 @media (prefers-reduced-motion: reduce) {
   .footer-mark span, .js .footer-mark span { transform: none; transition: color .2s; }
 }
+
+/* ======================= Case studies ======================= */
+.cs { padding-top: calc(var(--bar) + clamp(40px, 6vw, 88px)); }
+.cs-hero { max-width: 1000px; }
+.cs-h1 { margin-top: var(--s4); font: 400 clamp(56px, 10vw, 152px)/.92 var(--serif); letter-spacing: -.03em; }
+.cs-lead { margin-top: var(--s5); max-width: 40ch; font: 400 clamp(20px, 2.1vw, 28px)/1.4 var(--sans); color: var(--slate); }
+.cs-ledger { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: clamp(48px, 6vw, 88px); border-top: 1px solid var(--rule-strong); }
+.cs-ledger > div { padding: var(--s4) var(--s4) var(--s4) 0; border-bottom: 1px solid var(--rule); }
+.cs-ledger dt { font: 500 11px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); }
+.cs-ledger dd { margin-top: 8px; font: 500 16px/1.4 var(--sans); color: var(--ink); }
+.cs-fig { margin-top: clamp(48px, 6vw, 88px); }
+.cs-fig-frame { padding: clamp(24px, 5vw, 72px); background: var(--frame); border: 1px solid var(--rule); border-radius: var(--radius); background-image: radial-gradient(rgba(22, 33, 58, .12) 1px, transparent 1.3px); background-size: 24px 24px; }
+.cs-fig svg { display: block; width: 100%; height: auto; max-height: 520px; margin-inline: auto; }
+.cs-fig .cs-diagram { max-width: 820px; }
+.cs-fig figcaption { margin-top: var(--s3); font: 500 12px/1.6 var(--mono); letter-spacing: .04em; color: var(--quiet); }
+.cs-track .trk-base { stroke: var(--rule-strong); stroke-width: 2; }
+.cs-track .trk-done { stroke: var(--proof); stroke-width: 2; }
+.cs-track .trk-now { stroke: var(--review); stroke-width: 2; stroke-dasharray: 6 6; }
+.cs-track .trk-node rect { fill: var(--canvas); stroke: var(--ink); stroke-width: 1.5; }
+.cs-track .trk-node.is-done rect { fill: var(--proof); stroke: var(--proof); }
+.cs-track .trk-node.is-now rect { fill: var(--canvas); stroke: var(--review); stroke-width: 2.5; }
+.cs-track text { text-anchor: middle; }
+.cs-track .trk-num { font: 500 13px var(--mono); fill: var(--quiet); letter-spacing: .1em; }
+.cs-track .trk-name { font: 400 26px var(--serif); fill: var(--ink); }
+.cs-rows { margin-top: clamp(64px, 8vw, 120px); }
+.cs-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 6fr); gap: var(--s5) clamp(24px, 4vw, 64px); padding: clamp(32px, 4vw, 56px) 0; border-top: 1px solid var(--rule); }
+.cs-num { font: 500 12px/2.4 var(--mono); letter-spacing: .12em; color: var(--quiet); }
+.cs-title { margin-top: 0; font-size: clamp(32px, 3.6vw, 52px); }
+.cs-body { font-size: 17px; line-height: 1.65; color: var(--slate); max-width: 62ch; }
+.cs-body p + p, .cs-body p + ul { margin-top: var(--s4); }
+.cs-list li { padding: 12px 0; border-top: 1px solid var(--line); }
+.cs-list li:first-child { border-top: 0; padding-top: 0; }
+.cs-list b { color: var(--ink); font-weight: 600; }
+.cs-note { display: flex; gap: var(--s3); margin-top: var(--s5); padding-top: var(--s5); border-top: 1px solid var(--rule); font-size: 14px; color: var(--slate); }
+.cs-note b { font: 600 11px/1.9 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+.cs-actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: clamp(40px, 5vw, 64px); }
+.cs-next { margin-top: clamp(80px, 10vw, 160px); background: var(--tone); border-top: 1px solid var(--rule); }
+.cs-next a { display: block; padding-block: clamp(56px, 8vw, 120px); }
+.cs-next-title { display: block; margin-top: var(--s4); font: 400 clamp(48px, 9vw, 136px)/.92 var(--serif); letter-spacing: -.03em; color: var(--ink); transition: color .4s var(--ease), transform .6s var(--ease); }
+.cs-next-title span { display: inline-block; transition: transform .6s var(--ease); }
+.cs-next a:hover .cs-next-title { color: var(--proof); }
+.cs-next a:hover .cs-next-title span { transform: translateX(18px); }
+.cs-next-lead { display: block; margin-top: var(--s4); max-width: 52ch; color: var(--slate); }
+@media (max-width: 960px) {
+  .cs-row { grid-template-columns: minmax(0, 1fr); gap: var(--s3); }
+  .cs-num { line-height: 1.4; }
+}
+@media (max-width: 640px) {
+  .cs-track .trk-name { font-size: 46px; }
+  .cs-track .trk-num { font-size: 24px; }
+  .cs-fig-frame { padding: 16px 8px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .cs-track .trk-done { stroke-dasharray: 1; animation: draw-line 1.4s var(--ease) .4s both; }
+  .js .cs-track .trk-node { animation: fade-in .5s ease-out both; animation-delay: calc(.3s + var(--i) * .25s); }
+  .js .cs-track .trk-node.is-now rect { animation: now-blink 1.6s ease-in-out 1.6s infinite; }
+  .js .cs-hero > * { animation: settle .9s var(--ease) both; }
+  .js .cs-hero > :nth-child(2) { animation-delay: .06s; } .js .cs-hero > :nth-child(3) { animation-delay: .16s; } .js .cs-hero > :nth-child(4) { animation-delay: .24s; }
+}
+@keyframes now-blink { 50% { fill: var(--review-tint); } }
+
+/* ======================= Page transitions ======================= */
+/* Cross-document view transitions: the project title travels from the index card to the case-study headline.
+   Browsers without support simply navigate. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+::view-transition-group(*) { animation-duration: .7s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }

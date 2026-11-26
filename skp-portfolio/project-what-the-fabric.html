@@ -4,39 +4,74 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f1e8">
-  <meta name="description" content="What-The-Fabric — Decodes fabric names, compositions and care labels for people outside the trade. A project by Sanjeev K Paul.">
+  <meta name="description" content="What-The-Fabric — Decodes fabric names, compositions and care labels for people outside the trade. A case study by Sanjeev K Paul.">
+  <meta property="og:title" content="What-The-Fabric · Sanjeev K Paul">
+  <meta property="og:image" content="https://snj3vpaul.vercel.app/og.png">
   <title>What-The-Fabric · Sanjeev K Paul</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script src="script.js" defer></script>
+  <script src="life.js" defer></script>
 </head>
-<body>
+<body class="cs-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <a class="brand" href="index.html">Sanjeev K Paul</a>
-    <a class="nav-resume" style="border:0;padding-left:0" href="index.html#contact">Contact</a>
+    <nav class="nav" aria-label="Primary"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>
+    <a class="nav-resume" href="cv.pdf" target="_blank" rel="noopener noreferrer">Résumé PDF</a>
   </header>
-  <main id="main" class="pp">
+  <main id="main" class="cs">
     <div class="wrap">
-      <a class="link pp-back" href="index.html#what-the-fabric"><span aria-hidden="true">←</span> Back to the site</a>
-      <p class="label">Built on my own time</p>
-      <h1>What-The-Fabric</h1>
-      <p class="case-status is-live"><span class="mark" aria-hidden="true"></span>Live</p>
-      <p class="lead">Decodes fabric names, compositions and care labels for people outside the trade.</p>
-      <div class="pp-grid">
-        <dl class="facts"><dt>Type</dt><dd>Web app</dd><dt>Built</dt><dd>Designed, built and shipped solo</dd></dl>
-        <div class="pp-aside"><p class="links"><a class="link" href="https://what-the-fabric.vercel.app" target="_blank" rel="noopener noreferrer">Try What-The-Fabric <span aria-hidden="true">↗</span></a></p></div>
+      <a class="link pp-back" href="index.html#what-the-fabric"><span aria-hidden="true">←</span> Back</a>
+      <header class="cs-hero">
+        <p class="eyebrow">Built on my own time</p>
+        <h1 class="cs-h1" style="view-transition-name: t-fabric">What-The-Fabric</h1>
+        <p class="case-status is-live"><span class="mark " aria-hidden="true"></span>Live · solo</p>
+        <p class="cs-lead">Decodes fabric names, compositions and care labels for people outside the trade.</p>
+      </header>
+      <dl class="cs-ledger" data-reveal><div><dt>Type</dt><dd>Web app</dd></div><div><dt>Built</dt><dd>Designed, built and shipped solo</dd></div><div><dt>Status</dt><dd>Live</dd></div></dl>
+      <figure class="cs-fig" data-reveal>
+        <div class="cs-fig-frame"><svg class="cs-diagram" viewBox="0 0 320 180" role="img" aria-label="A care label is decoded into a fabric name, its composition and care advice"><g class="dg">
+                <rect class="dg-box" x="14" y="62" width="84" height="56"/><text x="56" y="84">Care label</text><text class="dg-small" x="56" y="100">60% cotton</text>
+                <path class="dg-line" d="M98 90h30"/><path class="dg-head" d="M124 86l5 4-5 4"/>
+                <rect class="dg-box" x="132" y="70" width="64" height="40"/><text x="164" y="94">Decode</text>
+                <path class="dg-line" d="M196 90c16 0 16-46 34-46M196 90h34M196 90c16 0 16 46 34 46"/>
+                <rect class="dg-box dg-accent" x="232" y="30" width="80" height="28"/><text class="dg-on" x="272" y="48">Fabric name</text>
+                <rect class="dg-box dg-accent" x="232" y="76" width="80" height="28"/><text class="dg-on" x="272" y="94">Composition</text>
+                <rect class="dg-box dg-accent" x="232" y="122" width="80" height="28"/><text class="dg-on" x="272" y="140">Care advice</text>
+              </g></svg></div>
+        <figcaption>Fig. 1 · How it works — a care label in; the fabric, what it is made of and how to look after it out.</figcaption>
+      </figure>
+      <div class="cs-rows">
+      <section class="cs-row" data-reveal>
+        <p class="cs-num">01</p>
+        <h2 class="section-title cs-title">The problem</h2>
+        <div class="cs-body"><p>Fabric names, blends and care symbols are written for people inside the trade.</p></div>
+      </section>
+      <section class="cs-row" data-reveal>
+        <p class="cs-num">02</p>
+        <h2 class="section-title cs-title">What I built</h2>
+        <div class="cs-body"><p>A web app that explains fabric names, compositions and care labels in plain words. Designed, built and shipped solo.</p></div>
+      </section>
       </div>
-      <nav class="pp-pager" aria-label="More projects">
-        <a href="project-forkcast.html"><span class="label">← Previous</span><b>ForkCast</b></a>
-        <a href="project-canterbury-cricket-club.html"><span class="label">Next →</span><b>Canterbury Cricket Club</b></a>
-      </nav>
+      
+      <p class="cs-actions" data-reveal><a class="btn" href="https://what-the-fabric.vercel.app" target="_blank" rel="noopener noreferrer">Try What-The-Fabric <span aria-hidden="true">↗</span></a></p>
     </div>
+    <nav class="cs-next" aria-label="Next case study">
+      <a class="wrap" href="project-canterbury-cricket-club.html">
+        <span class="eyebrow">Next case study</span>
+        <span class="cs-next-title">Canterbury Cricket Club <span aria-hidden="true">→</span></span>
+        <span class="cs-next-lead">The club’s public website, built and maintained end to end.</span>
+      </a>
+    </nav>
   </main>
   <footer class="footer">
-    <span>Sanjeev K Paul · Compliance Analyst · Ottawa</span>
-    <nav aria-label="Elsewhere"><a href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">Medium</a></nav>
+    <p class="footer-mark" aria-hidden="true">Sanjeev K Paul</p>
+    <span>Sanjeev K Paul · Ottawa</span>
     <span>© 2026</span>
   </footer>
 </body>

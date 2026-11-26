@@ -4,39 +4,74 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f1e8">
-  <meta name="description" content="ForkCast — Turns decision text into flowcharts, and flags what the text leaves unsaid. A project by Sanjeev K Paul.">
+  <meta name="description" content="ForkCast — Turns decision text into flowcharts, and flags what the text leaves unsaid. A case study by Sanjeev K Paul.">
+  <meta property="og:title" content="ForkCast · Sanjeev K Paul">
+  <meta property="og:image" content="https://snj3vpaul.vercel.app/og.png">
   <title>ForkCast · Sanjeev K Paul</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script src="script.js" defer></script>
+  <script src="life.js" defer></script>
 </head>
-<body>
+<body class="cs-page">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <a class="brand" href="index.html">Sanjeev K Paul</a>
-    <a class="nav-resume" style="border:0;padding-left:0" href="index.html#contact">Contact</a>
+    <nav class="nav" aria-label="Primary"><a href="index.html#work">Work</a><a href="index.html#projects">Projects</a><a href="index.html#about">About</a><a href="index.html#contact">Contact</a></nav>
+    <a class="nav-resume" href="cv.pdf" target="_blank" rel="noopener noreferrer">Résumé PDF</a>
   </header>
-  <main id="main" class="pp">
+  <main id="main" class="cs">
     <div class="wrap">
-      <a class="link pp-back" href="index.html#forkcast"><span aria-hidden="true">←</span> Back to the site</a>
-      <p class="label">Built on my own time</p>
-      <h1>ForkCast</h1>
-      <p class="case-status is-live"><span class="mark" aria-hidden="true"></span>Live</p>
-      <p class="lead">Turns decision text into flowcharts, and flags what the text leaves unsaid.</p>
-      <div class="pp-grid">
-        <dl class="facts"><dt>Input</dt><dd>A written decision, from a one-line choice to a multi-page SOP</dd><dt>Output</dt><dd>Parse report · interactive diagram · assumption ledger · the open question</dd><dt>Shows</dt><dd>Gates, actors, loops, dead ends and gaps</dd><dt>Export</dt><dd>SVG or Mermaid</dd><dt>Stack</dt><dd>Next.js 15 · TypeScript · hand-built SVG · no backend</dd></dl>
-        <div class="pp-aside"><p class="links"><a class="link" href="https://forkcast-rose.vercel.app" target="_blank" rel="noopener noreferrer">Try ForkCast <span aria-hidden="true">↗</span></a><a class="link" href="https://github.com/snj3vpaul/ForkCast" target="_blank" rel="noopener noreferrer">Code on GitHub <span aria-hidden="true">↗</span></a></p></div>
+      <a class="link pp-back" href="index.html#forkcast"><span aria-hidden="true">←</span> Back</a>
+      <header class="cs-hero">
+        <p class="eyebrow">Built on my own time</p>
+        <h1 class="cs-h1" style="view-transition-name: t-forkcast">ForkCast</h1>
+        <p class="case-status is-live"><span class="mark " aria-hidden="true"></span>Live</p>
+        <p class="cs-lead">Turns decision text into flowcharts, and flags what the text leaves unsaid.</p>
+      </header>
+      <dl class="cs-ledger" data-reveal><div><dt>Input</dt><dd>A written decision, one line to a multi-page SOP</dd></div><div><dt>Output</dt><dd>Parse report · diagram · assumption ledger · the open question</dd></div><div><dt>Export</dt><dd>SVG or Mermaid</dd></div><div><dt>Stack</dt><dd>Next.js 15 · TypeScript · hand-built SVG · no backend</dd></div></dl>
+      <figure class="cs-fig" data-reveal>
+        <div class="cs-fig-frame"><svg class="cs-diagram" viewBox="0 0 320 180" role="img" aria-label="Decision text is parsed into a flowchart, an assumption ledger and an open question"><g class="dg">
+                <rect class="dg-box" x="14" y="66" width="76" height="48"/><text x="52" y="86">Decision</text><text x="52" y="100">text</text>
+                <path class="dg-line" d="M90 90h34"/><path class="dg-head" d="M120 86l5 4-5 4"/>
+                <rect class="dg-box" x="128" y="70" width="58" height="40" transform="rotate(45 157 90)"/><text x="157" y="94">Parse</text>
+                <path class="dg-line" d="M186 90c18 0 18-46 40-46M186 90h40M186 90c18 0 18 46 40 46"/>
+                <rect class="dg-box dg-accent" x="228" y="30" width="80" height="28"/><text class="dg-on" x="268" y="48">Flowchart</text>
+                <rect class="dg-box" x="228" y="76" width="80" height="28"/><text x="268" y="94">Assumptions</text>
+                <rect class="dg-box dg-dash" x="226" y="122" width="88" height="28"/><text x="270" y="140">Open question</text>
+              </g></svg></div>
+        <figcaption>Fig. 1 · How it works — text in; a flowchart, the assumptions behind it and the one open question out.</figcaption>
+      </figure>
+      <div class="cs-rows">
+      <section class="cs-row" data-reveal>
+        <p class="cs-num">01</p>
+        <h2 class="section-title cs-title">The problem</h2>
+        <div class="cs-body"><p>Decisions written as prose hide their branches, loops and unstated steps.</p></div>
+      </section>
+      <section class="cs-row" data-reveal>
+        <p class="cs-num">02</p>
+        <h2 class="section-title cs-title">What I built</h2>
+        <div class="cs-body"><p>Paste a written decision and get a flowchart back: gates, actors, loops and dead ends. Paths the text implies but never states are drawn dashed. An assumption ledger lists what had to be guessed, and the tool names the one question the text leaves open.</p></div>
+      </section>
       </div>
-      <nav class="pp-pager" aria-label="More projects">
-        <a href="project-fortiproxy.html"><span class="label">← Previous</span><b>FortiProxy firmware &amp; VM</b></a>
-        <a href="project-what-the-fabric.html"><span class="label">Next →</span><b>What-The-Fabric</b></a>
-      </nav>
+      
+      <p class="cs-actions" data-reveal><a class="btn" href="https://forkcast-rose.vercel.app" target="_blank" rel="noopener noreferrer">Try ForkCast <span aria-hidden="true">↗</span></a><a class="btn btn-quiet" href="https://github.com/snj3vpaul/ForkCast" target="_blank" rel="noopener noreferrer">Code on GitHub <span aria-hidden="true">↗</span></a></p>
     </div>
+    <nav class="cs-next" aria-label="Next case study">
+      <a class="wrap" href="project-what-the-fabric.html">
+        <span class="eyebrow">Next case study</span>
+        <span class="cs-next-title">What-The-Fabric <span aria-hidden="true">→</span></span>
+        <span class="cs-next-lead">Decodes fabric names, compositions and care labels for people outside the trade.</span>
+      </a>
+    </nav>
   </main>
   <footer class="footer">
-    <span>Sanjeev K Paul · Compliance Analyst · Ottawa</span>
-    <nav aria-label="Elsewhere"><a href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">Medium</a></nav>
+    <p class="footer-mark" aria-hidden="true">Sanjeev K Paul</p>
+    <span>Sanjeev K Paul · Ottawa</span>
     <span>© 2026</span>
   </footer>
 </body>
