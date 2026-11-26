@@ -204,27 +204,6 @@
       else window.addEventListener('load', () => idle(load), { once: true });
     }
 
-    /* ---- Camera roll: frame counter follows the scroll position ---- */
-    document.querySelectorAll('[data-roll]').forEach(roll => {
-      const track = roll.querySelector('.roll-track');
-      const frames = Array.from(track?.children || []);
-      const current = roll.querySelector('[data-roll-current]');
-      const total = roll.querySelector('[data-roll-total]');
-      if (!track || !frames.length) return;
-      const pad = n => String(n).padStart(2, '0');
-      if (total) total.textContent = pad(frames.length);
-      let ticking = false;
-      const update = () => {
-        ticking = false;
-        const mid = track.scrollLeft + track.clientWidth / 2;
-        let best = 0, dist = Infinity;
-        frames.forEach((f, i) => { const d = Math.abs(f.offsetLeft + f.offsetWidth / 2 - mid); if (d < dist) { dist = d; best = i; } });
-        if (current) current.textContent = pad(best + 1);
-      };
-      track.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-      update();
-    });
-
     const year = document.getElementById('current-year');
     if (year) year.textContent = String(new Date().getFullYear());
 
