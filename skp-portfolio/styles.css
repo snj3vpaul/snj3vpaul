@@ -414,6 +414,12 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
   .flagships .tool:last-child { grid-column: 1 / -1; flex-direction: row; }
   .flagships .tool:last-child .tool-frame { flex: 0 0 44%; border-bottom: 0; border-right: 1px solid var(--line); display: flex; align-items: center; }
 }
+@media (min-width: 961px) {
+  /* Work: heading starts at the top beside the explainer; the cube sits under it, in flow */
+  #work .section-head { align-items: start; }
+  #work .explainer { align-self: start; }
+  #work .section-head .geo--work { position: relative; top: auto; left: auto; width: clamp(200px, 17vw, 260px); margin-top: var(--s6); }
+}
 @media (max-width: 960px) {
   .nav { display: none; }
   .nav-resume { margin-left: 0; margin-right: var(--s2); }
