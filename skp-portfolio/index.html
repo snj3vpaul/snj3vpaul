@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#eaf1fa">
+  <meta name="theme-color" content="#0a1020">
+  <meta name="color-scheme" content="dark">
   <meta name="description" content="Sanjeev K Paul — Compliance Analyst at Fortinet, Ottawa. 4+ years delivering FIPS 140-3 cryptographic module validations and Common Criteria (NDcPP) certifications across engineering, QA and accredited labs.">
   <meta property="og:title" content="Sanjeev K Paul — Compliance Analyst, FIPS 140-3 &amp; Common Criteria">
   <meta property="og:description" content="Cryptographic validation and security certification at Fortinet, Ottawa. Experience, selected work, and contact.">
@@ -12,17 +13,19 @@
   <meta property="og:image" content="https://snj3vpaul.vercel.app/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sanjeev K Paul — I help security products prove what they claim.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://snj3vpaul.vercel.app/">
   <title>Sanjeev K Paul — Compliance Analyst, FIPS 140-3 &amp; Common Criteria · Ottawa</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="home.css">
   <script>
-    /* JS on. The SNJV loader plays once per visit, never under reduced motion; it is pure CSS and removes itself. */
+    /* JS on; motion only when the visitor has not asked for less. Content is complete without either class. */
     (function () { var d = document.documentElement; d.classList.add('js');
-      try { if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('snjv')) { d.classList.add('loading'); sessionStorage.setItem('snjv', '1'); } } catch (e) {} })();
+      try { if (matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) d.classList.add('motion'); } catch (e) {} })();
   </script>
   <script type="application/ld+json">
   {
@@ -44,43 +47,43 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="loader" aria-hidden="true">
-    <svg class="snjv" viewBox="0 0 442 232" role="presentation">
-      <text x="20" y="172">S</text><text x="125" y="172">N</text><text x="257" y="172">J</text><text x="331" y="172">V</text>
-    </svg>
-    <span class="loader-line"></span>
-  </div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="bar" id="top">
     <a class="wordmark" href="#top" aria-label="Sanjeev K Paul, back to top">Sanjeev K Paul</a>
-    <nav class="nav" aria-label="Primary navigation"><a href="#work">Work</a><a href="#projects">Projects</a><a href="#sports">Sports</a><a href="#approach">Approach</a><a href="#journey">Journey</a><a href="#writing">Writing</a><a href="#life">Life</a><a href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-nav">Résumé ↗</a></nav>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#about">About</a><a href="#expertise">Expertise</a><a href="#work">Work</a><a href="#projects">Projects</a><a href="#journey">Journey</a><a href="#writing">Writing</a><a href="#life">Life</a><a href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-nav">Résumé ↗</a>
+    </nav>
     <a class="bar-cta" href="#contact" data-track="contact-header">Get in touch</a>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span></button>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden><a href="#work">Selected work</a><a href="#projects">Projects</a><a href="#sports">Sports projects</a><a href="#impact">On the record</a><a href="#approach">The approach</a><a href="#journey">Along the way</a><a href="#writing">Field notes</a><a href="#life">Away from the desk</a><a href="#field">On the field</a><a href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-nav">Résumé ↗</a><a href="#contact">Let’s talk</a></nav>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" hidden>
+      <a href="#about">About</a><a href="#expertise">Expertise</a><a href="#work">Professional work</a><a href="#impact">On the record</a><a href="#projects">Personal projects</a><a href="#journey">Along the way</a><a href="#writing">Field notes</a><a href="#life">Away from the desk</a><a href="#field">On the field</a><a href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-nav">Résumé ↗</a><a href="#contact">Let’s talk</a>
+    </nav>
   </header>
 
   <div class="progress" aria-hidden="true"><span></span></div>
-  <div class="jump">
-    <button class="jump-btn" type="button" aria-expanded="false" aria-controls="jump-list"><span class="sr-only">Jump to a section. Current section: </span><span id="chapter-name">Work</span><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg></button>
+  <div class="jump" inert>
+    <button class="jump-btn" type="button" aria-expanded="false" aria-controls="jump-list"><span class="sr-only">Jump to a section. Current section: </span><span id="chapter-name">About</span><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg></button>
     <nav class="jump-list" id="jump-list" aria-label="All sections" hidden></nav>
   </div>
 
   <main id="main">
-    <!-- ================= HERO: frosted proof, in orbit ================= -->
+    <!-- Hero -->
     <section class="hero" id="home" aria-labelledby="hero-title">
-      <div class="intro">
-        <dl class="who">
-          <div><dt class="sr-only">Name</dt><dd><b>Sanjeev K Paul</b></dd></div>
-          <div><dt class="sr-only">Role</dt><dd>Compliance Analyst</dd></div>
-          <div><dt>Fortinet</dt><dd>Since 2022</dd></div>
-          <div><dt>Ottawa</dt><dd>Canada</dd></div>
-        </dl>
-        <p class="status"><span class="state" aria-hidden="true"></span>Compliance Analyst · Cryptographic validation</p>
-        <h1 id="hero-title">I help security products <em>prove</em> what they claim.</h1>
+      <svg class="hero-curve" viewBox="0 0 200 120" aria-hidden="true" focusable="false" data-depth>
+        <path class="hc-ax" d="M0 60H200M92 0V120"/>
+        <path class="hc-cv" pathLength="1" d="M129.5 114.3 L128.7 112.6 L127.9 110.9 L127.1 109.3 L126.3 107.7 L125.5 106.1 L124.7 104.6 L123.9 103.1 L123.1 101.7 L122.3 100.3 L121.5 98.9 L120.7 97.6 L119.9 96.4 L119.1 95.2 L118.3 94.0 L117.6 93.0 L116.8 92.0 L116.0 91.0 L115.2 90.2 L114.4 89.4 L113.6 88.7 L112.8 88.1 L112.0 87.5 L111.2 87.1 L110.4 86.7 L109.6 86.4 L108.8 86.2 L108.0 86.0 L107.2 86.0 L106.4 86.0 L105.6 86.1 L104.8 86.2 L104.0 86.5 L103.2 86.7 L102.4 87.0 L101.6 87.4 L100.8 87.8 L100.0 88.3 L99.2 88.7 L98.4 89.2 L97.6 89.7 L96.8 90.2 L96.0 90.8 L95.3 91.3 L94.5 91.9 L93.7 92.4 L92.9 93.0 L92.1 93.5 L91.3 94.0 L90.5 94.5 L89.7 95.1 L88.9 95.5 L88.1 96.0 L87.3 96.5 L86.5 96.9 L85.7 97.3 L84.9 97.7 L84.1 98.0 L83.3 98.4 L82.5 98.7 L81.7 98.9 L80.9 99.2 L80.1 99.3 L79.3 99.5 L78.5 99.6 L77.7 99.7 L76.9 99.7 L76.1 99.7 L75.3 99.6 L74.5 99.4 L73.7 99.3 L72.9 99.0 L72.2 98.7 L71.4 98.3 L70.6 97.9 L69.8 97.3 L69.0 96.7 L68.2 96.0 L67.4 95.2 L66.6 94.3 L65.8 93.2 L65.0 92.0 L64.2 90.7 L63.4 89.2 L62.6 87.4 L61.8 85.4 L61.0 83.1 L60.2 80.3 L59.4 76.8 L58.6 72.1 L57.8 60.2 L57.8 59.8 L58.6 47.9 L59.4 43.2 L60.2 39.7 L61.0 36.9 L61.8 34.6 L62.6 32.6 L63.4 30.8 L64.2 29.3 L65.0 28.0 L65.8 26.8 L66.6 25.7 L67.4 24.8 L68.2 24.0 L69.0 23.3 L69.8 22.7 L70.6 22.1 L71.4 21.7 L72.2 21.3 L72.9 21.0 L73.7 20.7 L74.5 20.6 L75.3 20.4 L76.1 20.3 L76.9 20.3 L77.7 20.3 L78.5 20.4 L79.3 20.5 L80.1 20.7 L80.9 20.8 L81.7 21.1 L82.5 21.3 L83.3 21.6 L84.1 22.0 L84.9 22.3 L85.7 22.7 L86.5 23.1 L87.3 23.5 L88.1 24.0 L88.9 24.5 L89.7 24.9 L90.5 25.5 L91.3 26.0 L92.1 26.5 L92.9 27.0 L93.7 27.6 L94.5 28.1 L95.3 28.7 L96.0 29.2 L96.8 29.8 L97.6 30.3 L98.4 30.8 L99.2 31.3 L100.0 31.7 L100.8 32.2 L101.6 32.6 L102.4 33.0 L103.2 33.3 L104.0 33.5 L104.8 33.8 L105.6 33.9 L106.4 34.0 L107.2 34.0 L108.0 34.0 L108.8 33.8 L109.6 33.6 L110.4 33.3 L111.2 32.9 L112.0 32.5 L112.8 31.9 L113.6 31.3 L114.4 30.6 L115.2 29.8 L116.0 29.0 L116.8 28.0 L117.6 27.0 L118.3 26.0 L119.1 24.8 L119.9 23.6 L120.7 22.4 L121.5 21.1 L122.3 19.7 L123.1 18.3 L123.9 16.9 L124.7 15.4 L125.5 13.9 L126.3 12.3 L127.1 10.7 L127.9 9.1 L128.7 7.4 L129.5 5.7"/>
+        <path class="hc-ch" pathLength="1" d="M50 37 L135 15.6"/><path class="hc-ch hc-dash" d="M123 18.7V101.3"/>
+        <circle class="hc-pt" cx="62" cy="34" r="1.6"/><circle class="hc-pt" cx="92" cy="26.5" r="1.6"/><circle class="hc-pt hc-hot" cx="123" cy="101.3" r="2"/>
+      </svg>
+
+      <div class="hero-copy">
+        <p class="who"><span>Compliance Analyst</span><span>Fortinet, since 2022</span><span>Ottawa, Canada</span></p>
+        <h1 id="hero-title" class="headline" data-split>I help security products <em>prove</em> what they claim.</h1>
         <p class="role">I turn security standards into questions engineers can answer, and their answers into evidence a lab can certify.</p>
         <div class="actions">
-          <a class="pill pill-line" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev" data-track="contact-hero">Get in touch</a>
+          <a class="btn btn-solid" href="#work" data-track="hero-cta-work">View professional work <span aria-hidden="true">→</span></a>
+          <a class="btn btn-line" href="#contact" data-track="contact-hero">Get in touch</a>
           <ul class="profile-links">
             <li><a class="icon-link" href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer" aria-label="Sanjeev K Paul on LinkedIn" data-track="linkedin-header"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
             <li><a class="icon-link" href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer" aria-label="Sanjeev K Paul on GitHub" data-track="github-header"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></li>
@@ -88,148 +91,247 @@
           </ul>
         </div>
         <p class="hero-stack">FIPS 140-3 · CMVP · ACVP · Common Criteria / NDcPP · TLS · SSH · KVM</p>
-        <p class="tagline">Standards by trade. Curious by default.</p>
       </div>
 
-
-      <!-- The protected figure at the centre; evidence orbits it. Every card is real: maths, or a fact on record. -->
-      <div class="orbit-stage" data-orbit>
-        <div class="orbit">
-          <video class="guy loop" muted playsinline loop autoplay preload="metadata" poster="img/loops/hero-poster.webp" aria-hidden="true" data-loop><source src="img/loops/hero.mp4" type="video/mp4"></video>
-          <figure class="card c-fact" style="--a:20deg;--y:-190px" aria-hidden="true">
-            <p class="card-k">Validated by NIST</p><p class="card-big">2<small>modules</small></p><p class="card-s">Public record #5493</p>
-          </figure>
-          <figure class="card c-graph" style="--a:72deg;--y:30px" aria-hidden="true">
-            <p class="card-k">Hyperbola <span>xy = k</span></p>
-            <svg viewBox="0 0 200 120"><path class="ax" d="M0 60H200M100 0V120"/><path class="cv" d="M109.0 2.4 L110.8 12.0 L112.6 18.9 L114.4 24.0 L116.2 28.0 L118.9 32.6 L121.6 36.0 L125.2 39.4 L129.7 42.5 L135.1 45.2 L141.4 47.5 L149.5 49.5 L159.4 51.3 L172.0 52.8 L186.4 54.0 L198.1 54.7"/><path class="cv" d="M91.0 117.6 L89.2 108.0 L87.4 101.1 L85.6 96.0 L83.8 92.0 L81.1 87.4 L78.4 84.0 L74.8 80.6 L70.3 77.5 L64.9 74.8 L58.6 72.5 L50.5 70.5 L40.6 68.7 L28.0 67.2 L13.6 66.0 L1.9 65.3"/></svg>
-          </figure>
-          <figure class="card c-graph" style="--a:124deg;--y:-170px" aria-hidden="true">
-            <p class="card-k">ECDSA’s ground <span>y² = x³ − 3x + b</span></p>
-            <svg viewBox="0 0 200 120"><path class="ax" d="M0 60H200M92 0V120"/><path class="cv" d="M129.5 114.3 L128.7 112.6 L127.9 110.9 L127.1 109.3 L126.3 107.7 L125.5 106.1 L124.7 104.6 L123.9 103.1 L123.1 101.7 L122.3 100.3 L121.5 98.9 L120.7 97.6 L119.9 96.4 L119.1 95.2 L118.3 94.0 L117.6 93.0 L116.8 92.0 L116.0 91.0 L115.2 90.2 L114.4 89.4 L113.6 88.7 L112.8 88.1 L112.0 87.5 L111.2 87.1 L110.4 86.7 L109.6 86.4 L108.8 86.2 L108.0 86.0 L107.2 86.0 L106.4 86.0 L105.6 86.1 L104.8 86.2 L104.0 86.5 L103.2 86.7 L102.4 87.0 L101.6 87.4 L100.8 87.8 L100.0 88.3 L99.2 88.7 L98.4 89.2 L97.6 89.7 L96.8 90.2 L96.0 90.8 L95.3 91.3 L94.5 91.9 L93.7 92.4 L92.9 93.0 L92.1 93.5 L91.3 94.0 L90.5 94.5 L89.7 95.1 L88.9 95.5 L88.1 96.0 L87.3 96.5 L86.5 96.9 L85.7 97.3 L84.9 97.7 L84.1 98.0 L83.3 98.4 L82.5 98.7 L81.7 98.9 L80.9 99.2 L80.1 99.3 L79.3 99.5 L78.5 99.6 L77.7 99.7 L76.9 99.7 L76.1 99.7 L75.3 99.6 L74.5 99.4 L73.7 99.3 L72.9 99.0 L72.2 98.7 L71.4 98.3 L70.6 97.9 L69.8 97.3 L69.0 96.7 L68.2 96.0 L67.4 95.2 L66.6 94.3 L65.8 93.2 L65.0 92.0 L64.2 90.7 L63.4 89.2 L62.6 87.4 L61.8 85.4 L61.0 83.1 L60.2 80.3 L59.4 76.8 L58.6 72.1 L57.8 60.2 L57.8 59.8 L58.6 47.9 L59.4 43.2 L60.2 39.7 L61.0 36.9 L61.8 34.6 L62.6 32.6 L63.4 30.8 L64.2 29.3 L65.0 28.0 L65.8 26.8 L66.6 25.7 L67.4 24.8 L68.2 24.0 L69.0 23.3 L69.8 22.7 L70.6 22.1 L71.4 21.7 L72.2 21.3 L72.9 21.0 L73.7 20.7 L74.5 20.6 L75.3 20.4 L76.1 20.3 L76.9 20.3 L77.7 20.3 L78.5 20.4 L79.3 20.5 L80.1 20.7 L80.9 20.8 L81.7 21.1 L82.5 21.3 L83.3 21.6 L84.1 22.0 L84.9 22.3 L85.7 22.7 L86.5 23.1 L87.3 23.5 L88.1 24.0 L88.9 24.5 L89.7 24.9 L90.5 25.5 L91.3 26.0 L92.1 26.5 L92.9 27.0 L93.7 27.6 L94.5 28.1 L95.3 28.7 L96.0 29.2 L96.8 29.8 L97.6 30.3 L98.4 30.8 L99.2 31.3 L100.0 31.7 L100.8 32.2 L101.6 32.6 L102.4 33.0 L103.2 33.3 L104.0 33.5 L104.8 33.8 L105.6 33.9 L106.4 34.0 L107.2 34.0 L108.0 34.0 L108.8 33.8 L109.6 33.6 L110.4 33.3 L111.2 32.9 L112.0 32.5 L112.8 31.9 L113.6 31.3 L114.4 30.6 L115.2 29.8 L116.0 29.0 L116.8 28.0 L117.6 27.0 L118.3 26.0 L119.1 24.8 L119.9 23.6 L120.7 22.4 L121.5 21.1 L122.3 19.7 L123.1 18.3 L123.9 16.9 L124.7 15.4 L125.5 13.9 L126.3 12.3 L127.1 10.7 L127.9 9.1 L128.7 7.4 L129.5 5.7"/><path class="ch" d="M50 37 L135 15.6"/><path class="ch dash" d="M123 18.7V101.3"/><circle cx="62" cy="34" r="3"/><circle cx="92" cy="26.5" r="3"/><circle class="hot" cx="123" cy="101.3" r="3.5"/></svg>
-            <p class="card-s">P + Q = R, the operation every signature rests on</p>
-          </figure>
-          <figure class="card c-stages" style="--a:176deg;--y:110px" aria-hidden="true">
-            <p class="card-k">Where each module stands</p>
-            <ol><li><b>Scoped</b></li><li><b>Tested</b></li><li class="on-half"><b>Submitted</b><i></i><i></i></li><li class="on"><b>Validated</b><i></i><i></i></li></ol>
-          </figure>
-          <figure class="card c-algos" style="--a:228deg;--y:-140px" aria-hidden="true">
-            <p class="card-k">ACVP-tested</p><p class="card-big">5<small>algorithm families</small></p>
-            <p class="chips"><span>AES</span><span>RSA</span><span>SHA</span><span>HMAC</span><span>ECDSA</span></p>
-          </figure>
-          <figure class="card c-span" style="--a:280deg;--y:40px" aria-hidden="true">
-            <p class="card-k">Along the way <span>2020 — now</span></p>
-            <div class="span"><i style="--a:0;--b:2"></i><i style="--a:2;--b:3"></i><i style="--a:3;--b:5"></i><i class="now" style="--a:5;--b:6"></i></div>
-            <p class="card-s">Concordia → Fortinet, three roles</p>
-          </figure>
-          <figure class="card c-boundary" style="--a:332deg;--y:90px">
-              <svg class="boundary" viewBox="0 0 460 440" width="460" height="440" role="img" aria-labelledby="hero-fig-title">
-                <title id="hero-fig-title">Schematic of a cryptographic module. A dashed boundary encloses five ACVP-tested algorithm families: AES, SHA, HMAC, RSA and ECDSA. Data input and control input cross the boundary on one side; data output and status output leave on the other.</title>
-                <g aria-hidden="true">
-                  <text class="fig-label" x="96" y="30">Cryptographic boundary</text>
-                  <rect class="fig-boundary" x="96" y="42" width="268" height="356" rx="2"/>
-                  <text class="fig-label" x="124" y="80">Algorithms · ACVP-tested</text>
-                  <g class="fig-rows">
-                    <rect x="124" y="94" width="212" height="40"/><text x="140" y="119">AES</text><path d="M306 114l6 6 11-13"/>
-                    <rect x="124" y="146" width="212" height="40"/><text x="140" y="171">SHA</text><path d="M306 166l6 6 11-13"/>
-                    <rect x="124" y="198" width="212" height="40"/><text x="140" y="223">HMAC</text><path d="M306 218l6 6 11-13"/>
-                    <rect x="124" y="250" width="212" height="40"/><text x="140" y="275">RSA</text><path d="M306 270l6 6 11-13"/>
-                    <rect x="124" y="302" width="212" height="40"/><text x="140" y="327">ECDSA</text><path d="M306 322l6 6 11-13"/>
-                  </g>
-                  <text class="fig-label" x="124" y="376">Module</text>
-                  <g class="fig-ports">
-                    <path d="M8 166h108M108 160l8 6-8 6"/><circle cx="96" cy="166" r="4"/>
-                    <path d="M8 270h108M108 264l8 6-8 6"/><circle cx="96" cy="270" r="4"/>
-                    <path d="M344 166h108M444 160l8 6-8 6"/><circle cx="364" cy="166" r="4"/>
-                    <path d="M344 270h108M444 264l8 6-8 6"/><circle cx="364" cy="270" r="4"/>
-                  </g>
-                  <text class="fig-label" x="8" y="154">Data in</text>
-                  <text class="fig-label" x="8" y="258">Control in</text>
-                  <text class="fig-label" x="452" y="154" text-anchor="end">Data out</text>
-                  <text class="fig-label" x="452" y="258" text-anchor="end">Status out</text>
-                </g>
-              </svg>
-          </figure>
-        </div>
-      </div>
-
-      <div class="hero-base">
-        <p class="giant" aria-hidden="true">Sanjeev</p>
-        <a class="launch" href="#work" data-track="hero-cta-work"><span>View validated work</span><i aria-hidden="true">↓</i></a>
-        <p class="hero-name">Sanjeev Kumar Paul</p>
-      </div>
+      <figure class="cipher" aria-labelledby="cipher-cap" data-cipher data-key="5c 1e a7 39">
+        <figcaption id="cipher-cap" class="cipher-head"><span>The job, decrypted</span><span class="cipher-key">key <code>5c 1e a7 39</code></span></figcaption>
+        <ol class="cipher-rows">
+          <li><span class="ci-n" aria-hidden="true">01</span><span class="ci-hex" aria-hidden="true">2f 6a c6 57 38 7f d5 5d</span><span class="ci-plain" data-plain="standard">standard</span></li>
+          <li><span class="ci-n" aria-hidden="true">02</span><span class="ci-hex" aria-hidden="true">2d 6b c2 4a 28 77 c8 57</span><span class="ci-plain" data-plain="question">question</span></li>
+          <li><span class="ci-n" aria-hidden="true">03</span><span class="ci-hex" aria-hidden="true">3d 70 d4 4e 39 6c</span><span class="ci-plain" data-plain="answer">answer</span></li>
+          <li><span class="ci-n" aria-hidden="true">04</span><span class="ci-hex" aria-hidden="true">39 68 ce 5d 39 70 c4 5c</span><span class="ci-plain" data-plain="evidence">evidence</span></li>
+          <li><span class="ci-n" aria-hidden="true">05</span><span class="ci-hex" aria-hidden="true">3f 7b d5 4d 35 78 ce 5a 3d 6a c2</span><span class="ci-plain" data-plain="certificate">certificate</span></li>
+        </ol>
+        <p class="cipher-foot">Each word XORed with a four-byte repeating key. A toy, not a cipher anyone should ship.</p>
+      </figure>
     </section>
 
     <section class="proof-strip" aria-label="On the record">
-      <div class="proof-panels">
-        <article class="ppanel glass is-proof arrive" aria-labelledby="pp1">
-          <h2 id="pp1"><span class="state" aria-hidden="true"></span>Validated by NIST</h2>
-          <p class="num">2<small>modules</small></p>
-          <a class="more" href="#work-forticlient-crypto-module" data-track="proof-validated-modules">2 NIST-validated modules ↓</a>
-        </article>
-        <article class="ppanel glass is-proof arrive" aria-labelledby="pp2">
-          <h2 id="pp2"><span class="state" aria-hidden="true"></span>FortiClient 7.0.2</h2>
-          <p class="statement">Fortinet’s first FIPS 140-3 VPN certification</p>
-          <a class="more" href="#work-forticlient-7-0-2" data-track="proof-first-vpn-certification">Led the workstream ↓</a>
-        </article>
-        <article class="ppanel glass arrive ppanel-wide" aria-labelledby="pp3">
-          <h2 id="pp3">Ottawa, now</h2>
-          <p class="live" data-clock>Eastern Time</p>
-          <div class="light" aria-hidden="true"><i data-day></i><b data-now></b></div>
-          <p class="light-row"><span data-rise>Sunrise</span><span data-set>Sunset</span></p>
-        </article>
-      </div>
+      <article class="ppanel" aria-labelledby="pp1">
+        <h2 id="pp1"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST</h2>
+        <p class="num">2<small>modules</small></p>
+        <a class="more" href="#work-forticlient-crypto-module" data-track="proof-validated-modules">2 NIST-validated modules ↓</a>
+      </article>
+      <article class="ppanel" aria-labelledby="pp2">
+        <h2 id="pp2"><span class="mark mark-valid" aria-hidden="true"></span>FortiClient 7.0.2</h2>
+        <p class="statement">Fortinet’s first FIPS 140-3 VPN certification</p>
+        <a class="more" href="#work-forticlient-7-0-2" data-track="proof-first-vpn-certification">Led the workstream ↓</a>
+      </article>
+      <article class="ppanel ppanel-wide" aria-labelledby="pp3">
+        <h2 id="pp3">Ottawa, now</h2>
+        <p class="live" data-clock>Eastern Time</p>
+        <div class="light" aria-hidden="true"><i data-day></i><b data-now></b></div>
+        <p class="light-row"><span data-rise>Sunrise</span><span data-set>Sunset</span></p>
+      </article>
     </section>
 
     <div class="editorial">
-    <!-- ================= WORK ================= -->
+    <!-- Introduction -->
+    <span class="anchor" id="hello" aria-hidden="true"></span>
+    <section class="sec intro" id="about" data-chapter-name="About" aria-labelledby="about-title">
+      <ul class="greetings" aria-label="Hello, in five languages">
+        <li style="--x:4%;--y:6%" lang="en"><span class="g-word">Hello</span><span class="g-meta">English · 48 65 6c 6c 6f</span></li>
+        <li style="--x:68%;--y:0%" lang="fr"><span class="g-word">Bonjour</span><span class="g-meta">French</span></li>
+        <li style="--x:78%;--y:58%" lang="hi"><span class="g-word">नमस्ते</span><span class="g-meta">Hindi</span></li>
+        <li style="--x:6%;--y:82%" lang="pa"><span class="g-word">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span class="g-meta">Punjabi</span></li>
+        <li style="--x:52%;--y:90%" lang="bn"><span class="g-word">নমস্কার</span><span class="g-meta">Bengali</span></li>
+      </ul>
+      <div class="intro-body">
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">01</span>About</p>
+        <h2 id="about-title" data-reveal>Standards by trade. <em>Curious by default.</em></h2>
+        <p class="intro-lead" data-reveal>Most of the value is in the translation: from a requirement to a concrete engineering question, and from an answer to evidence someone else can examine.</p>
+        <p class="intro-text" data-reveal>I sit between engineering, QA, product teams and accredited labs, and keep everyone working from the same understanding. I came to Canada hoping to find my place in defensive security; a role in certification changed the direction of that journey, and gave me a different perspective on what makes systems trustworthy.</p>
+      </div>
+    </section>
+
+    <!-- Expertise: the assurance pipeline -->
+    <span class="anchor" id="approach" aria-hidden="true"></span>
+    <span class="anchor" id="practice" aria-hidden="true"></span>
+    <section class="sec expertise" id="expertise" data-chapter-name="Expertise" aria-labelledby="expertise-title">
+      <header class="sec-head">
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">02</span>Expertise</p>
+        <h2 id="expertise-title" data-reveal>Standards are detailed. People are <em>complicated.</em></h2>
+        <p class="sec-lead" data-reveal>Four areas my work keeps moving between. Pick one to see where I come in.</p>
+      </header>
+
+      <div class="pipeline" data-pipeline>
+        <svg class="pl-line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="pl-track" d="M8 20 H992"/>
+          <path class="pl-draw" d="M8 20 H770" pathLength="1"/>
+        </svg>
+        <div class="pl-stages" role="tablist" aria-label="Areas of expertise">
+          <button class="pl-stage" type="button" role="tab" id="pl-tab-1" aria-controls="pl-panel-1" aria-selected="true"><span class="pl-n">01</span><span class="pl-name">Cryptography</span><span class="pl-sub">The algorithms, and the boundary around them</span></button>
+          <button class="pl-stage" type="button" role="tab" id="pl-tab-2" aria-controls="pl-panel-2" aria-selected="false" tabindex="-1"><span class="pl-n">02</span><span class="pl-name">Implementation</span><span class="pl-sub">How the product actually uses them</span></button>
+          <button class="pl-stage" type="button" role="tab" id="pl-tab-3" aria-controls="pl-panel-3" aria-selected="false" tabindex="-1"><span class="pl-n">03</span><span class="pl-name">Validation</span><span class="pl-sub">Evidence someone else can follow</span></button>
+          <button class="pl-stage" type="button" role="tab" id="pl-tab-4" aria-controls="pl-panel-4" aria-selected="false" tabindex="-1"><span class="pl-n">04</span><span class="pl-name">Certification</span><span class="pl-sub">A public record, issued to a module</span></button>
+        </div>
+        <div class="pl-panels">
+          <section class="pl-panel" id="pl-panel-1" role="tabpanel" aria-labelledby="pl-tab-1" tabindex="0">
+            <h3><span class="pl-n" aria-hidden="true">01</span>Cryptography</h3>
+            <p>Agree what is inside the module and what is not, before anyone tests anything. Then confirm which algorithms the module really supports.</p>
+            <p class="pl-mine"><b>Where I come in</b> Scoping module boundaries; ACVP testing for AES, RSA, SHA, HMAC and ECDSA.</p>
+          </section>
+          <section class="pl-panel" id="pl-panel-2" role="tabpanel" aria-labelledby="pl-tab-2" tabindex="0">
+            <h3><span class="pl-n" aria-hidden="true">02</span>Implementation</h3>
+            <p>Ask what we can actually demonstrate. Turn each requirement into a concrete question an engineer can answer about the shipped product.</p>
+            <p class="pl-mine"><b>Where I come in</b> Key-management flows, approved-mode checks, and what TLS and SSH really offer on the wire, checked with Wireshark, Nmap and SSHScan.</p>
+          </section>
+          <section class="pl-panel" id="pl-panel-3" role="tabpanel" aria-labelledby="pl-tab-3" tabindex="0">
+            <h3><span class="pl-n" aria-hidden="true">03</span>Validation</h3>
+            <p>Leave evidence someone else can follow. Turn each answer into evidence a lab can examine without me in the room.</p>
+            <p class="pl-mine"><b>Where I come in</b> Security Policies (NIST SP 800-140B) and certification evidence; the main contact between engineering and the accredited labs while findings are resolved.</p>
+          </section>
+          <section class="pl-panel" id="pl-panel-4" role="tabpanel" aria-labelledby="pl-tab-4" tabindex="0">
+            <h3><span class="pl-n" aria-hidden="true">04</span>Certification</h3>
+            <p>Certificates are issued to modules, not people. The public record is the end of the work, not the work itself.</p>
+            <p class="pl-mine"><b>Where I come in</b> FIPS 140-3 through NIST CMVP, including certificate #5493; Common Criteria evaluations against NDcPP.</p>
+          </section>
+        </div>
+        <p class="pl-note">A way of seeing how my work connects, not a workflow every product follows. Real programmes loop back, run stages in parallel, and differ between FIPS 140-3 and Common Criteria.</p>
+      </div>
+    </section>
+
+    <!-- Professional work -->
     <span class="anchor" id="professional-work" aria-hidden="true"></span>
-    <span class="anchor" id="personal-projects" aria-hidden="true"></span>
     <section class="sec works" id="work" data-chapter-name="Work" aria-labelledby="work-title">
       <header class="sec-head">
-        <p class="sec-label">Selected work</p>
-        <h2 id="work-title">Selected <em>Work</em></h2>
-        <p class="legend"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST <span class="mark mark-pending" aria-hidden="true"></span>In review</p>
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">03</span>Professional work · Fortinet</p>
+        <h2 id="work-title" data-reveal>Selected <em>Work</em></h2>
+        <p class="legend"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST <span class="mark mark-pending" aria-hidden="true"></span>In review <span class="mark mark-ongoing" aria-hidden="true"></span>Ongoing</p>
       </header>
-      <div class="cases">
-        <article class="case" id="work-forticlient-crypto-module" aria-labelledby="proj-1">
-          <div class="case-card" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><path d="M82 170 V110 A18 18 0 0 1 118 110 V170"/><path d="M74 170 V110 A26 26 0 0 1 126 110 V170"/><path d="M66 170 V110 A34 34 0 0 1 134 110 V170"/><path d="M58 170 V110 A42 42 0 0 1 142 110 V170"/><path d="M50 170 V110 A50 50 0 0 1 150 110 V170"/><path d="M42 170 V110 A58 58 0 0 1 158 110 V170"/><path d="M34 170 V110 A66 66 0 0 1 166 110 V170"/><path d="M26 170 V110 A74 74 0 0 1 174 110 V170"/></svg><span class="case-cap">#5493 · public validation record</span></div>
-          <div class="case-info">
-            <p class="case-kicker">At Fortinet · FIPS 140-3</p>
-            <h3 id="proj-1">FortiClient Crypto Module v1.0</h3>
-            <p class="case-desc">Scoped the module boundary and built the evidence NIST validated.</p>
-            <p class="case-status"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST</p>
-            <p class="case-foot"><span class="case-count" aria-hidden="true">1 / 3</span><a class="btn btn-line" href="project-forticlient-crypto-module.html" data-track="explore-forticlient-crypto-module">Explore project →<span class="sr-only">: FortiClient Crypto Module v1.0</span></a></p>
-          </div>
-        </article>
-        <article class="case" id="work-forticlient-7-0-2" aria-labelledby="proj-2">
-          <div class="case-card" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="22" y="132" width="9" height="18"/><rect x="38" y="124" width="9" height="26"/><rect x="54" y="128" width="9" height="22"/><rect x="70" y="110" width="9" height="40" class="solid"/><rect x="86" y="116" width="9" height="34"/><rect x="102" y="98" width="9" height="52"/><rect x="118" y="102" width="9" height="48"/><rect x="134" y="80" width="9" height="70" class="solid"/><rect x="150" y="86" width="9" height="64"/><rect x="166" y="58" width="9" height="92" class="solid"/><path d="M18 150 H190"/></svg><span class="case-cap">First FIPS 140-3 VPN certification</span></div>
-          <div class="case-info">
-            <p class="case-kicker">At Fortinet · FIPS 140-3</p>
-            <h3 id="proj-2">FortiClient 7.0.2</h3>
-            <p class="case-desc">Led the workstream behind Fortinet’s first FIPS 140-3 VPN certification.</p>
-            <p class="case-status">Led the workstream</p>
-            <p class="case-foot"><span class="case-count" aria-hidden="true">2 / 3</span><a class="btn btn-line" href="project-forticlient-7-0-2.html" data-track="explore-forticlient-7-0-2">Explore project →<span class="sr-only">: FortiClient 7.0.2</span></a></p>
-          </div>
-        </article>
-        <article class="case" id="work-fortiproxy" aria-labelledby="proj-3">
-          <div class="case-card" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="40" y="40" width="120" height="100" rx="6"/><rect x="70" y="65" width="60" height="50" rx="3"/><path d="M70 40 v-14 M70 140 v14 M40 70 h-14 M160 70 h14"/><path d="M82 40 v-14 M82 140 v14 M40 82 h-14 M160 82 h14"/><path d="M94 40 v-14 M94 140 v14 M40 94 h-14 M160 94 h14"/><path d="M106 40 v-14 M106 140 v14 M40 106 h-14 M160 106 h14"/><path d="M118 40 v-14 M118 140 v14 M40 118 h-14 M160 118 h14"/><path d="M130 40 v-14 M130 140 v14 M40 130 h-14 M160 130 h14"/><circle cx="52" cy="52" r="3" class="solid"/></svg><span class="case-cap">Two modules · Level 1 targets</span></div>
-          <div class="case-info">
-            <p class="case-kicker">At Fortinet · FIPS 140-3</p>
-            <h3 id="proj-3">FortiProxy firmware &amp; VM</h3>
-            <p class="case-desc">Coordinating two Level 1 validations, firmware and VM, through CMVP review.</p>
-            <p class="case-status"><span class="mark mark-pending" aria-hidden="true"></span>In review</p>
-            <p class="case-foot"><span class="case-count" aria-hidden="true">3 / 3</span><a class="btn btn-line" href="project-fortiproxy.html" data-track="explore-fortiproxy">Explore project →<span class="sr-only">: FortiProxy firmware &amp; VM</span></a></p>
-          </div>
-        </article>
+
+      <div class="rail-wrap" data-rail>
+        <div class="rail-ctrl">
+          <p class="rail-count" aria-hidden="true"><b data-rail-current>1</b> / <span data-rail-total>6</span></p>
+          <div class="rail-progress" aria-hidden="true"><span></span></div>
+          <button type="button" data-rail-step="-1" aria-label="Previous project"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+          <button type="button" data-rail-step="1" aria-label="Next project"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+        </div>
+        <ol class="rail" tabindex="0" aria-label="Professional work, scroll sideways or use the arrow keys">
+          <li class="case" id="work-forticlient-crypto-module">
+            <article aria-labelledby="proj-1">
+              <div class="case-top"><span class="case-n" aria-hidden="true">01</span><p class="case-kicker">At Fortinet · FIPS 140-3</p></div>
+              <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><path d="M82 170 V110 A18 18 0 0 1 118 110 V170"/><path d="M74 170 V110 A26 26 0 0 1 126 110 V170"/><path d="M66 170 V110 A34 34 0 0 1 134 110 V170"/><path d="M58 170 V110 A42 42 0 0 1 142 110 V170"/><path d="M50 170 V110 A50 50 0 0 1 150 110 V170"/><path d="M42 170 V110 A58 58 0 0 1 158 110 V170"/><path d="M34 170 V110 A66 66 0 0 1 166 110 V170"/><path d="M26 170 V110 A74 74 0 0 1 174 110 V170"/></svg></div>
+              <h3 id="proj-1">FortiClient Crypto Module v1.0</h3>
+              <p class="case-when">Validated 17 Aug 2026 · CMVP #5493</p>
+              <p class="case-desc">Scoped the module boundary and built the evidence NIST validated.</p>
+              <p class="case-status"><span class="mark mark-valid" aria-hidden="true"></span>Validated by NIST</p>
+              <details class="case-more">
+                <summary>Case notes</summary>
+                <dl class="spec"><div><dt>Scope</dt><dd>Scoping · boundary · key-management flows · approved-mode checks</dd></div><div><dt>Certificate</dt><dd>NIST CMVP #5493</dd></div><div><dt>Level</dt><dd>Security Level 1, software</dd></div></dl>
+              </details>
+              <p class="case-foot"><a class="quiet" href="project-forticlient-crypto-module.html" data-track="explore-forticlient-crypto-module">Full case →<span class="sr-only">: FortiClient Crypto Module v1.0</span></a><a class="quiet" href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5493" target="_blank" rel="noopener noreferrer" data-track="record-5493">NIST record ↗</a></p>
+            </article>
+          </li>
+          <li class="case" id="work-forticlient-7-0-2">
+            <article aria-labelledby="proj-2">
+              <div class="case-top"><span class="case-n" aria-hidden="true">02</span><p class="case-kicker">At Fortinet · FIPS 140-3</p></div>
+              <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="22" y="132" width="9" height="18"/><rect x="38" y="124" width="9" height="26"/><rect x="54" y="128" width="9" height="22"/><rect x="70" y="110" width="9" height="40" class="solid"/><rect x="86" y="116" width="9" height="34"/><rect x="102" y="98" width="9" height="52"/><rect x="118" y="102" width="9" height="48"/><rect x="134" y="80" width="9" height="70" class="solid"/><rect x="150" y="86" width="9" height="64"/><rect x="166" y="58" width="9" height="92" class="solid"/><path d="M18 150 H190"/></svg></div>
+              <h3 id="proj-2">FortiClient 7.0.2</h3>
+              <p class="case-when">2023 — 2025</p>
+              <p class="case-desc">Led the workstream behind Fortinet’s first FIPS 140-3 VPN certification.</p>
+              <p class="case-status"><span class="mark mark-valid" aria-hidden="true"></span>Led the workstream</p>
+              <details class="case-more">
+                <summary>Case notes</summary>
+                <dl class="spec"><div><dt>Scope</dt><dd>Boundaries · key management · approved mode · lab liaison</dd></div><div><dt>Testing</dt><dd>ACVP: AES, RSA, SHA, HMAC, ECDSA</dd></div><div><dt>Documents</dt><dd>Security Policy (NIST SP 800-140B)</dd></div></dl>
+              </details>
+              <p class="case-foot"><a class="quiet" href="project-forticlient-7-0-2.html" data-track="explore-forticlient-7-0-2">Full case →<span class="sr-only">: FortiClient 7.0.2</span></a></p>
+            </article>
+          </li>
+          <li class="case" id="work-fortiproxy">
+            <article aria-labelledby="proj-3">
+              <div class="case-top"><span class="case-n" aria-hidden="true">03</span><p class="case-kicker">At Fortinet · FIPS 140-3</p></div>
+              <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="40" y="40" width="120" height="100" rx="6"/><rect x="70" y="65" width="60" height="50" rx="3"/><path d="M70 40 v-14 M70 140 v14 M40 70 h-14 M160 70 h14"/><path d="M82 40 v-14 M82 140 v14 M40 82 h-14 M160 82 h14"/><path d="M94 40 v-14 M94 140 v14 M40 94 h-14 M160 94 h14"/><path d="M106 40 v-14 M106 140 v14 M40 106 h-14 M160 106 h14"/><path d="M118 40 v-14 M118 140 v14 M40 118 h-14 M160 118 h14"/><path d="M130 40 v-14 M130 140 v14 M40 130 h-14 M160 130 h14"/><circle cx="52" cy="52" r="3" class="solid"/></svg></div>
+              <h3 id="proj-3">FortiProxy firmware &amp; VM</h3>
+              <p class="case-when">2025 — now</p>
+              <p class="case-desc">Coordinating two Level 1 validations, firmware and VM, through CMVP review.</p>
+              <p class="case-status"><span class="mark mark-pending" aria-hidden="true"></span>In review</p>
+              <details class="case-more">
+                <summary>Case notes</summary>
+                <dl class="spec"><div><dt>Scope</dt><dd>Planning · evidence delivery · lab findings · KVM test environments</dd></div><div><dt>Modules</dt><dd>2 (firmware, virtual machine)</dd></div><div><dt>Status</dt><dd>Submitted to NIST CMVP, in review</dd></div></dl>
+              </details>
+              <p class="case-foot"><a class="quiet" href="project-fortiproxy.html" data-track="explore-fortiproxy">Full case →<span class="sr-only">: FortiProxy firmware &amp; VM</span></a></p>
+            </article>
+          </li>
+          <li class="case" id="work-common-criteria">
+            <article aria-labelledby="proj-4">
+              <div class="case-top"><span class="case-n" aria-hidden="true">04</span><p class="case-kicker">At Fortinet · Common Criteria</p></div>
+              <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="30" y="30" width="140" height="120" rx="4"/><path d="M30 70 H170 M30 110 H170 M76 30 V150 M124 30 V150" class="thin"/><path d="M42 50 l6 6 10-12 M90 50 l6 6 10-12 M138 50 l6 6 10-12 M42 90 l6 6 10-12 M90 90 l6 6 10-12"/><circle cx="148" cy="92" r="5"/><circle cx="52" cy="130" r="5"/><circle cx="100" cy="130" r="5"/><circle cx="148" cy="130" r="5"/></svg></div>
+              <h3 id="proj-4">NDcPP v4 transition</h3>
+              <p class="case-when">2025 — now · earlier EAL4 work 2022 — 2023</p>
+              <p class="case-desc">Requirement analysis for the move to NDcPP v4, aligning products with the SSH, TLS and X.509 Functional Packages.</p>
+              <p class="case-status"><span class="mark mark-ongoing" aria-hidden="true"></span>Ongoing</p>
+              <details class="case-more">
+                <summary>Case notes</summary>
+                <dl class="spec"><div><dt>Standards</dt><dd>Common Criteria · NDcPP v3/v4</dd></div><div><dt>Packages</dt><dd>SSH · TLS · X.509</dd></div><div><dt>Earlier</dt><dd>Designed and ran test scenarios for EAL4 Common Criteria evaluations</dd></div></dl>
+              </details>
+            </article>
+          </li>
+          <li class="case" id="work-acvp">
+            <article aria-labelledby="proj-5">
+              <div class="case-top"><span class="case-n" aria-hidden="true">05</span><p class="case-kicker">At Fortinet · Cryptographic validation</p></div>
+              <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="36" y="34" width="128" height="26" rx="3"/><rect x="36" y="66" width="128" height="26" rx="3"/><rect x="36" y="98" width="128" height="26" rx="3"/><rect x="36" y="130" width="128" height="26" rx="3"/><path d="M140 44 l5 5 9-10 M140 76 l5 5 9-10 M140 108 l5 5 9-10 M140 140 l5 5 9-10"/><path d="M48 47 H104 M48 79 H96 M48 111 H110 M48 143 H90" class="thin"/></svg></div>
+              <h3 id="proj-5">Algorithm testing (ACVP)</h3>
+              <p class="case-when">2022 — 2025</p>
+              <p class="case-desc">ACVP testing for AES, RSA, SHA, HMAC and ECDSA, and validating modules in FIPS mode across virtualised and hardware platforms.</p>
+              <p class="case-status"><span class="mark mark-valid" aria-hidden="true"></span>5 algorithm families</p>
+              <details class="case-more">
+                <summary>Case notes</summary>
+                <dl class="spec"><div><dt>Algorithms</dt><dd>AES · RSA · SHA · HMAC · ECDSA</dd></div><div><dt>Platforms</dt><dd>Virtualised and hardware</dd></div><div><dt>Protocol checks</dt><dd>Nmap · Wireshark · SSHScan, defects tracked to resolution</dd></div></dl>
+              </details>
+            </article>
+          </li>
+          <li class="case" id="work-evidence">
+            <article aria-labelledby="proj-6">
+              <div class="case-top"><span class="case-n" aria-hidden="true">06</span><p class="case-kicker">At Fortinet · Documentation &amp; coordination</p></div>
+              <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="34" y="30" width="96" height="124" rx="4" class="thin"/><rect x="52" y="42" width="96" height="124" rx="4" class="thin"/><rect x="70" y="54" width="96" height="124" rx="4"/><path d="M84 80l6 6 10-12M84 106l6 6 10-12M84 132l6 6 10-12"/><path d="M110 80h42M110 106h42M110 132h30" class="thin"/></svg></div>
+              <h3 id="proj-6">Evidence &amp; lab liaison</h3>
+              <p class="case-when">2023 — now</p>
+              <p class="case-desc">Security Policies and certification evidence that let independent labs test in compliant environments, and the day-to-day link between engineering teams and accredited labs.</p>
+              <p class="case-status"><span class="mark mark-ongoing" aria-hidden="true"></span>Ongoing</p>
+              <details class="case-more">
+                <summary>Case notes</summary>
+                <dl class="spec"><div><dt>Documents</dt><dd>Security Policies · certification evidence</dd></div><div><dt>Teams</dt><dd>Engineering · QA · product · accredited labs</dd></div><div><dt>Environments</dt><dd>KVM-based test setups for certification</dd></div></dl>
+              </details>
+            </article>
+          </li>
+        </ol>
       </div>
       <p class="endnote">Certificates are issued to modules, not people. Each project says what my part was.</p>
     </section>
 
-    <!-- ================= PROJECTS ================= -->
+    <!-- On the record -->
+    <section class="sec" id="impact" data-chapter-name="On the record" aria-labelledby="impact-title">
+      <header class="sec-head">
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">04</span>From my work at Fortinet</p>
+        <h2 id="impact-title" data-reveal>On the <em>record.</em></h2>
+        <a class="quiet sec-side" href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-impact">Full résumé ↗</a>
+      </header>
+      <dl class="sheet">
+        <div data-reveal><dt>Cryptographic modules validated by NIST that I worked on</dt><dd>2</dd></div>
+        <div data-reveal><dt>FIPS 140-3 certification for a Fortinet VPN product, a workstream I led</dt><dd>1st</dd></div>
+        <div data-reveal><dt>Algorithm families ACVP-tested: AES, RSA, SHA, HMAC, ECDSA</dt><dd>5</dd></div>
+        <div data-reveal><dt>Years in security certification, FIPS 140-3 and Common Criteria</dt><dd>4+</dd></div>
+      </dl>
+      <div class="status" role="group" aria-label="Where each module stands">
+        <p class="sub-label">Where each module stands</p>
+        <ol>
+          <li><b>Scoped</b></li>
+          <li><b>Tested</b></li>
+          <li><b>Submitted</b><em><i class="mark mark-pending" aria-hidden="true"></i>FortiProxy firmware</em><em><i class="mark mark-pending" aria-hidden="true"></i>FortiProxy VM</em></li>
+          <li><b>Validated</b><em><i class="mark mark-valid" aria-hidden="true"></i>FortiClient 7.0.2</em><em><i class="mark mark-valid" aria-hidden="true"></i>FortiClient Crypto Module v1.0</em></li>
+        </ol>
+      </div>
+    </section>
+    </div>
+
+    <!-- Personal projects: a band of its own -->
+    <div class="personal">
+    <span class="anchor" id="personal-projects" aria-hidden="true"></span>
     <section class="sec lab projects" id="projects" data-chapter-name="Projects" aria-labelledby="projects-title">
       <header class="sec-head">
-        <p class="sec-label">Projects</p>
-        <h2 id="projects-title">Things I’ve <em>built.</em></h2>
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">05</span>Personal projects · on my own time</p>
+        <h2 id="projects-title" data-reveal>Things I’ve <em>built.</em></h2>
         <div class="proj-tabs" role="tablist" aria-label="Projects"><button class="proj-tab" type="button" role="tab" id="tab-forkcast" aria-controls="forkcast" aria-selected="true">ForkCast</button><button class="proj-tab" type="button" role="tab" id="tab-fabric" aria-controls="fabric" aria-selected="false" tabindex="-1">What-The-Fabric</button><button class="proj-tab" type="button" role="tab" id="tab-lab" aria-controls="lab" aria-selected="false" tabindex="-1">Crypto Lab Chip</button></div>
       </header>
 
@@ -269,7 +371,6 @@
               <li><h4>Compositions</h4><p>Breaks down what a blend is made of and what that means for the garment.</p></li>
               <li><h4>Care labels</h4><p>Translates the symbols on a care label into what to do on wash day.</p></li>
             </ol>
-            <!-- CHECK: the three descriptions above are expanded from your one-line summary; correct any detail that's off, and add the stack. -->
             <dl class="spec">
               <div><dt>Type</dt><dd>Web app</dd></div>
               <div><dt>Built</dt><dd>Solo</dd></div>
@@ -295,7 +396,6 @@
               <li><h4>Firmware teardown</h4><p>Unpacks and inspects firmware images, so I can see what’s inside before anyone makes a claim about it.</p></li>
               <li><h4>TLS &amp; SSH scan</h4><p>Checks what a device really offers on the wire: protocol versions, ciphers and key exchanges.</p></li>
             </ol>
-            <!-- CHECK: the three descriptions above are written from your one-line brief; correct any detail that's off. -->
             <dl class="spec">
               <div><dt>Status</dt><dd>Private tool · no public demo</dd></div>
               <div><dt>Language</dt><dd>Rust</dd></div>
@@ -310,112 +410,76 @@
       </div>
     </section>
 
-    <!-- ================= SIDE PROJECTS ================= -->
     <span class="anchor" id="canterbury-cricket-club" aria-hidden="true"></span>
     <section class="sec sports" id="sports" data-chapter-name="Sports projects" aria-labelledby="sports-title">
       <header class="sec-head">
-        <p class="sec-label">On my own time</p>
-        <h2 id="sports-title">Side <em>projects.</em></h2>
-        <p class="sec-lead">Most of what I build outside work starts with something I care about. One project maps a life onto a globe; the others are sites and leagues for the clubs I spend my weekends with.</p>
+        <p class="sec-label">Clubs &amp; community</p>
+        <h2 id="sports-title" data-reveal>Side <em>projects.</em></h2>
+        <p class="sec-lead" data-reveal>Most of what I build outside work starts with something I care about. One project maps a life onto a globe; the others are sites and leagues for the clubs I spend my weekends with.</p>
       </header>
+
+      <article class="sport sport--feature" aria-labelledby="sport-2">
+        <div class="sport-copy">
+          <p class="case-kicker">Club website</p>
+          <h3 id="sport-2">Canterbury Cricket Club</h3>
+          <p class="sport-text">The club’s public website, built and maintained end to end: requirements, architecture, build and deployment, with access control and secure-SDLC practices from the start.</p>
+          <dl class="spec"><div><dt>Stack</dt><dd>React · Vercel</dd></div><div><dt>Status</dt><dd>Live · maintained</dd></div></dl>
+          <p class="lab-actions"><a class="btn btn-line" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer" data-track="open-canterbury">Visit the site ↗</a><a class="quiet" href="project-canterbury-cricket-club.html" data-track="explore-canterbury-cricket-club">Project details →</a></p>
+        </div>
+        <div class="puzzle" data-puzzle data-plain="SECURE FROM THE FIRST OVER" data-shift="7">
+          <p class="sub-label" id="puzzle-title">A note from the dressing room, encrypted</p>
+          <p class="puzzle-text" aria-labelledby="puzzle-title"><span class="sr-only">Ciphertext: </span><span data-puzzle-out>ZLJBYL MYVT AOL MPYZA VCLY</span></p>
+          <div class="puzzle-ctrl" hidden>
+            <label for="puzzle-shift">Turn the wheel: shift back by <output id="puzzle-shift-out" for="puzzle-shift">0</output></label>
+            <input type="range" id="puzzle-shift" min="0" max="25" step="1" value="0">
+          </div>
+          <p class="puzzle-status" role="status" aria-live="polite"></p>
+          <details class="puzzle-answer">
+            <summary>Show the answer</summary>
+            <p>Shift every letter back by 7: <b>SECURE FROM THE FIRST OVER</b>. A Caesar cipher: two thousand years old and broken in seconds, which is why real security starts somewhere else.</p>
+          </details>
+        </div>
+      </article>
+
       <div class="sports-grid">
         <article class="sport" aria-labelledby="sport-1">
-          <div class="case-card" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="22" y="30" width="156" height="120" rx="2"/><path d="M100 30 V150"/><circle cx="100" cy="90" r="20"/><circle cx="100" cy="90" r="2" class="solid"/><rect x="22" y="62" width="22" height="56"/><rect x="156" y="62" width="22" height="56"/><circle cx="62" cy="68" r="4" class="solid"/><circle cx="62" cy="112" r="4" class="solid"/><circle cx="84" cy="90" r="4" class="solid"/><circle cx="122" cy="72" r="4"/><circle cx="122" cy="108" r="4"/><circle cx="142" cy="90" r="4"/><circle cx="34" cy="90" r="4"/><path d="M20 166 H184"/></svg><span class="case-cap">White vs Red · every Thursday</span></div>
+          <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><rect x="22" y="30" width="156" height="120" rx="2"/><path d="M100 30 V150"/><circle cx="100" cy="90" r="20"/><circle cx="100" cy="90" r="2" class="solid"/><rect x="22" y="62" width="22" height="56"/><rect x="156" y="62" width="22" height="56"/><circle cx="62" cy="68" r="4" class="solid"/><circle cx="62" cy="112" r="4" class="solid"/><circle cx="84" cy="90" r="4" class="solid"/><circle cx="122" cy="72" r="4"/><circle cx="122" cy="108" r="4"/><circle cx="142" cy="90" r="4"/><circle cx="34" cy="90" r="4"/><path d="M20 166 H184"/></svg><span class="case-cap">White vs Red · every Thursday</span></div>
           <p class="case-kicker">Club fantasy league</p>
           <h3 id="sport-1">RSFC League</h3>
           <p class="sport-text">RSFC’s in-house soccer league. A seeded, verifiable draw splits whoever turns up into White and Red, points come straight from the scorecard, and members play Pick 7: an FPL-style team of seven within a star budget.</p>
           <dl class="spec"><div><dt>Stack</dt><dd>Next.js · Upstash Redis</dd></div><div><dt>Status</dt><dd>Live · weekly</dd></div></dl>
           <p class="lab-actions"><a class="btn btn-line" href="https://s3v-xi.vercel.app" target="_blank" rel="noopener noreferrer" data-track="open-rsfc-league">Open RSFC League ↗</a><a class="quiet" href="https://github.com/snj3vpaul/s3v-xi" target="_blank" rel="noopener noreferrer" data-track="rsfc-league-github">Code on GitHub ↗</a></p>
         </article>
-        <article class="sport" aria-labelledby="sport-2">
-          <div class="case-card" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><circle cx="78" cy="96" r="44"/><path d="M48 64 Q78 96 48 128 M108 64 Q78 96 108 128" stroke-dasharray="4 4"/><path d="M140 52 V150 M152 52 V150 M164 52 V150 M136 50 H168"/><path d="M20 158 H184"/></svg><span class="case-cap">Live community website</span></div>
-          <p class="case-kicker">Club website</p>
-          <h3 id="sport-2">Canterbury Cricket Club</h3>
-          <p class="sport-text">The club’s public website, built and maintained end to end: requirements, architecture, build and deployment, with access control and secure-SDLC practices from the start.</p>
-          <dl class="spec"><div><dt>Stack</dt><dd>React · Vercel</dd></div><div><dt>Status</dt><dd>Live · maintained</dd></div></dl>
-          <p class="lab-actions"><a class="btn btn-line" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer" data-track="open-canterbury">Visit the site ↗</a><a class="quiet" href="project-canterbury-cricket-club.html" data-track="explore-canterbury-cricket-club">Project details →</a></p>
-        </article>
-        <article class="sport sport--wide" aria-labelledby="sport-3">
-          <div class="case-card" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><circle cx="100" cy="88" r="62"/><path class="thin" d="M38 88 H162 M48 54 Q100 68 152 54 M48 122 Q100 108 152 122 M100 26 V150 M100 26 Q66 88 100 150 M100 26 Q134 88 100 150"/><path d="M64 106 Q80 62 112 60"/><path d="M112 60 Q140 70 138 104"/><circle class="solid" cx="64" cy="106" r="3"/><circle class="solid" cx="112" cy="60" r="3"/><circle class="solid" cx="138" cy="104" r="3"/><path d="M20 166 H184"/></svg><span class="case-cap">A life, place by place</span></div>
-          <div>
-            <p class="case-kicker">Independent build · Ongoing</p>
-            <h3 id="sport-3">The Journey</h3>
-            <p class="sport-text">An interactive 3D globe that tells a person’s life as a story of places. Where they were born, where they’ve lived, where they’ve visited: each becomes a waypoint on a personal timeline, joined by animated routes.</p>
-            <dl class="spec"><div><dt>Format</dt><dd>Interactive 3D globe</dd></div><div><dt>Status</dt><dd>Ongoing · still being built</dd></div></dl>
-            <p class="sport-pending">In progress — case study coming</p>
-          </div>
-          <blockquote class="sport-note"><p class="case-kicker">The idea behind it</p><p>I wanted a different way of remembering where life happens. The world starts in darkness, and as the timeline moves forward, the places that shaped someone light up one by one. It’s a picture of how our world grows with what we’ve lived.</p></blockquote>
+        <article class="sport" aria-labelledby="sport-3">
+          <div class="case-art" aria-hidden="true"><svg class="line-art" viewBox="0 0 200 180"><circle cx="100" cy="88" r="62"/><path class="thin" d="M38 88 H162 M48 54 Q100 68 152 54 M48 122 Q100 108 152 122 M100 26 V150 M100 26 Q66 88 100 150 M100 26 Q134 88 100 150"/><path d="M64 106 Q80 62 112 60"/><path d="M112 60 Q140 70 138 104"/><circle class="solid" cx="64" cy="106" r="3"/><circle class="solid" cx="112" cy="60" r="3"/><circle class="solid" cx="138" cy="104" r="3"/><path d="M20 166 H184"/></svg><span class="case-cap">A life, place by place</span></div>
+          <p class="case-kicker">Independent build · Ongoing</p>
+          <h3 id="sport-3">The Journey</h3>
+          <p class="sport-text">An interactive 3D globe that tells a person’s life as a story of places. Where they were born, where they’ve lived, where they’ve visited: each becomes a waypoint on a personal timeline, joined by animated routes.</p>
+          <dl class="spec"><div><dt>Format</dt><dd>Interactive 3D globe</dd></div><div><dt>Status</dt><dd>Ongoing · still being built</dd></div></dl>
+          <blockquote class="sport-note"><p>I wanted a different way of remembering where life happens. The world starts in darkness, and as the timeline moves forward, the places that shaped someone light up one by one.</p></blockquote>
+          <p class="sport-pending">In progress — case study coming</p>
         </article>
       </div>
     </section>
+    </div>
 
-    <!-- ================= ON THE RECORD ================= -->
-    <section class="sec" id="impact" data-chapter-name="On the record" aria-labelledby="impact-title">
-      <header class="sec-head">
-        <p class="sec-label">From my work at Fortinet</p>
-        <h2 id="impact-title">On the <em>record.</em></h2>
-        <a class="quiet sec-side" href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-impact">Full résumé ↗</a>
-      </header>
-      <dl class="sheet">
-        <div><dt>Cryptographic modules validated by NIST that I worked on</dt><dd>2</dd></div>
-        <div><dt>FIPS 140-3 certification for a Fortinet VPN product, a workstream I led</dt><dd>1st</dd></div>
-        <div><dt>Algorithm families ACVP-tested: AES, RSA, SHA, HMAC, ECDSA</dt><dd>5</dd></div>
-        <div><dt>Years in security certification, FIPS 140-3 and Common Criteria</dt><dd>4+</dd></div>
-      </dl>
-      <div class="pipeline" role="group" aria-label="Where each module stands">
-        <p class="sub-label">Where each module stands</p>
-        <ol>
-          <li><b>Scoped</b></li>
-          <li><b>Tested</b></li>
-          <li><b>Submitted</b><em><i class="mark mark-pending" aria-hidden="true"></i>FortiProxy firmware</em><em><i class="mark mark-pending" aria-hidden="true"></i>FortiProxy VM</em></li>
-          <li><b>Validated</b><em><i class="mark mark-valid" aria-hidden="true"></i>FortiClient 7.0.2</em><em><i class="mark mark-valid" aria-hidden="true"></i>FortiClient Crypto Module v1.0</em></li>
-        </ol>
-        <!-- ADD (needs your data): one before → after figure, e.g. evidence turnaround or lab finding cycles. -->
-      </div>
-    </section>
-
-    <!-- ================= APPROACH ================= -->
-    <span class="anchor" id="practice" aria-hidden="true"></span>
-    <section class="sec approach" id="approach" data-chapter-name="Approach" aria-labelledby="approach-title">
-      <header class="sec-head">
-        <p class="sec-label">The approach</p>
-        <h2 id="approach-title">Standards are detailed. People are <em>complicated.</em></h2>
-        <p class="sec-lead">Most of the value is in the translation: from a requirement to a concrete engineering question, and from an answer to evidence someone else can examine. I sit between engineering, QA, product teams and accredited labs, and keep everyone working from the same understanding.</p>
-      </header>
-      <ol class="principles">
-        <li>
-          <svg aria-hidden="true" class="line-art" viewBox="0 0 240 200"><rect x="30" y="26" width="180" height="148" rx="10" stroke-dasharray="6 6"/><rect x="84" y="64" width="72" height="72" rx="4"/><rect x="104" y="84" width="32" height="32" class="solid"/><path d="M96 64v-12M112 64v-12M128 64v-12M144 64v-12M96 136v12M112 136v12M128 136v12M144 136v12M84 76h-12M84 92h-12M84 108h-12M84 124h-12M156 76h12M156 92h12M156 108h12M156 124h12"/><circle cx="14" cy="60" r="4"/><circle cx="226" cy="150" r="4"/><circle cx="222" cy="40" r="4"/><path d="M18 60h12M214 150h-4" class="thin"/></svg>
-          <p class="case-kicker">Principle · Scope</p><h3>Define the <em>boundary.</em></h3><p>Agree what is inside the module and what is not, before anyone tests anything.</p>
-        </li>
-        <li>
-          <svg aria-hidden="true" class="line-art" viewBox="0 0 240 200"><rect x="20" y="40" width="84" height="120" rx="4"/><path d="M34 62h56M34 78h56M34 94h40M34 110h56M34 126h30" class="thin"/><path d="M112 100h34M138 92l8 8-8 8"/><circle cx="188" cy="100" r="34"/><path d="M176 90a12 12 0 1 1 18 10c-4 3-6 5-6 10"/><circle cx="188" cy="120" r="2.4" class="solid"/></svg>
-          <p class="case-kicker">Principle · Questions</p><h3>Ask what we can actually <em>demonstrate.</em></h3><p>Turn each requirement into a concrete question an engineer can answer.</p>
-        </li>
-        <li>
-          <svg aria-hidden="true" class="line-art" viewBox="0 0 240 200"><rect x="34" y="30" width="96" height="124" rx="4" class="thin"/><rect x="52" y="42" width="96" height="124" rx="4" class="thin"/><rect x="70" y="54" width="96" height="124" rx="4"/><path d="M84 80l6 6 10-12M84 106l6 6 10-12M84 132l6 6 10-12"/><path d="M110 80h42M110 106h42M110 132h30" class="thin"/><path d="M176 116h30M198 108l8 8-8 8"/></svg>
-          <p class="case-kicker">Principle · Evidence</p><h3>Leave evidence someone else can <em>follow.</em></h3><p>Turn each answer into evidence a lab can examine without me in the room.</p>
-        </li>
-      </ol>
-      <p class="sec-foot"><a class="quiet" href="cv.pdf" target="_blank" rel="noopener noreferrer" data-track="resume-approach">More about my background — résumé ↗</a></p>
-    </section>
-
-    <!-- ================= JOURNEY ================= -->
+    <div class="editorial">
+    <!-- Journey -->
     <span class="anchor" id="experience" aria-hidden="true"></span>
     <section class="sec" id="journey" data-chapter-name="Journey" aria-labelledby="journey-title">
       <header class="sec-head">
-        <p class="sec-label">Along the way</p>
-        <h2 id="journey-title">Not quite a <em>straight line.</em></h2>
-        <p class="sec-lead">I came to Canada hoping to find my place in defensive security. A role in certification changed the direction of that journey, and gave me a different perspective on what makes systems trustworthy. Each step taught me something new about the same problem: how to make complicated work reviewable.</p>
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">06</span>Along the way</p>
+        <h2 id="journey-title" data-reveal>Not quite a <em>straight line.</em></h2>
+        <p class="sec-lead" data-reveal>Each step taught me something new about the same problem: how to make complicated work reviewable.</p>
       </header>
-      <ol class="path">
-        <li><span class="path-org">Fortinet</span><h3>2025 — Now</h3><p>Project Management Compliance Analyst</p></li>
-        <li><span class="path-org">Fortinet</span><h3>2023 — 2025</h3><p>Junior Project Management Compliance Analyst</p></li>
-        <li><span class="path-org">Fortinet</span><h3>2022 — 2023</h3><p>Junior Compliance Analyst</p></li>
-        <li><span class="path-org">Concordia University</span><h3>2020 — 2022</h3><p>Master’s, Information Systems Security</p></li>
+      <ol class="timeline" data-timeline>
+        <li data-reveal><p class="tl-when">2025 — Now</p><div><h3>Project Management Compliance Analyst</h3><p class="tl-org">Fortinet</p><p>Cross-functional certification projects; the NDcPP v4 transition.</p></div></li>
+        <li data-reveal><p class="tl-when">2023 — 2025</p><div><h3>Junior Project Management Compliance Analyst</h3><p class="tl-org">Fortinet</p><p>Led the workstream behind Fortinet’s first FIPS 140-3 VPN certification.</p></div></li>
+        <li data-reveal><p class="tl-when">2022 — 2023</p><div><h3>Junior Compliance Analyst</h3><p class="tl-org">Fortinet</p><p>Common Criteria test scenarios and ACVP testing.</p></div></li>
+        <li data-reveal><p class="tl-when">2020 — 2022</p><div><h3>Master’s, Information Systems Security</h3><p class="tl-org">Concordia University</p></div></li>
       </ol>
       <div class="creds">
         <p class="sub-label">Credentials</p>
-        <!-- ADD: wrap each name in a link to its verification page (Credly / CompTIA / INE) once you have the URLs. -->
         <dl class="spec spec-lg">
           <div><dt>CySA+</dt><dd>CompTIA · Cybersecurity Analyst</dd></div>
           <div><dt>Security+</dt><dd>CompTIA</dd></div>
@@ -425,64 +489,44 @@
       </div>
     </section>
 
-    <!-- ================= WRITING ================= -->
+    <!-- Writing -->
     <section class="sec" id="writing" data-chapter-name="Writing" aria-labelledby="writing-title">
       <header class="sec-head">
-        <p class="sec-label">Field notes</p>
-        <h2 id="writing-title">Thinking <em>out loud.</em></h2>
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">07</span>Field notes</p>
+        <h2 id="writing-title" data-reveal>Thinking <em>out loud.</em></h2>
         <a class="quiet sec-side" href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer">All writing ↗</a>
       </header>
       <ul class="entries">
         <li><a href="https://medium.com/@sanjeevkumarpaul25" target="_blank" rel="noopener noreferrer"><small>Ongoing · Medium</small><strong>Notes on security, technology, and what I’m learning ↗</strong></a></li>
         <li><a href="https://www.journalijar.com/uploads/2022/04/6276555b2375a_IJAR-39401.pdf" target="_blank" rel="noopener noreferrer"><small>2022 · Graduate survey paper · IJAR</small><strong>SoK: Is iPhone Actually Secure? ↗</strong></a></li>
-<!-- DATED ENTRIES: copy this line once per article, newest first, and fill in the month, title and link:
-        <li><a href="https://medium.com/@sanjeevkumarpaul25/ARTICLE-LINK" target="_blank" rel="noopener noreferrer"><small>Nov 2026 · Medium</small><strong>Article title ↗</strong></a></li>
-        -->
       </ul>
     </section>
 
-    <!-- ================= LIFE ================= -->
-    <span class="anchor" id="about" aria-hidden="true"></span>
+    <!-- Life -->
     <span class="anchor" id="outside" aria-hidden="true"></span>
-    <span class="anchor" id="hello" aria-hidden="true"></span>
     <section class="sec outside" id="life" data-chapter-name="Life" aria-labelledby="life-title">
       <header class="sec-head">
-        <p class="sec-label">Away from the desk</p>
-        <h2 id="life-title">A different kind of <em>field.</em></h2>
+        <p class="sec-label"><span class="sec-n" aria-hidden="true">08</span>Away from the desk</p>
+        <h2 id="life-title" data-reveal>A different kind of <em>field.</em></h2>
       </header>
-      <div class="two-col">
-        <div>
-          <p class="lead">Cricket has been a constant. So have writing, learning things for no particular reason, and finding time for the people around me. I play whenever I can, and I built and still look after my club’s website.</p>
-          <p class="link-row"><a class="quiet" href="https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS" target="_blank" rel="noopener noreferrer">A little cricket proof ↗</a><a class="quiet" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer">The club website ↗</a></p>
-          <div class="hello-mini" aria-hidden="true"><span class="sub-label">Hello, in a few languages</span><span class="hello-word" id="hello-word">Hello</span><span class="hello-meta"><span id="hello-origin">English</span><code id="cipher-code">48 65 6c 6c 6f</code></span></div>
-        </div>
-        <figure class="field-card">
+      <div class="life">
+        <p class="lead" data-reveal>Cricket has been a constant. So have writing, learning things for no particular reason, and finding time for the people around me. I play whenever I can, and I built and still look after my club’s website.</p>
+        <figure class="field-card" data-reveal>
           <figcaption class="sub-label">What the game gives back</figcaption>
-          <p class="field-words">Patience.<br>Timing.<br><em>Perspective.</em></p>
+          <p class="field-words">Patience. Timing. <em>Perspective.</em></p>
           <p class="muted">Team sport, community, and a different kind of field awareness.</p>
         </figure>
+        <p class="link-row"><a class="quiet" href="https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS" target="_blank" rel="noopener noreferrer">A little cricket proof ↗</a><a class="quiet" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer">The club website ↗</a></p>
       </div>
-      <!-- PHOTO STRIP: to switch it on, put your photos in img/roll/ (about 1200px wide, .webp or .jpg),
-           edit the file names and captions below, then delete this line and the closing line of this comment.
-      <div class="roll" data-roll>
-        <p class="sub-label">Camera roll</p>
-        <ul class="roll-track" tabindex="0" aria-label="Photos">
-          <li><figure><img src="img/roll/01.webp" alt="Describe photo 1" loading="lazy" width="1200" height="800"><figcaption>01 · Caption one</figcaption></figure></li>
-          <li><figure><img src="img/roll/02.webp" alt="Describe photo 2" loading="lazy" width="1200" height="800"><figcaption>02 · Caption two</figcaption></figure></li>
-          <li><figure><img src="img/roll/03.webp" alt="Describe photo 3" loading="lazy" width="1200" height="800"><figcaption>03 · Caption three</figcaption></figure></li>
-          <li><figure><img src="img/roll/04.webp" alt="Describe photo 4" loading="lazy" width="1200" height="800"><figcaption>04 · Caption four</figcaption></figure></li>
-        </ul>
-      </div>
-      END PHOTO STRIP -->
       <p class="interests" aria-label="Interests"><span>Cricket</span><span>Writing</span><span>Football</span><span>Community</span><span>Travel</span><span>Cooking</span></p>
     </section>
 
-    <!-- ================= ON THE FIELD ================= -->
+    <!-- On the field -->
     <section class="sec onfield" id="field" data-chapter-name="On the field" aria-labelledby="field-title">
       <header class="sec-head">
         <p class="sec-label">On the field</p>
-        <h2 id="field-title">A few good <em>seasons.</em></h2>
-        <p class="sec-lead">The game has given me more than I have given it. Still, a few seasons went well, and these are the ones the scorebook remembers. Mostly cricket, with one soccer cup in the middle.</p>
+        <h2 id="field-title" data-reveal>A few good <em>seasons.</em></h2>
+        <p class="sec-lead" data-reveal>The game has given me more than I have given it. Still, a few seasons went well, and these are the ones the scorebook remembers. Mostly cricket, with one soccer cup in the middle.</p>
       </header>
       <div class="reel" data-reel>
         <div class="reel-head"><p class="sub-label">The scorebook</p><div class="reel-ctrl"><p class="reel-count" aria-hidden="true"><b data-reel-current>1</b> / 12</p><button type="button" data-reel-step="-1" aria-label="Previous accolade"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button><button type="button" data-reel-step="1" aria-label="Next accolade"><svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button></div></div>
@@ -514,21 +558,19 @@
     </section>
     </div>
 
-    <!-- ================= CONTACT ================= -->
+    <!-- Contact -->
     <section class="sec contact" id="contact" data-chapter-name="Let’s talk" aria-labelledby="contact-title">
-      <div class="contact-card">
       <p class="sec-label">Have something in mind?</p>
-      <h2 id="contact-title">Let’s make it <em>provable.</em></h2>
-      <p class="lead">A role, a tricky validation question, a project you’re building, or cricket. Good problems, thoughtful people, good conversations.</p>
+      <h2 id="contact-title" data-reveal>Let’s make it <em>provable.</em></h2>
+      <p class="lead" data-reveal>A role, a tricky validation question, a project you’re building, or cricket. Good problems, thoughtful people, good conversations.</p>
       <p class="contact-email">sanjeevkumarpaul25@gmail.com</p>
       <div class="contact-actions">
-        <a class="btn btn-solid" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev" data-track="contact-email">Email me</a>
-        <button type="button" class="btn btn-line" id="copy-email" data-email="sanjeevkumarpaul25@gmail.com" data-track="contact-copy">Copy email</button>
+        <a class="btn btn-solid btn-lg" href="mailto:sanjeevkumarpaul25@gmail.com?subject=Hello%20Sanjeev" data-track="contact-email" data-magnetic>Email me</a>
+        <button type="button" class="btn btn-line btn-lg" id="copy-email" data-email="sanjeevkumarpaul25@gmail.com" data-track="contact-copy">Copy email</button>
         <a class="quiet" href="https://www.linkedin.com/in/sanjeev-kumar-paul/" target="_blank" rel="noopener noreferrer" data-track="linkedin-contact">LinkedIn ↗</a>
         <a class="quiet" href="https://github.com/snj3vpaul/" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
       <p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite"></p>
-      </div>
     </section>
   </main>
 

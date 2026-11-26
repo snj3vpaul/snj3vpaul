@@ -679,3 +679,25 @@ a:focus-visible, button:focus-visible, [tabindex="0"]:focus-visible { outline: 2
   .marquee-track { animation: marquee 32s linear infinite; }
   .proj-panel:not([hidden]) { animation: panel-in .5s var(--ease); }
 }
+
+/* ---------- 2026: project pages share the home page's dark editorial palette and type ---------- */
+@font-face { font-family: 'Instrument Serif'; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/instrument-serif-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Hanken Grotesk'; font-style: normal; font-weight: 300 800; font-display: swap; src: url(fonts/hanken-grotesk-latin-wght-normal.woff2) format('woff2'); }
+:root {
+  --bg: #0a1020; --fg: #f3ede1; --muted: #a9bcd8; --brown: #e0ad62; --blue: #5cc2b4; --on-blue: #0a1020;
+  --line: rgba(169, 188, 216, .18); --dot: rgba(169, 188, 216, .08); --panel: #18253f; --card: rgba(14, 23, 44, .9);
+  --cond: 'Instrument Serif', Georgia, serif;
+  color-scheme: dark;
+}
+.project-page { font: 400 15.5px/1.65 'Hanken Grotesk', system-ui, sans-serif; }
+.project-page .topbar { background: rgba(10, 16, 32, .96); -webkit-backdrop-filter: none; backdrop-filter: none; text-transform: none; letter-spacing: 0; font-size: 14px; }
+.project-page .brand { font: 400 22px/1 'Instrument Serif', Georgia, serif; }
+.project-page .brand span { color: var(--blue); }
+.project-page .label { font-family: var(--mono); }
+.pp { background: linear-gradient(180deg, rgba(42, 59, 92, .45), rgba(10, 16, 32, 0) 420px); }
+.pp h1 { font-weight: 400; letter-spacing: -.015em; }
+.pp-art .proj-card, .proj-card { background: #0e172c; border: 1px solid rgba(169, 188, 216, .22); box-shadow: none; color: #a9bcd8; }
+.proj-card::after { background: none; }
+.proj-svg { stroke: #7f98bd; }
+.pp-next b { font-weight: 400; }
+::selection { background: var(--blue); color: var(--bg); }
