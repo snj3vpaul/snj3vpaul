@@ -22,6 +22,8 @@
   --surface-hover: #ffffff;
   --tone: #ece5d6;          /* a darker band for a whole section */
   --frame: #ebe5d8;         /* figure grounds inside cards */
+  --steel: #e6eaec;         /* cool band: the drafting-table section (projects) */
+  --steel-frame: #dde3e6;
   --ink: #16213a;           /* midnight navy: headlines, primary text, primary actions (14.2:1) */
   --slate: #4a5468;         /* secondary copy (6.8:1) */
   --quiet: #5b6475;         /* labels and metadata (5.3:1) */
@@ -78,7 +80,12 @@
 [hidden] { display: none !important; }
 html { scroll-padding-top: calc(var(--bar) + 12px); background: var(--canvas); -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-body { margin: 0; background: var(--canvas); color: var(--ink); font: 400 var(--t-base)/var(--lh-body) var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font: 400 var(--t-base)/var(--lh-body) var(--sans); font-feature-settings: 'kern', 'liga', 'ss01'; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+/* paper grain: a fixed, very faint noise tile so flat colour reads as a surface */
+body::before { content: ''; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: .03; mix-blend-mode: multiply; background-image: url(img/grain.svg); }
+h1, h2, h3, h4, .section-title { text-wrap: balance; }
+p, dd, li { text-wrap: pretty; }
+.proof-figure, .hl-figure, .timeline span, .facts dd, time { font-variant-numeric: lining-nums tabular-nums; }
 h1, h2, h3, h4, p, dl, dd, ol, ul, figure { margin: 0; }
 ol, ul { padding: 0; list-style: none; }
 a { color: inherit; text-decoration: none; }
@@ -86,13 +93,16 @@ button { font: inherit; color: inherit; }
 sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 ::selection { background: var(--ink); color: var(--on-accent); }
 :focus-visible { outline: 2px solid var(--proof); outline-offset: 3px; }
+.nw { white-space: nowrap; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .skip-link { position: fixed; top: -80px; left: 16px; z-index: 100; padding: 10px 14px; background: var(--ink); color: var(--canvas); }
 .skip-link:focus { top: 12px; }
 .wrap { width: min(calc(100% - 2 * var(--margin)), var(--max)); margin-inline: auto; }
 
-.eyebrow { font: 500 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--quiet); }
-.section-title { margin-top: var(--s4); font: 400 var(--t-2xl)/1.02 var(--serif); letter-spacing: -.02em; max-width: 20ch; }
+.eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); }
+.section-head .eyebrow, .about-main > .eyebrow, .beyond-copy > .eyebrow, .contact .eyebrow { display: flex; align-items: center; gap: 12px; }
+.section-head .eyebrow::after, .about-main > .eyebrow::after, .beyond-copy > .eyebrow::after, .contact .eyebrow::after { content: ''; width: 48px; height: 1px; background: currentColor; opacity: .5; }
+.section-title { margin-top: var(--s4); font: 400 var(--t-2xl)/1 var(--serif); letter-spacing: -.022em; max-width: 20ch; }
 .prose { max-width: 62ch; color: var(--slate); }
 .prose p + p { margin-top: 1em; }
 
@@ -101,6 +111,7 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 .btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 .btn:active { transform: translateY(1px); }
 .btn-quiet { background: transparent; color: var(--ink); border-color: var(--rule-strong); }
+.btn-meta { font: 500 11px/1 var(--mono); letter-spacing: .08em; color: var(--quiet); }
 .btn-quiet:hover { background: var(--surface); border-color: var(--ink); }
 .link { display: inline-flex; align-items: baseline; gap: 6px; padding-bottom: 3px; border-bottom: 1px solid var(--rule-strong); font-weight: 500; transition: color .3s var(--ease), border-color .3s var(--ease); }
 .link span { display: inline-block; transition: transform .35s var(--ease); }
@@ -142,10 +153,11 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 .hero-title { grid-area: title; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; padding-bottom: var(--s5); }
 .hero-role-name { font: 600 15px/1.3 var(--sans); }
 .hero-role-area { font: 400 15px/1.3 var(--sans); color: var(--slate); }
+.hero-keys { flex-basis: 100%; margin-top: 6px; font: 500 12px/1.6 var(--mono); letter-spacing: .06em; color: var(--proof); }
 .headline { grid-area: head; align-self: end; font: 400 clamp(52px, min(7.6vw, 11.5vh), 116px)/.95 var(--serif); letter-spacing: -.025em; }
 .headline .line { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
 .headline .line > span { display: inline-block; }
-.proven { position: relative; display: inline-block; color: var(--proof); }
+.proven { position: relative; display: inline-block; padding-right: .06em; font-style: italic; letter-spacing: -.01em; color: var(--proof); }
 .proven::after { content: ''; position: absolute; left: .02em; right: .02em; bottom: .04em; height: .045em; min-height: 2px; background: currentColor; transform-origin: left; }
 .hero-intro { grid-area: intro; margin-top: clamp(28px, 4vh, 44px); }
 .hero-lead { max-width: 44ch; font: 400 var(--t-md)/1.55 var(--sans); color: var(--slate); }
@@ -185,6 +197,10 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 /* ======================= 6. Sections ======================= */
 .section { padding: var(--section) 0; }
 .section--tone { background: var(--tone); }
+/* projects: a cool drafting-table band with a faint 24px line grid */
+.section--steel { background-color: var(--steel); background-image: linear-gradient(rgba(22, 33, 58, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(22, 33, 58, .05) 1px, transparent 1px); background-size: 24px 24px; background-position: -1px -1px; }
+.section--steel .tool-frame { background: var(--steel-frame); }
+.section--steel .tier-title { border-color: var(--rule-strong); }
 .section-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s6) clamp(32px, 5vw, 80px); align-items: end; }
 .section-head--single { display: block; }
 
@@ -257,9 +273,14 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 .timeline li { display: grid; grid-template-columns: minmax(0, 1fr); padding: 10px 0; border-top: 1px solid var(--line); }
 .timeline span { font: 500 12px/1.6 var(--mono); color: var(--quiet); }
 .timeline b { font-weight: 600; font-size: 15px; line-height: 1.4; }
+.timeline-steps { margin-top: var(--s3); padding-left: var(--s4); border-left: 1px solid var(--rule); }
+.timeline-steps li { border-top: 0; display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: var(--s2); padding: 4px 0; font-size: 14px; line-height: 1.4; color: var(--slate); }
+.timeline-steps li:first-child { color: var(--ink); font-weight: 600; }
+.timeline-steps span { font: 500 12px/1.6 var(--mono); color: var(--quiet); }
 .timeline i { font-style: normal; font-size: 14px; color: var(--slate); }
 .creds { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); font-size: 15px; color: var(--slate); }
 .creds b { color: var(--ink); font-weight: 600; }
+.cred-pending span { font: 600 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--review-text); }
 .writing li { padding: 10px 0; border-top: 1px solid var(--line); }
 .writing a { font-weight: 600; font-size: 15px; transition: color .3s var(--ease); }
 .writing a:hover { color: var(--proof); }
@@ -298,6 +319,43 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 .footer nav { display: flex; flex-wrap: wrap; gap: var(--s5); }
 .footer nav a { transition: color .3s var(--ease); }
 .footer nav a:hover { color: var(--night-text); }
+
+
+/* ======================= 6b. Background geometry ======================= */
+/* Engineering paper in the hero: a 24px dot grid, the same 4px rhythm as the layout, fading out. */
+.hero { position: relative; isolation: isolate; }
+.hero::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: radial-gradient(rgba(22, 33, 58, .16) 1px, transparent 1.3px); background-size: 24px 24px; background-position: 12px 12px; -webkit-mask-image: radial-gradient(120% 80% at 78% 30%, #000 10%, transparent 72%); mask-image: radial-gradient(120% 80% at 78% 30%, #000 10%, transparent 72%); }
+/* Figure plate: corner ticks frame the trace like a drawing sheet */
+.net-frame { position: relative; padding: 18px; }
+.net-frame::before { content: ''; position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(var(--ink), var(--ink)) 0 0 / 14px 1px, linear-gradient(var(--ink), var(--ink)) 0 0 / 1px 14px,
+  linear-gradient(var(--ink), var(--ink)) 100% 0 / 14px 1px, linear-gradient(var(--ink), var(--ink)) 100% 0 / 1px 14px,
+  linear-gradient(var(--ink), var(--ink)) 0 100% / 14px 1px, linear-gradient(var(--ink), var(--ink)) 0 100% / 1px 14px,
+  linear-gradient(var(--ink), var(--ink)) 100% 100% / 14px 1px, linear-gradient(var(--ink), var(--ink)) 100% 100% / 1px 14px;
+  background-repeat: no-repeat; opacity: .35; }
+
+.has-geo { position: relative; isolation: isolate; overflow: hidden; }
+.has-geo > .wrap { position: relative; z-index: 1; }
+.geo { position: absolute; z-index: 0; pointer-events: none; }
+.geo svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.geo line { stroke: var(--ink); stroke-width: 1px; vector-effect: non-scaling-stroke; opacity: .13; }
+.geo-node { fill: var(--proof); opacity: .7; }
+.geo--work { width: clamp(260px, 24vw, 360px); aspect-ratio: 1; top: clamp(8px, 2vw, 32px); left: max(var(--margin), calc((100vw - var(--max)) / 2 - 40px)); }
+.geo--projects { width: clamp(240px, 28vw, 420px); aspect-ratio: 1; top: clamp(24px, 4vw, 72px); right: max(-40px, calc((100vw - var(--max)) / 2 + 40px)); }
+.geo--projects line { opacity: .15; }
+.geo--beyond { width: clamp(300px, 36vw, 540px); aspect-ratio: 1; bottom: -34%; right: max(-160px, calc((100vw - var(--max)) / 2 - 200px)); }
+.geo--beyond line { opacity: .11; }
+.geo--beyond .geo-node { fill: var(--review); }
+/* about: standards (the square) meet people (the circle); the overlap is the job */
+.geo--about { width: clamp(320px, 30vw, 440px); height: auto; bottom: -4%; right: max(-180px, calc((100vw - var(--max)) / 2 - 220px)); fill: none; stroke: var(--ink); stroke-width: 1px; }
+.geo--about rect, .geo--about circle { vector-effect: non-scaling-stroke; opacity: .16; }
+.geo--about .geo-overlap { fill: var(--proof); stroke: none; opacity: .07; }
+.geo--about .geo-ticks { opacity: .3; }
+/* contact: the trace ends here, at a node */
+.geo--contact { top: 0; bottom: 32%; left: max(12px, calc((100vw - var(--max)) / 2 - 56px)); width: 40px; height: 68%; fill: none; }
+.geo--contact path { stroke: var(--night-quiet); stroke-dasharray: 2 6; vector-effect: non-scaling-stroke; opacity: .45; }
+.geo--contact rect { fill: var(--night-accent); }
+.contact::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(rgba(245, 241, 232, .09) 1px, transparent 1.3px); background-size: 24px 24px; -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000); mask-image: linear-gradient(90deg, transparent 30%, #000); }
 
 /* ======================= 7. Project pages ======================= */
 .pp { padding: calc(var(--bar) + clamp(48px, 8vw, 112px)) 0 clamp(64px, 9vw, 128px); }
@@ -379,9 +437,10 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
   .hero { padding-top: calc(var(--bar) + 32px); }
   .hero-title { flex-direction: column; padding-bottom: var(--s4); }
   .hero-role-name, .hero-role-area { font-size: 14px; }
+  .hero-keys { flex-basis: auto; margin-top: 8px; font-size: 11.5px; line-height: 1.7; }
   .headline { font-size: clamp(44px, 12.6vw, 62px); }
   .hero-cta .btn { flex: 1 1 100%; }
-  .nav-resume { display: none; }
+  .nav-resume { padding: 8px 10px; font-size: 12px; }
   .net-rowlabel, .net-rule { display: none; }
   /* labels at ~11px rendered: bigger in SVG units, alternate algorithm labels above the node */
   .net-node text { font-size: 13px; stroke-width: 5px; }
@@ -402,4 +461,10 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
   .pp-pager { grid-template-columns: minmax(0, 1fr); }
   .pp-pager a:last-child { text-align: left; }
   .footer { flex-direction: column; }
+  .geo--work { width: 220px; left: auto; right: -70px; top: 8px; }
+  .geo--projects { width: 200px; right: -60px; top: 12px; }
+  .geo--beyond { width: 300px; right: -150px; bottom: -90px; }
+  .geo--about { width: 320px; right: -150px; bottom: -110px; }
+  .geo--contact { display: none; }
+  .net-frame { padding: 10px; }
 }

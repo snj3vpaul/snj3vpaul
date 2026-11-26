@@ -134,6 +134,61 @@
   }
 
 
+  /* ---- Background geometry: slow wireframe solids, drawn in SVG with ~60 lines of maths.
+     Each one belongs to its section: a cube for the module boundary, a diamond for the
+     decision a tool parses, a sphere for the ball (and the globe). They only animate
+     while on screen, and sit still for reduced motion. ---- */
+  const SOLIDS = {
+    cube() {
+      const v = []; for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) v.push([x * .62, y * .62, z * .62]);
+      const e = []; v.forEach((a, i) => v.forEach((b, j) => { if (j > i && a.filter((c, k) => c !== b[k]).length === 1) e.push([a, b]); }));
+      return { e, node: v[7] };
+    },
+    octa() {
+      const r = .95, v = [[r, 0, 0], [-r, 0, 0], [0, r, 0], [0, -r, 0], [0, 0, r], [0, 0, -r]];
+      const e = []; v.forEach((a, i) => v.forEach((b, j) => { if (j > i && a.some((c, k) => c && b[k] !== -c) && !a.every((c, k) => c === -b[k])) e.push([a, b]); }));
+      return { e, node: v[2] };
+    },
+    sphere() {
+      const e = [], N = 28, P = (la, lo) => [Math.cos(la) * Math.cos(lo) * .9, Math.sin(la) * .9, Math.cos(la) * Math.sin(lo) * .9];
+      for (let i = -2; i <= 2; i++) { const la = i * Math.PI / 6; for (let k = 0; k < N; k++) e.push([P(la, k / N * 2 * Math.PI), P(la, (k + 1) / N * 2 * Math.PI)]); }
+      for (let m = 0; m < 6; m++) { const lo = m / 6 * Math.PI; for (let k = 0; k < N; k++) e.push([P(k / N * 2 * Math.PI, lo), P((k + 1) / N * 2 * Math.PI, lo)]); }
+      return { e, node: P(Math.PI / 6, 0) };
+    }
+  };
+  const NS = 'http://www.w3.org/2000/svg';
+  document.querySelectorAll('[data-geo]').forEach(host => {
+    const solid = SOLIDS[host.dataset.geo]?.(); if (!solid) return;
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '-1.25 -1.25 2.5 2.5'); svg.setAttribute('focusable', 'false');
+    const lines = solid.e.map(() => { const l = document.createElementNS(NS, 'line'); svg.appendChild(l); return l; });
+    const node = document.createElementNS(NS, 'rect'); node.setAttribute('class', 'geo-node'); node.setAttribute('width', '.06'); node.setAttribute('height', '.06'); svg.appendChild(node);
+    host.appendChild(svg);
+    const tilt = Number(host.dataset.tilt || .45), speed = Number(host.dataset.speed || .07), phase = Number(host.dataset.phase || 0);
+    const rot = ([x, y, z], a, b) => { // spin about y, then tilt about x
+      const x1 = x * Math.cos(a) + z * Math.sin(a), z1 = -x * Math.sin(a) + z * Math.cos(a);
+      return [x1, y * Math.cos(b) - z1 * Math.sin(b), y * Math.sin(b) + z1 * Math.cos(b)];
+    };
+    const proj = p => { const s = 3.2 / (3.2 - p[2]); return [p[0] * s, p[1] * s, p[2]]; };
+    const draw = t => {
+      const a = phase + t * speed + window.scrollY * .0006, b = tilt + Math.sin(t * .05 + phase) * .08;
+      solid.e.forEach(([p, q], i) => {
+        const P = proj(rot(p, a, b)), Q = proj(rot(q, a, b)), l = lines[i];
+        l.setAttribute('x1', P[0].toFixed(3)); l.setAttribute('y1', P[1].toFixed(3)); l.setAttribute('x2', Q[0].toFixed(3)); l.setAttribute('y2', Q[1].toFixed(3));
+        l.setAttribute('stroke-opacity', ((P[2] + Q[2]) / 2 > 0 ? 1 : .4).toString());
+      });
+      const n = proj(rot(solid.node, a, b)); node.setAttribute('x', (n[0] - .03).toFixed(3)); node.setAttribute('y', (n[1] - .03).toFixed(3));
+    };
+    draw(0);
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    let raf = 0, t0 = performance.now();
+    const loop = now => { draw((now - t0) / 1000); raf = requestAnimationFrame(loop); };
+    new IntersectionObserver(([en]) => {
+      if (en.isIntersecting && !raf) raf = requestAnimationFrame(loop);
+      else if (!en.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
+    }).observe(host);
+  });
+
   /* ---- Copy email ---- */
   document.getElementById('copy-email')?.addEventListener('click', async event => {
     const button = event.currentTarget;
