@@ -280,7 +280,6 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 .timeline i { font-style: normal; font-size: 14px; color: var(--slate); }
 .creds { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); font-size: 15px; color: var(--slate); }
 .creds b { color: var(--ink); font-weight: 600; }
-.cred-pending span { font: 600 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--review-text); }
 .writing li { padding: 10px 0; border-top: 1px solid var(--line); }
 .writing a { font-weight: 600; font-size: 15px; transition: color .3s var(--ease); }
 .writing a:hover { color: var(--proof); }
