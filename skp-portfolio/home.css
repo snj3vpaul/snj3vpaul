@@ -437,6 +437,19 @@ html:not(.js) .proj-panel + .proj-panel { margin-top: 18px; }
 
 /* ---------- narrower screens ---------- */
 @media (max-width: 1180px) {
+  .nav a:nth-child(3), .nav a:nth-child(5) { display: none; } .nav { gap: 18px; }
+  /* tablets keep the text and the orbit side by side: a narrower text column, a tighter orbit further right */
+  .hero { grid-template-columns: minmax(0, 42%) minmax(0, 1fr); }
+  .hero h1 { font-size: clamp(34px, 3.9vw, 46px); }
+  .role { font-size: 15.5px; }
+  .orbit-stage { inset: 0 0 0 44%; }
+  .orbit { --R: clamp(130px, 19vw, 230px); top: 44%; }
+  .guy { width: min(460px, 44vw); }
+  .card { scale: .76; }
+  .c-span, .c-algos { display: none; }
+  .giant { font-size: min(9rem, 14vw); }
+}
+@media (max-width: 767px) {
   .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; min-height: 0; padding-top: 28px; }
   .hero h1 { font-size: clamp(40px, 7vw, 60px); max-width: 16ch; }
   .intro { max-width: 680px; }
@@ -449,7 +462,7 @@ html:not(.js) .proj-panel + .proj-panel { margin-top: 18px; }
   .hero-base { grid-row: 3; }
   .giant { font-size: clamp(84px, 26vw, 150px); }
   .hero-name { margin: 0; flex-basis: 100%; }
- .nav a:nth-child(3), .nav a:nth-child(5) { display: none; } .nav { gap: 18px; } }
+}
 @media (max-width: 980px) {
   .nav, .bar-cta { display: none; }
   .menu-toggle { display: block; }
