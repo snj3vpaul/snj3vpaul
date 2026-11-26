@@ -478,3 +478,75 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
   .geo--contact { display: none; }
   .net-frame { padding: 10px; }
 }
+
+/* ==========================================================================
+   Life layer (life.js). All of it is decoration on a page that reads without it.
+   ========================================================================== */
+
+/* Intro: a short handshake. Covered by html::after until life.js builds the panel. */
+.is-intro:not(.intro-ready)::after { content: ''; position: fixed; inset: 0; z-index: 200; background: var(--night); }
+.is-intro .hero *, .is-intro .hero *::after { animation-play-state: paused !important; }
+.is-intro, .intro-ready { overflow: hidden; }
+.intro { position: fixed; inset: 0; z-index: 200; display: grid; grid-template-rows: 1fr auto auto; padding: clamp(24px, 5vw, 64px); background: var(--night); color: var(--night-text); clip-path: inset(0 0 0 0); transition: clip-path .85s cubic-bezier(.76, 0, .24, 1); cursor: pointer; }
+.intro.is-out { clip-path: inset(0 0 100% 0); }
+.intro-log { align-self: start; font: 500 12px/2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--night-quiet); }
+.intro-log p { display: grid; grid-template-columns: 11ch auto; opacity: 0; animation: settle .5s var(--ease) both; }
+.intro-log p:nth-child(1) { animation-delay: .1s; } .intro-log p:nth-child(2) { animation-delay: .35s; }
+.intro-log p:nth-child(3) { animation-delay: .8s; } .intro-log p:nth-child(4) { animation-delay: 1.2s; }
+.intro-log b { font-weight: 500; color: var(--night-text); }
+.intro-ok b { color: var(--night-accent); display: inline-flex; align-items: center; gap: 10px; }
+.intro-ok i { width: 8px; height: 8px; background: currentColor; animation: blink .5s steps(2) 1.3s 3 both; }
+.intro-name { overflow: hidden; font: 400 clamp(56px, 12vw, 200px)/.9 var(--serif); letter-spacing: -.03em; }
+.intro-name { animation: rise 1s var(--ease) .5s both; }
+.intro-bar { height: 1px; margin-top: clamp(16px, 3vw, 32px); background: rgba(245, 241, 232, .15); }
+.intro-bar i { display: block; height: 100%; background: var(--night-accent); transform-origin: left; animation: draw-x 1.9s cubic-bezier(.6, 0, .2, 1) both; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Section titles rise word by word (split by life.js) */
+.section-title.is-split .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.section-title.is-split .w > span { display: inline-block; transform: translateY(108%); transition: transform 1s var(--ease); transition-delay: calc(var(--i) * 55ms + var(--delay, 0ms) + 80ms); }
+.is-in .section-title.is-split .w > span { transform: none; }
+
+/* Nav labels roll */
+.nav .roll { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.15; }
+.nav .roll > span { display: inline-block; position: relative; transition: transform .5s var(--ease); }
+.nav .roll > span::after { content: attr(data-text); position: absolute; left: 0; top: 100%; color: var(--ink); }
+.nav a:hover .roll > span { transform: translateY(-100%); }
+
+/* Scroll progress */
+.topbar .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--proof); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+
+/* Fig. 1 pulse */
+.net-packets rect { fill: var(--proof); opacity: 0; transition: opacity .2s; }
+.net-node--cert.is-pulse .net-mark { animation: cert-pulse .9s var(--ease); transform-box: fill-box; transform-origin: center; }
+@keyframes cert-pulse { 0% { transform: scale(1); } 35% { transform: scale(2.2); fill: var(--proof); } 100% { transform: scale(1); } }
+
+/* Cards catch the light */
+.lit { position: relative; transition: transform .5s var(--ease), background-color .35s var(--ease), border-color .35s var(--ease); }
+.lit::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .4s var(--ease); background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(47, 111, 106, .10), transparent 60%); }
+.lit:hover::before { opacity: 1; }
+.lit > * { position: relative; z-index: 1; }
+
+/* Footer signature */
+.footer { flex-wrap: wrap; }
+.footer-mark { flex: 1 0 100%; margin: 0 0 var(--s5); overflow: hidden; font: 400 clamp(40px, 15.5vw, 236px)/.86 var(--serif); letter-spacing: -.035em; color: var(--night-text); white-space: nowrap; user-select: none; }
+.footer-mark span { display: inline-block; transition: color .4s var(--ease), transform 1.1s var(--ease); transition-delay: 0s, calc(var(--i) * 35ms); }
+.js .footer-mark span { transform: translateY(105%); }
+.js .footer-mark.is-in span { transform: none; }
+.footer-mark span:hover { color: var(--night-accent); transition-delay: 0s; }
+
+/* Cursor (fine pointers only, added by life.js) */
+.has-cursor, .has-cursor a, .has-cursor button, .has-cursor [role="button"] { cursor: none; }
+.cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; z-index: 300; pointer-events: none; opacity: 0; transition: opacity .3s; mix-blend-mode: difference; }
+.cursor-on .cursor-dot, .cursor-on .cursor-ring { opacity: 1; }
+.cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: #fff; }
+.cursor-ring { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
+.cursor-ring::before { content: ''; position: absolute; inset: 0; border: 1px solid #fff; border-radius: 50%; transition: transform .35s var(--ease), background-color .35s var(--ease); }
+.cursor-ring.is-link::before { transform: scale(1.7); background: rgba(255, 255, 255, .12); }
+.cursor-ring.is-label::before { transform: scale(2.1); background: #fff; }
+.cursor-ring.is-down::before { transform: scale(.8); }
+.cursor-ring span { position: absolute; inset: 0; display: grid; place-items: center; font: 600 9px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #000; }
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-mark span, .js .footer-mark span { transform: none; transition: color .2s; }
+}
