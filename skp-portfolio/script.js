@@ -195,6 +195,19 @@
     io.observe(contact);
   }
 
+  /* ---------- develop: panels sharpen as they enter, like a print in the tray ----------
+     Content is complete without this; it only runs with motion allowed and IntersectionObserver present.
+     Panels already on screen at load, or reached by keyboard focus, develop at once. */
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const panels = $$('.case, .sport, .sheet, .pipeline, .principles li, .path, .creds, .entries, .field-card, .hello-mini, .carry, .reel, .contact-card');
+    const show = (el, instant) => { if (!el.classList.contains('is-developed')) { el.classList.add('is-developed'); if (instant) el.classList.add('is-instant'); dev.unobserve(el); } };
+    const dev = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(e.target); }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    panels.forEach(el => { el.setAttribute('data-develop', ''); dev.observe(el); });
+    doc.classList.add('develop');
+    document.addEventListener('focusin', e => { const p = e.target instanceof Element ? e.target.closest('[data-develop]') : null; if (p) show(p, true); });
+    addEventListener('beforeprint', () => panels.forEach(el => show(el, true)));
+  }
+
   /* a link to #forkcast, #fabric or #lab opens that tab before scrolling to it */
   const resolve = id => { if (!id) return null; openTabFor(id); return document.getElementById(id); };
   const go = (id, smooth) => { const el = resolve(id); if (el) el.scrollIntoView({ block: 'start', behavior: smooth && !reduceMotion ? 'smooth' : 'auto' }); };
