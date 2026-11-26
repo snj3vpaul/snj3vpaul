@@ -35,17 +35,28 @@
   /* ---- Current section underlined in the bar ---- */
   const navLinks = [...document.querySelectorAll('.nav a')];
   const sections = [...document.querySelectorAll('main section[id]')];
-  if ('IntersectionObserver' in window && navLinks.length) {
-    const io = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const id = entry.target.id;
+  if (navLinks.length) {
+    // the current section is the last one whose top has passed 40% of the viewport;
+    // at the very bottom it is always the last section, in the hero it is none
+    let current = null, queued = false;
+    const update = () => {
+      queued = false;
+      const line = window.innerHeight * .4;
+      let id = null;
+      for (const s of sections) if (s.getBoundingClientRect().top <= line) id = s.id;
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) id = sections[sections.length - 1]?.id;
+      if (id === current) return;
+      current = id;
       navLinks.forEach(a => {
         const on = a.getAttribute('href') === `#${id}`;
         a.classList.toggle('is-current', on);
         if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
       });
-    }), { rootMargin: '-45% 0px -50% 0px' });
-    sections.forEach(s => io.observe(s));
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
   }
 
   /* ---- Reveal: each block settles into place once, the first time it is seen ---- */
@@ -189,10 +200,25 @@
     }).observe(host);
   });
 
+  /* ---- Email: never in the HTML as plain text. Stored reversed and base64-encoded,
+     assembled only when someone asks for it, so simple scrapers find nothing. ---- */
+  const emailHost = document.getElementById('contact-email');
+  const getEmail = () => { try { return [...atob(emailHost?.dataset.k || '')].reverse().join(''); } catch { return ''; } };
+  document.getElementById('reveal-email')?.addEventListener('click', event => {
+    const email = getEmail(); if (!email) return;
+    const link = document.createElement('a');
+    link.className = 'contact-email-link'; link.href = `mailto:${email}?subject=Hello%20Sanjeev`; link.textContent = email;
+    emailHost.querySelector('.contact-email-text').replaceWith(link);
+    event.currentTarget.remove(); link.focus();
+  });
+  document.getElementById('mail-email')?.addEventListener('click', () => {
+    const email = getEmail(); if (email) window.location.href = `mailto:${email}?subject=Hello%20Sanjeev`;
+  });
+
   /* ---- Copy email ---- */
   document.getElementById('copy-email')?.addEventListener('click', async event => {
     const button = event.currentTarget;
-    const email = button.dataset.email;
+    const email = getEmail(); if (!email) return;
     const feedback = document.getElementById('copy-feedback');
     let copied = false;
     try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(email); copied = true; } } catch { /* fall through */ }
@@ -203,7 +229,7 @@
       try { copied = !!document.execCommand?.('copy'); } catch { /* unavailable */ }
       area.remove();
     }
-    if (feedback) feedback.textContent = copied ? 'Email address copied.' : 'Copy is unavailable here. Select the address above instead.';
+    if (feedback) feedback.textContent = copied ? 'Email address copied.' : 'Copy is unavailable here. Use Show, then select the address.';
     if (!copied) return;
     track('contact-copy-success');
     button.textContent = 'Copied';
