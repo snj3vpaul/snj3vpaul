@@ -8,7 +8,6 @@ export default defineConfig({
   build: {
     target: 'es2022',
     cssCodeSplit: true,
-    // three.js and React Three Fiber are only imported by the lazily loaded scenes, so Rollup keeps them out of the first load
     chunkSizeWarningLimit: 900,
   },
   ssr: { noExternal: ['gsap', 'lenis'] },

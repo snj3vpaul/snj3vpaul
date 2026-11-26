@@ -1,6 +1,6 @@
 # Design notes — the editorial edition
 
-A refinement of v3, not a reinvention. Same stack (Vite, React 19, TypeScript, prerendered; Three.js / React Three Fiber; GSAP; Lenis), same voice, same proof points. The site should read like a well-made monograph: one idea per spread, set in good type, with room to breathe.
+A refinement of v3, not a reinvention. Same stack (Vite, React 19, TypeScript, prerendered; GSAP; Lenis), minus Three.js, same voice, same proof points. The site should read like a well-made monograph: one idea per spread, set in good type, with room to breathe.
 
 ## 1. Editorial audit and cuts
 
@@ -17,6 +17,7 @@ A refinement of v3, not a reinvention. Same stack (Vite, React 19, TypeScript, p
 | Golden WebGL light field (second canvas, animated shader) | Interlude | Gratuitous, always-moving WebGL. The words "Patience. Timing. Perspective." remain, set as a pull quote. |
 | Stacking project panels with scrubbed scale/brightness | Projects | Aggressive scroll choreography. Replaced by case studies. |
 | Count-up numbers, scrubbed timeline rail, outlined-to-filled credentials | Record, Journey | Motion that served the effect, not the reading. |
+| 3D still life (Three.js, WebGL canvas) | Hero | Heavy to load and to look at. Replaced by a hairline line drawing of the same shapes with one bronze point. |
 | Looping project videos | Projects | Constant motion and weight; replaced by their still posters. |
 | Animated film grain, radial gradients, glass panels, heavy drop shadows, pill chips | Global | Decorative noise. Surfaces are flat paper and charcoal with hairline rules. |
 | Motion (Framer Motion) dependency | — | No longer needed once the above went; GSAP covers the remaining reveals. |
@@ -88,12 +89,12 @@ Emphasis is always the serif italic in the accent colour, used once per heading 
 | `--ease-in-out` | `cubic-bezier(.65, 0, .35, 1)`: menu wipe |
 | `--dur-quick` / `--dur-base` / `--dur-slow` | .25s / .6s / 1.2s |
 
-Rules: headings rise line by line out of their own mask once (1.4s, expo-out); blocks fade up 16px once (1.2s); case-study plates drift ±24px against the scroll on desktop only; links underline-sweep on hover. Nothing loops except the 3D still life's slow breathing, and that stops whenever the hero is off screen. Lenis gives scrolling a gentle weight. Under `prefers-reduced-motion` there is no Lenis, no reveals, no plate drift, and the 3D scene draws a single still frame.
+Rules: headings rise line by line out of their own mask once (1.4s, expo-out); blocks fade up 16px once (1.2s); case-study plates drift ±24px against the scroll on desktop only; links underline-sweep on hover. Nothing loops. The hero still life is a hairline SVG drawing that draws itself in once. Lenis gives scrolling a gentle weight. Under `prefers-reduced-motion` there is no Lenis, no reveals, no plate drift, and the hero drawing is simply there.
 
 ## 3. Sections → code
 | Chapter | Component | File |
 |---|---|---|
-| Hero | `Hero` | `src/sections/Hero.tsx`, scene in `src/three/HeroScene.tsx` |
+| Hero | `Hero`, `LineStill` | `src/sections/Hero.tsx` |
 | 01 Selected professional work | `Work` | `src/sections/Chapters.tsx` |
 | 02 Independent projects | `Projects`, `CaseStudy` | `src/sections/Chapters.tsx` |
 | 03 Approach & journey | `Approach` | `src/sections/Chapters.tsx` |
@@ -102,10 +103,10 @@ Rules: headings rise line by line out of their own mask once (1.4s, expo-out); b
 | Navigation, intro, progress, anchors | `Header`, `Intro`, `Progress`, `useAnchors` | `src/components/Chrome.tsx` |
 | Copy | — | `src/content.ts` |
 
-## 4. Verification (production build, headless Chrome with WebGL)
+## 4. Verification (production build, headless Chrome)
 - axe-core: zero violations at 1440, 834 and 390px, with reduced motion, and with more contrast.
 - No horizontal overflow at any width; every reveal resolves; every Tab stop is visible.
 - Text extraction (with and without JavaScript) has no doubled words; the prerendered page carries 1,466 words.
 - Every new and legacy anchor lands under the masthead, including on a first visit while the intro plays.
 - Index menu opens, focuses its first link, closes on Escape and returns focus; the scorebook expands from 5 to 11 rows; copy-email writes the address to the clipboard.
-- First-load JavaScript: about 137 KB gzipped (was 200). The 3D chunk (about 250 KB gzipped) loads after first paint.
+- JavaScript: about 136 KB gzipped in total (was 200 first-load plus a 250 KB 3D chunk). Three.js and React Three Fiber are no longer dependencies.

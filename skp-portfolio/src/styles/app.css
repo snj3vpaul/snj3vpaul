@@ -139,11 +139,11 @@ html.menu-open .masthead { background: transparent; border-color: transparent; }
 .hero { position: relative; width: min(100% - 2 * var(--margin), var(--max)); margin: 0 auto; min-height: 100svh; padding: clamp(120px, 20vh, 200px) 0 var(--s-5);
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-content: start; }
 .hero-art { position: absolute; z-index: 0; top: 72px; bottom: 0; left: calc(-1 * var(--margin)); right: calc(-1 * var(--margin)); pointer-events: none; }
-.hero-still { position: absolute; top: 50%; right: 8%; width: min(28%, 420px); transform: translateY(-50%); opacity: .9; transition: opacity var(--dur-slow) var(--ease-out);
-  -webkit-mask-image: radial-gradient(70% 65% at 50% 52%, #000 55%, transparent 100%); mask-image: radial-gradient(70% 65% at 50% 52%, #000 55%, transparent 100%); }
-.hero-still.is-gone { opacity: 0; }
-.scene-host { position: absolute; inset: 0; pointer-events: none; animation: scene-in 2.4s var(--ease-out) both; }
-@keyframes scene-in { from { opacity: 0; } }
+.hero-lines { position: absolute; top: 50%; right: 8%; width: min(30%, 440px); height: auto; transform: translateY(-46%); overflow: visible; }
+.hero-lines path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.hl-ink path { stroke: var(--ink); stroke-width: 1.15; }
+.hl-guide path { stroke: var(--rule-strong); stroke-width: 1; stroke-dasharray: .006 .01; }
+.hl-dot { fill: var(--accent); }
 .hero-name, .hero-title, .hero-body, .hero-tagline { position: relative; z-index: 2; }
 .hero-name { grid-column: 1 / span 6; margin-bottom: var(--s-3); }
 .hero-title { grid-column: 1 / span 7; font: 400 var(--t-hero)/.98 var(--serif); letter-spacing: -.03em; text-wrap: balance; }
@@ -313,7 +313,7 @@ html:not(.js) .scorebook .text-button { display: none; }
   .menu-toggle { display: block; }
   .hero { padding-top: min(68vw, 600px); }
   .hero-art { top: 72px; bottom: auto; height: min(70vw, 620px); }
-  .hero-still { right: 6%; width: min(40%, 340px); }
+  .hero-lines { right: 6%; width: min(38%, 320px); }
   .hero-title { text-shadow: 0 0 24px var(--paper); }
   .hero-name { grid-column: 1 / span 7; }
   .hero-title { grid-column: 1 / span 9; }
@@ -348,8 +348,8 @@ html:not(.js) .scorebook .text-button { display: none; }
   .masthead { height: 64px; }
   .wordmark { font-size: 1.25rem; }
   .hero { padding-top: 0; min-height: 0; }
-  .hero-art { position: relative; top: auto; left: auto; right: auto; grid-column: 1 / -1; height: 96vw; margin: 64px calc(-1 * var(--margin)) var(--s-3); }
-  .hero-still { right: 50%; transform: translate(50%, -50%); width: 66%; }
+  .hero-art { position: relative; top: auto; left: auto; right: auto; grid-column: 1 / -1; height: 78vw; margin: 64px calc(-1 * var(--margin)) var(--s-3); }
+  .hero-lines { right: 50%; transform: translate(50%, -50%); width: 64%; }
   .hero-name, .hero-title, .hero-body, .hero-tagline { grid-column: 1 / -1; }
   .hero-title { font-size: clamp(2.6rem, 11vw, 3.6rem); }
   .hero-facts { grid-template-columns: 1fr; gap: var(--s-2); }

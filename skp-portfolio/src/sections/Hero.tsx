@@ -1,30 +1,50 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { HERO, LINKS } from '@/content';
 import { Split } from '@/components/fx';
 import { gsap, prefersReducedMotion, useIsoLayoutEffect } from '@/lib/env';
 
-const loadScene = () => import('@/three/HeroScene');
-const HeroScene = lazy(loadScene);
+/* A circle (or ellipse) as a path, so pathLength-based drawing works in every browser. */
+const ring = (cx: number, cy: number, rx: number, ry = rx) =>
+  `M${cx - rx} ${cy}a${rx} ${ry} 0 1 0 ${2 * rx} 0a${rx} ${ry} 0 1 0 ${-2 * rx} 0`;
 
-/* Chapter 1 · Hero. The statement, who and where, and three ways in. The 3D still life is atmosphere only:
-   it loads after first paint, sits behind a rendered still until its first frame, and is hidden from assistive tech. */
+/* The still life as a hairline drawing: cylinder, sphere, cube and ring on one ground line, one bronze point.
+   Static in the HTML; with motion allowed the lines draw in once after the intro. */
+function LineStill() {
+  return (
+    <svg className="hero-lines" viewBox="0 0 480 540" aria-hidden="true" focusable="false">
+      <g className="hl-guide">
+        <path pathLength={1} d="M0 500H480" />
+        <path pathLength={1} d="M250 150V520" />
+        <path pathLength={1} d="M20 180H200" />
+      </g>
+      <g className="hl-ink">
+        <path pathLength={1} d={ring(95, 180, 35, 9)} />
+        <path pathLength={1} d="M60 180V500M130 180V500" />
+        <path pathLength={1} d="M60 500a35 9 0 0 0 70 0" />
+        <path pathLength={1} d={ring(250, 400, 100)} />
+        <path pathLength={1} d="M150 400a100 26 0 0 0 200 0" />
+        <path pathLength={1} d="M340 380H450V500H340ZM340 380L365 358H470L450 380M470 358V478L450 500" />
+        <path pathLength={1} d={ring(405, 294, 62)} />
+        <path pathLength={1} d={ring(405, 294, 34)} />
+      </g>
+      <circle className="hl-dot" cx="250" cy="284" r="16" />
+    </svg>
+  );
+}
+
+/* Chapter 1 · Hero. The statement, who and where, and three ways in. */
 export function Hero() {
   const section = useRef<HTMLElement>(null);
-  const [show3d, setShow3d] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    let ok = false; try { const c = document.createElement('canvas'); ok = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { ok = false; }
-    if (!ok) return;
-    const start = () => loadScene().then(() => setShow3d(true)).catch(() => {});
-    const idle = (window as unknown as { requestIdleCallback?: (f: () => void, o?: object) => number }).requestIdleCallback;
-    if (idle) idle(start, { timeout: 900 }); else setTimeout(start, 200);
-  }, []);
 
   useIsoLayoutEffect(() => {
     if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
-      const play = () => gsap.from('[data-in]', { y: 14, autoAlpha: 0, duration: 1.4, ease: 'power3.out', stagger: 0.1, delay: 0.5 });
+      const play = () => {
+        gsap.from('[data-in]', { y: 14, autoAlpha: 0, duration: 1.4, ease: 'power3.out', stagger: 0.1, delay: 0.5 });
+        gsap.from('.hl-guide', { autoAlpha: 0, duration: 2, ease: 'power2.out', delay: 0.2 });
+        gsap.from('.hl-ink path', { strokeDashoffset: 1, duration: 2.2, ease: 'power2.inOut', stagger: 0.12, delay: 0.3 });
+        gsap.from('.hl-dot', { scale: 0, transformOrigin: '50% 50%', duration: 1, ease: 'power3.out', delay: 1.8 });
+      };
       if (document.documentElement.classList.contains('intro')) window.addEventListener('intro:done', play, { once: true }); else play();
     }, section);
     return () => ctx.revert();
@@ -33,9 +53,7 @@ export function Hero() {
   return (
     <section className="hero" id="home" aria-labelledby="hero-title" ref={section}>
       <div className="hero-art" aria-hidden="true">
-        <img className={`hero-still${ready ? ' is-gone' : ''}`} src="/img/still-life.webp" srcSet="/img/still-life-m.webp 600w, /img/still-life.webp 900w"
-          sizes="(max-width: 900px) 80vw, 44vw" alt="" width="900" height="1200" decoding="async" fetchPriority="high" />
-        {show3d && <Suspense fallback={null}><HeroScene onReady={() => setReady(true)} still={prefersReducedMotion()} eventSource={section.current} /></Suspense>}
+        <LineStill />
       </div>
 
       <p className="label hero-name" data-in>{HERO.name}</p>
