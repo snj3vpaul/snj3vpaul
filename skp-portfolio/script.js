@@ -114,7 +114,7 @@
   document.addEventListener('visibilitychange', () => { doc.classList.toggle('is-hidden-tab', document.hidden); playLoops(); });
 
   /* ---------- the restoration card ----------
-     It downloads a real file (the hero portrait, or the résumé on request) and reports the bytes received,
+     It downloads a real file (the hero still life, or the résumé on request) and reports the bytes received,
      the speed and the time, as measured here. A cache hit is reported as a cache hit. */
   const card = $('.restore');
   if (card && 'fetch' in window) {
@@ -179,9 +179,9 @@
       busy = false; againBtn.disabled = false;
     };
     const small = matchMedia('(max-width: 640px)').matches;
-    const portrait = { url: photo.dataset[small ? 'srcM' : 'src'], hint: Number(photo.dataset[small ? 'bytesM' : 'bytes']) };
+    const still = { url: photo.dataset[small ? 'srcM' : 'src'], hint: Number(photo.dataset[small ? 'bytesM' : 'bytes']) };
     const restorePhoto = reload => run({
-      ...portrait, reload, label: 'Restoring portrait', file: portrait.url.split('/').pop(),
+      ...still, reload, label: 'Restoring still life', file: still.url.split('/').pop(),
       done: async r => {
         const u = URL.createObjectURL(r.blob);
         img.src = u; try { await img.decode(); } catch (e) { /* drawn on load */ }

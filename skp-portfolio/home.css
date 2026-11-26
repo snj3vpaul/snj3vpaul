@@ -2,7 +2,7 @@
  * Sanjeev K Paul — home. Concept: Golden hour.
  * The page runs like one Ottawa day: warm paper in the morning, a golden interlude in the middle, charcoal
  * by evening. Type carries the design; photography and glass appear only where they mean something.
- * The restoration card is the one floating object: it really downloads the portrait behind it (or the
+ * The restoration card is the one floating object: it really downloads the still life behind it (or the
  * résumé) and reports size, speed and time as measured in the visitor's browser. Nothing on it is invented.
  *
  * Tokens. Contrast (WCAG): on --paper #f3eee6 · on --beige #e9e1d4 · on --char #1c1a17
@@ -131,8 +131,8 @@ html.has-cursor .cursor { display: block; position: fixed; left: 0; top: 0; z-in
 .ln { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
 .ln > span { display: inline-block; }
 .hero-photo { grid-column: 9 / -1; grid-row: 2 / span 2; align-self: start; position: relative; }
-.hero-photo-frame { position: relative; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 999px 999px 6px 6px; background: linear-gradient(160deg, #3b2e22, #1d1813); box-shadow: 0 40px 80px -40px rgba(40, 24, 8, .55); }
-.hero-img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; object-position: 50% 30%; filter: blur(18px) sepia(.55) saturate(.8) brightness(.95); transform: scale(1.08); transition: filter 1.4s var(--ease), transform 1.8s var(--ease); }
+.hero-photo-frame { position: relative; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 999px 999px 6px 6px; background: linear-gradient(170deg, #efe1c9, #d9bf98); box-shadow: 0 40px 80px -40px rgba(40, 24, 8, .45); }
+.hero-img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; object-position: 50% 55%; filter: blur(18px) sepia(.55) saturate(.8) brightness(.95); transform: scale(1.08); transition: filter 1.4s var(--ease), transform 1.8s var(--ease); }
 .hero-img.is-restored { filter: none; transform: none; }
 .hero-photo::after { content: ''; position: absolute; inset: 0; border-radius: 999px 999px 6px 6px; pointer-events: none; background: var(--grain); opacity: .5; mix-blend-mode: overlay; }
 .photo-cap { margin-top: 12px; text-align: right; }
@@ -198,7 +198,7 @@ html:not(.js) .restore-body, html:not(.js) [data-restore-again] { display: none;
 .light-row { display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--ink-3); }
 html:not(.js) .daylight { display: none; }
 
-/* hero arrival: lines rise out of their own baseline, the photo restores, the card settles in */
+/* hero arrival: lines rise out of their own baseline, the still life restores, the card settles in */
 @media (prefers-reduced-motion: no-preference) {
   html.js .ln > span { animation: rise-line 1.2s var(--ease) both; }
   html.js .ln:nth-child(2) > span { animation-delay: .09s; } html.js .ln:nth-child(3) > span { animation-delay: .18s; }
