@@ -100,16 +100,34 @@
       paint();
     }
 
-    /* ---- Kinetic name: drifts sideways as the hero scrolls away ---- */
-    const giant = document.querySelector('[data-parallax]');
-    if (giant && !reduceMotion) {
-      let ticking = false;
-      const update = () => {
-        const y = Math.min(window.scrollY, window.innerHeight);
-        giant.style.transform = `translateX(${-y * 0.18}px)`;
+    /* ---- Hero valley: the ranges part a little as the page scrolls and follow the pointer;
+       the top bar stays clear while it sits over the sky ---- */
+    const hero = document.querySelector('.hero');
+    const topbar = document.querySelector('.topbar');
+    if (hero && topbar) {
+      const setBar = () => topbar.classList.toggle('is-over-hero', window.scrollY < 24);
+      window.addEventListener('scroll', setBar, { passive: true });
+      setBar();
+    }
+    const layers = [...document.querySelectorAll('.valley-layer, .valley-mist')];
+    if (hero && layers.length && !reduceMotion) {
+      const depth = { far: .38, crag: .3, mid: .24, hills: .12, meadow: 0 };
+      const rate = el => depth[(el.className.match(/valley-layer--(\w+)/) || [])[1]] ?? .2;
+      const sway = el => (1 - rate(el) / .38) * 14 + 4; // nearer ranges move further with the pointer
+      let px = 0, ticking = false, visible = true;
+      const paint = () => {
         ticking = false;
+        if (!visible) return;
+        const y = Math.min(window.scrollY, hero.offsetHeight);
+        layers.forEach(el => { el.style.transform = `translate3d(${(-px * sway(el)).toFixed(1)}px, ${(y * rate(el)).toFixed(1)}px, 0)`; });
       };
-      window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
+      window.addEventListener('scroll', queue, { passive: true });
+      if (window.matchMedia('(pointer: fine)').matches) {
+        hero.addEventListener('pointermove', e => { px = e.clientX / window.innerWidth - .5; queue(); });
+        hero.addEventListener('pointerleave', () => { px = 0; queue(); });
+      }
+      if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) queue(); }).observe(hero);
     }
 
     /* ---- Project 3D scenes (Three.js / WebGL): hardware WebGL only ---- */
@@ -159,49 +177,6 @@
         });
       }, { rootMargin: '400px 0px' });
       sideCanvases.forEach(el => sideIo.observe(el));
-    }
-
-    /* ---- Hero figure: the module boundary and the halftone figure trade places in one frame ----
-       The boundary is in the HTML. The figure arrives after load: the 3D scene on hardware WebGL,
-       otherwise its still, drawn to a canvas. Once it is ready the two swap every 3 seconds,
-       holding while the pointer is over the frame; with reduced motion the boundary stays. */
-    const figure = document.querySelector('.hero-figure');
-    const guyPane = figure?.querySelector('.fig-pane--guy');
-    if (figure && guyPane && !reduceMotion) {
-      let hold = false, inView = true;
-      const ready = () => {
-        figure.addEventListener('pointerenter', () => { hold = true; });
-        figure.addEventListener('pointerleave', () => { hold = false; });
-        if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { inView = e.isIntersecting; }).observe(figure);
-        setInterval(() => {
-          if (!hold && inView && !document.hidden) figure.dataset.view = figure.dataset.view === 'guy' ? 'boundary' : 'guy';
-        }, 3000);
-      };
-      const still = () => {
-        const img = new Image();
-        img.onload = () => {
-          const crop = { x: 800, y: 120, w: 500, h: 500 }; // where the figure stands in the 1440 x 848 still
-          const canvas = document.createElement('canvas');
-          canvas.className = 'fig-still';
-          canvas.width = crop.w; canvas.height = crop.h;
-          canvas.getContext('2d').drawImage(img, crop.x, crop.y, crop.w, crop.h, 0, 0, crop.w, crop.h);
-          guyPane.replaceChildren(canvas);
-          ready();
-        };
-        img.src = guyPane.dataset.still;
-      };
-      const load = () => {
-        if (navigator.connection?.saveData || !webglAvailable()) { still(); return; }
-        const stage = document.createElement('div');
-        stage.className = 'fig-3d';
-        guyPane.appendChild(stage);
-        import('./hero-scene.js')
-          .then(m => { m.mount(stage, { compact: window.innerWidth < 760, theme: 'light' }); ready(); })
-          .catch(() => { stage.remove(); still(); });
-      };
-      const idle = window.requestIdleCallback ? cb => window.requestIdleCallback(cb, { timeout: 1500 }) : cb => setTimeout(cb, 300);
-      if (document.readyState === 'complete') idle(load);
-      else window.addEventListener('load', () => idle(load), { once: true });
     }
 
     /* ---- Camera roll: frame counter follows the scroll position ---- */
