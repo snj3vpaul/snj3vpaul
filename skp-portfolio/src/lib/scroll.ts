@@ -21,9 +21,11 @@ const OFFSET = -88;
 export function scrollToTarget(target: string | HTMLElement | number, immediate = false) {
   const el = typeof target === 'string' ? (target === '#top' ? 0 : document.querySelector<HTMLElement>(target)) : target;
   if (el === null || el === undefined) return;
-  if (lenis) { lenis.scrollTo(el, { offset: typeof el === 'number' ? 0 : OFFSET, immediate, duration: 1.4 }); return; }
   const y = typeof el === 'number' ? el : el.getBoundingClientRect().top + window.scrollY + OFFSET;
+  if (lenis && !immediate) { lenis.scrollTo(y, { duration: 1.4 }); return; }
+  /* immediate jumps go through the browser, then Lenis is told where we are (force: its own state may already match) */
   window.scrollTo({ top: y, behavior: immediate || prefersReducedMotion() ? 'auto' : 'smooth' });
+  lenis?.scrollTo(y, { immediate: true, force: true });
 }
 export function setScrollLock(locked: boolean) {
   if (lenis) { if (locked) lenis.stop(); else lenis.start(); }
