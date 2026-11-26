@@ -1,30 +1,28 @@
-# Sanjeev K Paul — Personal Portfolio (Editorial Edition)
+# Sanjeev K Paul — portfolio (v3)
 
-A standalone, dependency-free, one-page website. Designed to look and sound like an individual with a real career and real interests, rather than a generic generated technology template.
+Live: https://snj3vpaul.vercel.app
 
-## Preview
+## Stack
+- **Vite 7 + React 19 + TypeScript**, prerendered to static HTML at build time (`scripts/prerender.mjs`), then hydrated.
+  Search engines, link previews and visitors without JavaScript get the full page.
+- **Three.js / React Three Fiber**: the hero still life (`src/three/HeroScene.tsx`) and the golden light field in the
+  interlude (`src/three/GoldField.tsx`, one GLSL fragment shader). Both load after first paint and stop rendering off screen.
+- **GSAP** (ScrollTrigger, SplitText): split-line headings, count-ups, stacking project panels, line drawings, timeline.
+- **Motion** (Framer Motion): springs for the cursor, previews and tilt cards; shared-layout nav dot.
+- **Lenis**: smooth scrolling on GSAP's ticker. Off under reduced motion.
 
-Open `index.html` in a browser. The website consists of this HTML, `styles.css`, `script.js`, and `favicon.svg`.
+## Content
+Every word lives in `src/content.ts`. Project detail pages are static files in `public/project-*.html`.
 
-## Deploy to Vercel
+## Scripts
+- `npm run dev` — local dev server
+- `npm run build` — type-check, client build, SSR build, prerender into `dist/`
+- `npm run preview` — serve `dist/`
 
-1. Upload the directory as a static website, or add the files to a dedicated project repository.
-2. In Vercel, choose **Other** for the framework preset; leave the build command blank and set the output directory to `.`.
-3. Deploy, then connect your domain.
-
-**Do not overwrite your existing React/Vite portfolio repository blindly.** This is a standalone redesign, and the current production site was not changed.
-
-## Content / assets
-
-- Work, dates, credentials, and links were adapted from your public `snj3vpaul/snj3vpaul` portfolio source. FortiProxy entries are explicitly marked as **submitted for review**, not validated.
-- The hero and cricket section now use original code-drawn visuals rather than photographs. No user portrait or cricket photograph is required for those sections. The entire hero uses one uninterrupted warm-ivory backdrop on desktop and mobile, with a typographic cryptography illustration integrated directly into the page.
-- The typography uses Instrument Serif and DM Sans through Google Fonts, with system fallbacks. You may self-host licensed font assets if desired.
-- Email, LinkedIn, GitHub, Medium, public research, and NIST references are real links. Contact opens the visitor's email application; there is no fake contact form or server.
-
-## Customization
-
-Edit words and links in `index.html`, tokens and styles in `styles.css`, and only lightweight interaction logic in `script.js`. No dependencies or build step are required.
-
-## Editorial approach
-
-No generic cybersecurity stock photos, fictitious dashboards, artificial counters, or unnecessary animations. The site uses real certification records, typographic asymmetry, a code-drawn cricket illustration, and a restrained cryptography motif only where it communicates something.
+## Notes
+- The restoration card reports real numbers: bytes of 3D code fetched (Resource Timing), speed and time to first frame;
+  and a real streamed download of `cv.pdf`.
+- Reduced motion: no smooth scroll, no reveals, still 3D frame. Reduced transparency / more contrast: no glass, no grain.
+- `tools/still-life.py` renders `public/img/still-life*.webp`, the poster shown before WebGL is ready (or without it).
+- The previous static site is in `archive/static-golden-hour/`; older experiments in `archive/vite-app-old/`.
+  Personal photos were moved to `archive/photos/` and are not published.

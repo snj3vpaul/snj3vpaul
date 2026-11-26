@@ -1,11 +1,8 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./styles/base.css";
-import "./styles/theme-hybrid.css";
-import App from "./App";
+import { StrictMode } from 'react';
+import { hydrateRoot, createRoot } from 'react-dom/client';
+import App from './App';
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+const root = document.getElementById('root')!;
+const app = <StrictMode><App /></StrictMode>;
+// prerendered in production (hydrate); empty in dev (render)
+if (root.firstElementChild) hydrateRoot(root, app); else createRoot(root).render(app);
