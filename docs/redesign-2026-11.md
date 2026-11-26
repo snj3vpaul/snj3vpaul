@@ -195,3 +195,24 @@ Build "The Record" (A), and use C's idea exactly once: a greeting that decodes f
 - Graph nodes are reachable by keyboard and traceable with Enter or Space.
 - Contrast ≥ 4.5:1 for all text.
 - Content stays visible without JavaScript; animations are enabled only when a `js` class is present.
+
+---
+
+## Revision — recruiter-first refinement (26 Nov 2026)
+
+This supersedes the colour system and section order above. It's driven by a 15-second recruiter scan.
+
+**Tokens** (all in `styles.css` §1)
+- **Canvas** `#F7F5F0`; **surface** `#EFECE4` for cards, metrics and panels (tonal shifts replace hairline boxes); **hover** `#E8E4D9`.
+- **Ink** `#141517` (16.8:1); **slate** `#52565E` (6.8:1) for secondary copy; **quiet** `#5F636B` (5.5:1) for labels.
+- **Accent:** forest `#1B4332` (10.2:1). It's used only for validated badges, primary buttons, the current nav item and "prove". Brass `#9A6B26` was rejected because it's 4.3:1 on the canvas, which fails AA for the small badge text it would carry.
+- **Dark block:** night `#141517`, with `#A7AAB0` (7.9:1) and a mint accent `#9FD3B6` (10.9:1).
+- **Type scale:** 12 / 14 / 17 / 19 / 22–26 / 30–40 / 40–64 / hero 50–120, in three families: Instrument Serif, DM Sans, and JetBrains Mono for labels only.
+- **Spacing:** 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96 · 136; sections are clamp(64px, 10vw, 136px).
+- **Layout and motion:** a 12-column grid, max width 1240px. Motion uses a weighted ease of `cubic-bezier(.2,.8,.2,1)` over 0.9s.
+
+**Order:** Hero (title, headline, three-proof strip, "Currently") → Work (the explainer collapsed beside the heading) → Projects (flagship tools with Problem / What I built / Stack, then community builds) → About (two columns) → Beyond work (four highlights) → Contact.
+
+**Removed:** the trace diagram from the hero, the Caesar greeting, the 12-row scorebook and "What carries over".
+
+**Still needed from Sanjeev:** the FortiClient 7.0.2 certificate details, the Common Criteria programme details, real screenshots of ForkCast and What-The-Fabric (currently architectural diagrams), and specific Medium articles.
