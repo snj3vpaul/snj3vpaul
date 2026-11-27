@@ -115,14 +115,14 @@
           </div>
           <div class="explainer" data-reveal>
             <h3 class="explainer-title">What a <span class="nw">FIPS 140-3</span> validation proves</h3>
-              <p>That a cryptographic module does what the standard requires. An accredited lab tests it, and the Cryptographic Module Validation Program, run jointly by NIST and the Canadian Centre for Cyber Security, reviews that evidence before listing the module as validated.</p>
+              <p>That a cryptographic module does what the standard requires. An accredited lab tests it; NIST and the Canadian Centre for Cyber Security review the evidence and list it.</p>
               <ol class="layers">
                 <li><b>Cryptography</b><span>The algorithms: AES, SHA-2, RSA, ECDSA</span></li>
                 <li class="is-mine"><b>Implementation</b><span>The module and its boundary</span></li>
                 <li class="is-mine"><b>Validation</b><span>ACVP, self-tests, the lab’s review</span></li>
                 <li class="is-mine"><b>Certification</b><span>The public CMVP record</span></li>
               </ol>
-              <p class="explainer-note">I work across the last three. This is one common path, not the only one: Common Criteria evaluates a whole product against a protection profile instead.</p>
+              <p class="explainer-note">I work across the last three. Common Criteria is a different path: a whole product, judged against a protection profile.</p>
           </div>
         </div>
 
@@ -133,11 +133,6 @@
               <h3 id="case-1" style="view-transition-name: t-crypto">FortiClient Crypto Module v1.0</h3>
               <p class="case-summary">Scoped the module boundary and built the evidence NIST validated.</p>
             </div>
-            <dl class="facts">
-              <div><dt>Scope</dt><dd>Scoping · boundary · key-management flows · approved-mode checks</dd></div>
-              <div><dt>Level</dt><dd>Security Level 1, software</dd></div>
-              <div><dt>Validated</dt><dd><time datetime="2026-08-17">17 August 2026</time></dd></div>
-            </dl>
             <p class="links"><a class="link" href="https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5493" target="_blank" rel="noopener noreferrer" data-track="nist-5493">NIST record <span aria-hidden="true">↗</span></a><a class="link" href="project-forticlient-crypto-module.html">Case study <span aria-hidden="true">→</span></a></p>
           </article>
 
@@ -147,11 +142,6 @@
               <h3 id="case-2" style="view-transition-name: t-fc702">FortiClient 7.0.2</h3>
               <p class="case-summary">Led the workstream behind Fortinet’s first <span class="nw">FIPS 140-3</span> VPN certification.</p>
             </div>
-            <dl class="facts">
-              <div><dt>Scope</dt><dd>Boundaries · key management · approved mode · lab liaison</dd></div>
-              <div><dt>Testing</dt><dd>ACVP: AES, RSA, SHA, HMAC, ECDSA</dd></div>
-              <div><dt>Documents</dt><dd>Security Policy, to NIST SP 800-140B</dd></div>
-            </dl>
             <p class="links"><a class="link" href="project-forticlient-7-0-2.html">Case study <span aria-hidden="true">→</span></a></p>
           </article>
 
@@ -161,10 +151,6 @@
               <h3 id="case-3" style="view-transition-name: t-fproxy">FortiProxy firmware &amp; VM</h3>
               <p class="case-summary">Coordinating two Level 1 validations, firmware and VM, through CMVP review.</p>
             </div>
-            <dl class="facts">
-              <div><dt>Scope</dt><dd>Planning · evidence delivery · lab findings · KVM test environments</dd></div>
-              <div><dt>Modules</dt><dd>Two: firmware and virtual machine, Security Level 1 targets</dd></div>
-            </dl>
             <p class="links"><a class="link" href="project-fortiproxy.html">Case study <span aria-hidden="true">→</span></a></p>
           </article>
         </div>
@@ -197,11 +183,8 @@
             <div class="tool-body">
               <p class="eyebrow">Web app · Live</p>
               <h4 id="tool-forkcast" style="view-transition-name: t-forkcast">ForkCast</h4>
-              <dl class="pbo">
-                <div><dt>Problem</dt><dd>Decisions written as prose hide their branches, loops and unstated steps.</dd></div>
-                <div><dt>What I built</dt><dd>Paste a written decision, get a flowchart back: gates, actors, loops and dead ends, with unstated paths drawn dashed, an assumption ledger, and the one question the text leaves open.</dd></div>
-                <div><dt>Stack</dt><dd>Next.js 15 · TypeScript · hand-built SVG · exports SVG and Mermaid</dd></div>
-              </dl>
+              <p class="tool-desc">Paste a written decision, get a flowchart back, with unstated paths, assumptions and the open question flagged.</p>
+              <p class="meta">Next.js 15 · TypeScript · SVG</p>
               <p class="links"><a class="link" href="https://forkcast-rose.vercel.app" target="_blank" rel="noopener noreferrer" data-track="open-forkcast">Try it <span aria-hidden="true">↗</span></a><a class="link" href="https://github.com/snj3vpaul/ForkCast" target="_blank" rel="noopener noreferrer" data-track="forkcast-github">Code <span aria-hidden="true">↗</span></a><a class="link" href="project-forkcast.html">Case study <span aria-hidden="true">→</span></a></p>
             </div>
           </article>
@@ -221,11 +204,8 @@
             <div class="tool-body">
               <p class="eyebrow">Private tool · No public demo</p>
               <h4 id="tool-chip">Crypto Lab Chip</h4>
-              <dl class="pbo">
-                <div><dt>Problem</dt><dd>Certification work kept hitting the same small obstacles: evidence spreadsheets that lost their hyperlinks when exported to PDF, firmware to inspect, and devices whose wire-level crypto needed checking.</dd></div>
-                <div><dt>What I built</dt><dd>One toolkit: Excel to PDF with every link intact, firmware teardown, and TLS and SSH scans of protocol versions, ciphers and key exchanges.</dd></div>
-                <div><dt>Stack</dt><dd>Rust · Actix Web</dd></div>
-              </dl>
+              <p class="tool-desc">One toolkit for certification chores: Excel to PDF with links intact, firmware teardown, TLS and SSH scans.</p>
+              <p class="meta">Rust · Actix Web</p>
             </div>
           </article>
 
@@ -244,11 +224,7 @@
             <div class="tool-body">
               <p class="eyebrow">Web app · Live · Solo</p>
               <h4 id="tool-fabric" style="view-transition-name: t-fabric">What-The-Fabric</h4>
-              <dl class="pbo">
-                <div><dt>Problem</dt><dd>Fabric names, blends and care symbols are written for people inside the trade.</dd></div>
-                <div><dt>What I built</dt><dd>A web app that explains fabric names, compositions and care labels in plain words. Designed, built and shipped solo.</dd></div>
-                <div><dt>Status</dt><dd>Live</dd></div>
-              </dl>
+              <p class="tool-desc">Explains fabric names, blends and care labels in plain words.</p>
               <p class="links"><a class="link" href="https://what-the-fabric.vercel.app" target="_blank" rel="noopener noreferrer" data-track="open-fabric">Try it <span aria-hidden="true">↗</span></a><a class="link" href="project-what-the-fabric.html">Case study <span aria-hidden="true">→</span></a></p>
             </div>
           </article>
@@ -258,19 +234,19 @@
         <ul class="builds">
           <li data-reveal id="rsfc-league">
             <h4>RSFC League</h4>
-            <p>RSFC’s in-house soccer league: a seeded, verifiable draw splits whoever turns up into White and Red, and members play Pick 7, an FPL-style team of seven.</p>
+            <p>RSFC’s in-house soccer league: a verifiable seeded draw picks the teams, and members play Pick 7, an FPL-style game.</p>
             <p class="meta">Live, weekly · Next.js · Upstash Redis</p>
             <p class="links"><a class="link" href="https://s3v-xi.vercel.app" target="_blank" rel="noopener noreferrer" data-track="open-rsfc">Open <span aria-hidden="true">↗</span></a><a class="link" href="https://github.com/snj3vpaul/s3v-xi" target="_blank" rel="noopener noreferrer" data-track="rsfc-github">Code <span aria-hidden="true">↗</span></a></p>
           </li>
           <li data-reveal id="canterbury-site">
             <h4 style="view-transition-name: t-canterbury">Canterbury Cricket Club</h4>
-            <p>The club’s public website, built and maintained end to end: requirements, architecture, build and deployment, with access control and secure-SDLC practices from the start.</p>
+            <p>The club’s public website, built end to end with access control and secure-SDLC practices, and maintained since.</p>
             <p class="meta">Live, maintained · React · Vercel</p>
             <p class="links"><a class="link" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer" data-track="open-canterbury">Visit <span aria-hidden="true">↗</span></a><a class="link" href="project-canterbury-cricket-club.html">Case study <span aria-hidden="true">→</span></a></p>
           </li>
           <li data-reveal id="the-journey">
             <h4>The Journey</h4>
-            <p>An interactive 3D globe that tells a person’s life as a story of places, each one a waypoint on a personal timeline, joined by animated routes.</p>
+            <p>A 3D globe that tells a life as a story of places, joined by animated routes.</p>
             <p class="meta">Ongoing</p>
           </li>
         </ul>
@@ -284,8 +260,8 @@
           <p class="eyebrow">03 · About and approach</p>
           <h2 class="section-title" id="about-title">Standards are detailed. People are complicated.</h2>
           <div class="prose">
-            <p>I came to Canada hoping to find my place in defensive security. A role in certification changed the direction of that journey, and gave me a different view of what makes systems trustworthy.</p>
-            <p>Most of the value is in the translation: from a requirement to a concrete engineering question, and from an answer to evidence someone else can examine. I sit between engineering, QA, product teams and accredited labs, and keep everyone working from the same understanding.</p>
+            <p>I came to Canada for defensive security. A role in certification changed the direction, and how I think about what makes systems trustworthy.</p>
+            <p>The value is in the translation. I sit between engineering, QA, product teams and accredited labs, and keep everyone working from the same understanding.</p>
           </div>
           <ol class="approach" aria-label="How I work">
             <li><span class="approach-num">01</span><div><h3>Define the boundary.</h3><p>Agree what is inside the module and what is not, before anyone tests anything.</p></div></li>
@@ -329,7 +305,7 @@
           <p class="eyebrow">04 · Beyond work</p>
           <h2 class="section-title" id="beyond-title">On the field.</h2>
           <div class="prose">
-            <p>Cricket has been a constant. The game has given me more than I have given it, but a few seasons went well, and I enjoy the part of it that looks a lot like my job: getting a group of people to the same result, on the same day. In 2025 I was named OVCC T20 MVP and Best Batter, and I built, and still look after, the club’s website.</p>
+            <p>Cricket has been a constant, and the part I enjoy most looks a lot like my job: getting a group of people to the same result, on the same day. In 2025: OVCC T20 MVP and Best Batter.</p>
           </div>
           <p class="links"><a class="link" href="https://cricheroes.com/player-profile/21592804/Sanjeev-K-Paul/matches#STATS" target="_blank" rel="noopener noreferrer" data-track="cricheroes">Full match record <span aria-hidden="true">↗</span></a><a class="link" href="https://canterburycricketclub.com" target="_blank" rel="noopener noreferrer" data-track="beyond-club-site">Club website <span aria-hidden="true">↗</span></a></p>
         </div>

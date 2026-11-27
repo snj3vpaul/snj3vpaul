@@ -618,3 +618,5 @@ sup { font-size: .45em; vertical-align: .9em; margin-left: .04em; }
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .5s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
 ::view-transition-group(*) { animation-duration: .7s; animation-timing-function: cubic-bezier(.2, .8, .2, 1); }
 @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+.tool-desc { margin-top: var(--s3); font-size: 15px; line-height: 1.55; color: var(--slate); max-width: 46ch; }
+.tool-body .meta { margin-top: var(--s3); font: 500 11px/1.6 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--quiet); }
